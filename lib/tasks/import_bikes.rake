@@ -1,7 +1,3 @@
-
-
-# lib/tasks/import_bike.rake
-
 require_relative '../../config/environment'
 require 'csv'
 csv_file = 'notes/bike-data.csv'
@@ -12,7 +8,7 @@ namespace :import do
     CSV.foreach(csv_file, headers: true) do |row|
       Bike.create!(
         identifier: row['identifier'],
-        current_station_id: row['current_station_id'],
+        current_station_id: row['current_station_identifier'],
         created_at: row['created_at'],
         updated_at: row['updated_at']
       )

@@ -1,0 +1,20 @@
+<div class="page-section flexbox vertical stretch"> 
+  <div class="section-inner flexbox vertical stretch">
+    <%= link_to 'View Station List', stations_path %>
+    <br>
+    <div class="flexbox vertical stretch">
+      <h1>Bikes: </h1>
+      <br>
+      <% if @bikes.present? %>
+        <%= render(partial: "bikes/row", collection: @bikes, as: :bike) %>
+      <% else %>
+      <div class="empty">
+        No stations found.
+      </div>
+      <% end %>
+
+
+    </div>
+	</div>
+</div>
+
