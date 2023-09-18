@@ -13,6 +13,13 @@ namespace :import do
       station_data[:identifier] = row['identifier']
       station_data[:name] = row['name']
       station_data[:address] = row['address']
+      station_data[:has_kiosk] = row['has_kiosk'].to_i
+      station_data[:needs_maintenance] = row['needs_maintenance'].to_i
+      station_data[:dock_count] = row['dock_count'].to_i
+      station_data[:docked_bike_count] = row['docked_bike_count'].to_i
+
+      puts "Station Data: #{station_data.inspect}"
+
 
       station = Station.find_by(identifier: station_data[:identifier])
       if station.nil?
