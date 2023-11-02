@@ -5,10 +5,6 @@ class CreateStations < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :address
 
-      t.integer :has_kiosk
-      t.integer :needs_maintenance
-      t.integer :dock_count
-      t.integer :docked_bike_count
 
       t.timestamps
     end
