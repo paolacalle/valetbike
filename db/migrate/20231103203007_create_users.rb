@@ -11,3 +11,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     end
   end
 end
+
+# change combined up and down method 
+# allows you to drop users and add users

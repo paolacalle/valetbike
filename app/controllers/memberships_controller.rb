@@ -14,4 +14,16 @@ class MembershipsController < ApplicationController
   def edit
     @membership = Membership.find(params[:id])
   end
+
+  def update
+
+  end 
+
+  def delete 
+
+  end
+  
+  def destroy
+
+  end
 end
