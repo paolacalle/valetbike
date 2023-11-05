@@ -1,0 +1,38 @@
+<div class="center-content">
+  <br>
+  <br>
+  <img src="https://clipart-library.com/new_gallery/202-2022149_bike-svg-png-black-and-white-clip-art.png" width="200" height="150">
+ 
+</div>
+
+<div class="jumbotron text-center">
+  <h1>ValetBike!</h1>
+  <p>The Public Bike System Northampton Needs.</p>
+</div>
+
+
+<div>
+  <h1 class="font-bold text-4xl">Rentals#index</h1>
+  <p>Find me in app/views/rentals/index.html.erb</p>
+  <p>
+    <%= link_to "Create New Rental", new_rental_path, class: 'btn btn-primary' %>
+  </p>
+</div>
+
+<div class="page-section flexbox vertical stretch">
+  <div class="section-inner flexbox vertical stretch">
+    <div class="flexbox vertical stretch">
+      <h1>Rentals: </h1>
+      <br>
+      <% if @rentals.present? %>
+        <%= render(partial: "rentals/row", collection: @rentals, as: :rental) %>
+      <% else %>
+      <div class="empty">
+        No rentals found.
+      </div>
+      <% end %>
+    </div>
+	</div>
+</div>
+
+
