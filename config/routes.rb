@@ -1,4 +1,37 @@
 Rails.application.routes.draw do
+
+  get '/login', to: 'sessions#new', as: 'login'
+  post '/sessions', to: 'sessions#create', as: 'sessions'
+  delete '/sessions', to: 'sessions#destroy'
+
+  resources :categories do 
+    member do 
+      #adds delete action since not added by deafult 
+      #optional, can simply destory 
+      get :delete 
+    end
+      
+  end 
+
+  resources :memberships do 
+    member do 
+      get :delete
+    end
+      
+  end 
+
+  resources :users do 
+    member do 
+      get :delete
+    end
+      
+  end 
+
+  resources :stations, only: [:index]
+  resources :bikes, only: [:index] 
+
+
+  root 'home#index' #homepage 
   
   get 'payments', to: 'payments#index', as: 'payments'
   post 'payments', to: 'payments#create'
@@ -16,12 +49,5 @@ Rails.application.routes.draw do
   get 'rentals/edit'
   get 'rentals/destroy'
 
-  resources :stations, only: [:index]
-  resources :bikes, only: [:index]
-  # resources :rentals, only: [:index]
-  # resources :payments, only: [:index]
-
-  root 'home#index' 
 
 end
-
