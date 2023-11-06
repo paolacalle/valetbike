@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get '/login', to: 'sessions#new', as: 'login'
+  post '/sessions', to: 'sessions#create', as: 'sessions'
+  delete '/sessions', to: 'sessions#destroy'
+
   resources :categories do 
     member do 
       #adds delete action since not added by deafult 
@@ -47,23 +51,3 @@ Rails.application.routes.draw do
 
 
 end
-
-  # get 'categories/index'
-  # get 'categories/show'
-  # get 'categories/edit'
-  # get 'categories/delete'
-  # get 'categories/new'
-
-
-  # get 'memberships/index'
-  # get 'memberships/show'
-  # get 'memberships/new'
-  # get 'memberships/edit'
-  # get 'memberships/delete'
-
-
-  # get 'users/index'
-  # get 'users/show'
-  # get 'users/new'
-  # get 'users/edit'
-  # get 'memberships/delete'
