@@ -1,3 +1,10 @@
+
+<% if flash[:notice] %>
+  <%= content_tag :h1, flash[:notice] %>
+<% else %>
+  <%= content_tag :h1, "Please Log in" %>
+<% end %>
+            
 <h1 style="font-size:40px;">Login</h1>
 <%=form_tag (sessions_path) do %>
 <%=text_field_tag :email %>
@@ -10,4 +17,4 @@ Don't have an account?
 </p>
 <p>
     <%= link_to "Create New user", new_user_path, class: 'btn btn-primary' %>
-  </p>
+</p>

@@ -1,37 +1,31 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only:[:new, :create] #requires login 
-
-  def index
-    @user = User.order(:price)
-  end
 
   def show
     @user = User.find(params[:id])
   end
 
+  def index
+  end
+
   def new
-    @user = User.new 
+    @user = User.new
   end
-
-  def edit
-    @user = User.find(params[:id])
-  end
-
-  def delete
-  end 
 
   def create
-    @user = User.new({email_address: params[:email_address], 
-                      first_name: params[:first_name],
-                      last_name: params[:last_name],
-                      password: params[:password]})
-
-    puts @user
-
-    if @user.save #if save is sucessful 
-      redirect_to rentals_path
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to users_path
     else
-      render :new
+      flash[:error] = "Error- please try to create an account again."
+      redirect_to :new
     end
   end
+
+  private 
+  
+  def user_params
+    params.require(:user).permit(:gmail_address, :password)
+  end
+
 end

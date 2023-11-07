@@ -7,28 +7,22 @@ Rails.application.routes.draw do
   get '/users/show', to: 'users#show'
 
 
-  resources :categories do 
-    member do 
-      #adds delete action since not added by deafult 
-      #optional, can simply destory 
-      get :delete 
-    end
-      
-  end 
+  post 'sessions', to: 'sessions#create', as: 'sessions'
+  delete 'sessions', to: 'sessions#destroy'
 
-  resources :memberships do 
-    member do 
-      get :delete
-    end
-      
-  end 
+  #Sessions routes
+  # get '/login', to: 'sessions#new'
+  # post '/login', to: 'sessions#create'
+  # post 'logout', to: 'sessions#destroy'
+  # get 'logout', to: 'sessions#destroy'
 
-  resources :users do 
-    member do 
-      get :delete
-    end
+  # get 'sign_up', to: 'users#new'
+  # post 'sing_up', to: 'users#create'
+
+  resources :users, only: [:new, :create, :index, :show]
+  resources :sessions, only: [:new, :create, :destroy]
       
-  end 
+  # end 
 
   resources :stations, only: [:index]
   resources :bikes, only: [:index] 
@@ -56,3 +50,6 @@ Rails.application.routes.draw do
 
 
 end
+
+
+
