@@ -1,6 +1,6 @@
 <div class="access new">
-  <h2>Welcome</h2>
-  <p>Sign Up</p>
+<h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+
 
   <%= form_tag(users_path) do %>
     <table summary="login">
@@ -23,7 +23,7 @@
     </table>
 
     <div class="form-buttons">
-      <%= submit_tag("Sign Up") %>
+      <%= submit_tag "Sign Up", class: 'btn btn-primary' %>
     </div>
 
   <% end %>

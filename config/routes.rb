@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create', as: 'sessions'
   delete '/sessions', to: 'sessions#destroy'
 
+  get '/users/show', to: 'users#show'
+
+
   resources :categories do 
     member do 
       #adds delete action since not added by deafult 
@@ -48,6 +51,8 @@ Rails.application.routes.draw do
   get 'rentals/update'
   get 'rentals/edit'
   get 'rentals/destroy'
+
+
 
 
 end

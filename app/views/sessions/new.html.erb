@@ -1,5 +1,13 @@
-<h1>Login</h1>
+<h1 style="font-size:40px;">Login</h1>
 <%=form_tag (sessions_path) do %>
 <%=text_field_tag :email %>
-<%=submit_tag %>
+<%=submit_tag "login", class: 'btn btn-primary'%>
 <% end %>
+<br>
+
+<p>
+Don't have an account?
+</p>
+<p>
+    <%= link_to "Create New user", new_user_path, class: 'btn btn-primary' %>
+  </p>
