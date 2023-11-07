@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
-  get 'login' => 'sessions#new'
-  get 'home' => 'home#index'
+  get '/login', to: 'sessions#new', as: 'login'
+  post '/sessions', to: 'sessions#create', as: 'sessions'
+  delete '/sessions', to: 'sessions#destroy'
+
+  get '/users/show', to: 'users#show'
+
 
   post 'sessions', to: 'sessions#create', as: 'sessions'
   delete 'sessions', to: 'sessions#destroy'
@@ -41,6 +45,8 @@ Rails.application.routes.draw do
   get 'rentals/update'
   get 'rentals/edit'
   get 'rentals/destroy'
+
+
 
 
 end
