@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
 
+  skip_before_action :require_login, only: [:create, :new]
+
+  #keep login
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
+    render :current_user
   end
 
   def index
@@ -11,6 +15,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  #Sign-up
   def create
     @user = User.new(user_params)
     if @user.save

@@ -1,20 +1,33 @@
-
-<% if flash[:notice] %>
-  <%= content_tag :h1, flash[:notice] %>
-<% else %>
-  <%= content_tag :h1, "Please Log in" %>
-<% end %>
-            
+<div class="session new">
 <h1 style="font-size:40px;">Login</h1>
-<%=form_tag (sessions_path) do %>
-<%=text_field_tag :email %>
-<%=submit_tag "login", class: 'btn btn-primary'%>
-<% end %>
-<br>
+  <br> 
+  <% if flash[:notice] %>
+    <%= content_tag :h1, flash[:notice] %>
+  <% else %>
+    <%= content_tag :h1, "Please Log in" %>
+  <% end %>
 
-<p>
-Don't have an account?
-</p>
-<p>
-    <%= link_to "Create New user", new_user_path, class: 'btn btn-primary' %>
-</p>
+
+  <%= form_tag(sessions_path) do %>
+    <table summary="login">
+      <br> 
+      <tr>
+        <th><%= label_tag(:email_address) %></th>
+        <td><%= text_field_tag(:email_address, params[:email_address]) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:password) %></th>
+        <td><%= password_field_tag(:password) %></td>
+      </tr>
+      <br> 
+    </table>
+
+    <div class="form-buttons">
+      <%= submit_tag "Login in", class: 'btn btn-primary', style: 'color: black;' %>
+    </div>
+
+  <% end %>
+
+  <p> Don't have an account? </p>
+  <p> <%= link_to "Create New user", new_user_path, class: 'btn btn-primary' %></p>
+</div>

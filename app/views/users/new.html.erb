@@ -2,7 +2,7 @@
 <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
 
 
-  <%= form_tag(users_path) do %>
+  <%= form_tag @user do %>
     <table summary="login">
       <tr>
         <th><%= label_tag(:first_name) %></th>
@@ -13,7 +13,7 @@
         <td><%= text_field_tag(:last_name, params[:last_name]) %></td>
       </tr>
       <tr>
-        <th><%= label_tag(:gmail_address) %></th>
+        <th><%= label_tag(:email_address) %></th>
         <td><%= text_field_tag(:gmail_address, params[:gmail_address]) %></td>
       </tr>
       <tr>
@@ -25,6 +25,10 @@
     <div class="form-buttons">
       <%= submit_tag "Sign Up", class: 'btn btn-primary' %>
     </div>
+
+
+    <p> Do have an account? </p>
+    <p> <%= link_to "Login to Account", login_path, class: 'btn btn-primary' %></p>
 
   <% end %>
 </div>
