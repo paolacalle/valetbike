@@ -1,25 +1,24 @@
 Rails.application.routes.draw do
 
-  get '/login', to: 'sessions#new', as: 'login'
-  post '/sessions', to: 'sessions#create', as: 'sessions'
-  delete '/sessions', to: 'sessions#destroy'
+  # get 'login', to: 'sessions#new', as: 'login'
+  # post 'sessions', to: 'sessions#create', as: 'sessions'
+  # delete 'sessions', to: 'sessions#destroy'
 
-  get '/users/show', to: 'users#show'
-
-
+  get 'users/show', to: 'users#show'
   post 'sessions', to: 'sessions#create', as: 'sessions'
   delete 'sessions', to: 'sessions#destroy'
 
   #Sessions routes
-  # get '/login', to: 'sessions#new'
-  # post '/login', to: 'sessions#create'
-  # post 'logout', to: 'sessions#destroy'
-  # get 'logout', to: 'sessions#destroy'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  post 'logout', to: 'sessions#destroy'
+  get 'logout', to: 'sessions#destroy'
 
   # get 'sign_up', to: 'users#new'
   # post 'sing_up', to: 'users#create'
 
   resources :users, only: [:new, :create, :index, :show]
+  resources :memberships, only: [:new, :create, :index, :show]
   resources :sessions, only: [:new, :create, :destroy]
       
   # end 
