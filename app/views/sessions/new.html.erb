@@ -1,5 +1,14 @@
+<% if flash[:notice] %>
+  <%= content_tag :h1, flash[:notice] %>
+<% else %>
+  <%= content_tag :h1, "Please Log in" %>
+<% end %>
+
 <h1>Login</h1>
 <%=form_tag (sessions_path) do %>
-<%=text_field_tag :email %>
+  <br>
+  Username: <%=text_field_tag :email_address %><br><br>
+  Password: <%=text_field_tag :password %><br>
+  <br>
 <%=submit_tag %>
 <% end %>
