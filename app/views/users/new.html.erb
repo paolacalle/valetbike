@@ -1,6 +1,11 @@
 <div class="access new">
 <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
-
+  <br> 
+  <% if flash[:error] %>
+  <%= content_tag :h1, flash[:error] %>
+  <% else %>
+  <%= content_tag :h1, "Please Log in" %>
+  <% end %>
 
   <%= form_tag @user do %>
     <table summary="login">

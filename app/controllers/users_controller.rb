@@ -23,10 +23,14 @@ class UsersController < ApplicationController
     logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to login_path
+      redirect_to payments_path
     else
-      logger.info("\n\n*****Failed\n\n")
-      redirect_to :new
+      if @user.email_address.present?
+        logger.info("\n\n*****Failed, email exists\n\n")
+        flash[:error] = "Email Exists..."
+      end
+      
+      redirect_to sign_up_path
     end
   end
 
