@@ -14,16 +14,20 @@
       </tr>
       <tr>
         <th><%= label_tag(:email_address) %></th>
-        <td><%= text_field_tag(:gmail_address, params[:gmail_address]) %></td>
+        <td><%= text_field_tag(:email_address, params[:email_address]) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:password) %></th>
         <td><%= password_field_tag(:password) %></td>
       </tr>
+      <tr>
+        <th><%= label_tag(:password_confirmation) %></th>
+        <td><%= password_field_tag(:password_confirmation) %></td>
+    </tr>
     </table>
 
     <div class="form-buttons">
-      <%= submit_tag "Sign Up", class: 'btn btn-primary' %>
+      <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
 
 

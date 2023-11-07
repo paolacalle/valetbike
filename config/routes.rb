@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy'
 
   get '/sign_up', to: 'users#new'
-  post '/sing_up', to: 'users#create'
+  post '/sign_up', to: 'users#create'
 
-  resources :users, only: [:new, :create, :index, :show]
+  # resources :users, only: [:new, :create, :index, :show]
   resources :memberships, only: [:new, :create, :index, :show]
   resources :sessions, only: [:new, :create, :destroy]
       

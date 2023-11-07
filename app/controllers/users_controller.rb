@@ -12,17 +12,20 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+  
   end
 
   #Sign-up
   def create
-    @user = User.new(user_params)
+    logger.info("\n\n*****attempting to create new user\n\n")
+    logger.info("\n\n*****In new #{user_params}\n\n")
+    @user = User.create(user_params)
+    logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to users_path
+      redirect_to login_path
     else
-      flash[:error] = "Error- please try to create an account again."
+      logger.info("\n\n*****Failed\n\n")
       redirect_to :new
     end
   end
@@ -30,7 +33,8 @@ class UsersController < ApplicationController
   private 
   
   def user_params
-    params.require(:user).permit(:gmail_address, :password)
+    logger.info("\n\n*****attempting to create new user\n\n")
+    params.permit(:email_address, :password, :password_confirmation, :first_name, :last_name)
   end
 
 end
