@@ -1,27 +1,27 @@
 Rails.application.routes.draw do
 
-  resources :categories do 
-    member do 
-      #adds delete action since not added by deafult 
-      #optional, can simply destory 
-      get :delete 
-    end
-      
-  end 
+  # get 'login', to: 'sessions#new', as: 'login'
+  # post 'sessions', to: 'sessions#create', as: 'sessions'
+  # delete 'sessions', to: 'sessions#destroy'
 
-  resources :memberships do 
-    member do 
-      get :delete
-    end
-      
-  end 
+  get 'users/show', to: 'users#show'
+  post 'sessions', to: 'sessions#create', as: 'sessions'
+  delete 'sessions', to: 'sessions#destroy'
 
-  resources :users do 
-    member do 
-      get :delete
-    end
+  #Sessions routes
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  post 'logout', to: 'sessions#destroy'
+  get 'logout', to: 'sessions#destroy'
+
+  get '/sign_up', to: 'users#new'
+  post '/sign_up', to: 'users#create'
+
+  # resources :users, only: [:new, :create, :index, :show]
+  resources :memberships, only: [:new, :create, :index, :show]
+  resources :sessions, only: [:new, :create, :destroy]
       
-  end 
+  # end 
 
   resources :stations, only: [:index]
   resources :bikes, only: [:index] 
@@ -46,24 +46,9 @@ Rails.application.routes.draw do
   get 'rentals/destroy'
 
 
+
+
 end
 
-  # get 'categories/index'
-  # get 'categories/show'
-  # get 'categories/edit'
-  # get 'categories/delete'
-  # get 'categories/new'
 
 
-  # get 'memberships/index'
-  # get 'memberships/show'
-  # get 'memberships/new'
-  # get 'memberships/edit'
-  # get 'memberships/delete'
-
-
-  # get 'users/index'
-  # get 'users/show'
-  # get 'users/new'
-  # get 'users/edit'
-  # get 'memberships/delete'

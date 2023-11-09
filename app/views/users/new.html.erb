@@ -1,4 +1,43 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#new</h1>
-  <p>Find me in app/views/users/new.html.erb</p>
+<div class="access new">
+<h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+  <br> 
+  <% if flash[:error] %>
+  <%= content_tag :h1, flash[:error] %>
+  <% else %>
+  <%= content_tag :h1, "Please Log in" %>
+  <% end %>
+
+  <%= form_tag @user do %>
+    <table summary="login">
+      <tr>
+        <th><%= label_tag(:first_name) %></th>
+        <td><%= text_field_tag(:first_name, params[:first_name]) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:last_name) %></th>
+        <td><%= text_field_tag(:last_name, params[:last_name]) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:email_address) %></th>
+        <td><%= text_field_tag(:email_address, params[:email_address]) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:password) %></th>
+        <td><%= password_field_tag(:password) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:password_confirmation) %></th>
+        <td><%= password_field_tag(:password_confirmation) %></td>
+    </tr>
+    </table>
+
+    <div class="form-buttons">
+      <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
+    </div>
+
+
+    <p> Do have an account? </p>
+    <p> <%= link_to "Login to Account", login_path, class: 'btn btn-primary' %></p>
+
+  <% end %>
 </div>
