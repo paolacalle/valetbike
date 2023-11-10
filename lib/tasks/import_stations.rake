@@ -1,37 +1,35 @@
-require_relative '../../config/environment'
-require 'csv'
+# This task imports bike data from a CSV file 
+# Use before importing bike data 
+# Usage: rake db:import_stations["notes/station-data.csv"]
 
-csv_file = 'notes/station-data.csv'
+namespace :db do 
 
-namespace :import do
-  task :stations => :environment do
-    csv_data = File.read(csv_file)
-    csv = CSV.parse(csv_data, headers: true)
+  desc "Import station data from csv file"
 
-    csv.each do |row| 
-      station_data = {}
-      station_data[:identifier] = row['identifier']
-      station_data[:name] = row['name']
-      station_data[:address] = row['address']
-      station_data[:has_kiosk] = row['has_kiosk'].to_i
-      station_data[:needs_maintenance] = row['needs_maintenance'].to_i
-      station_data[:dock_count] = row['dock_count'].to_i
-      station_data[:docked_bike_count] = row['docked_bike_count'].to_i
+  task :import_stations, [:filename] =>  :environment do |task, args|
+    require 'csv'
 
-      puts "Station Data: #{station_data.inspect}"
+    puts "Importing station data..."
 
-
-      station = Station.find_by(identifier: station_data[:identifier])
-      if station.nil?
-        # Create a new station
-        station = Station.create!(station_data)
-      else
-        # Update the existing station if needed
-        station.update!(station_data)
-      end
-      
+    CSV.parse(File.read(args[:filename]), headers: true).each do |row|
+      puts "Importing: #{row.to_hash["name"]}\n"
+      import_station(row.to_hash)
     end
+  end 
 
-    puts "Success import of #{csv_file} into **Station** db."
-  end
+  def import_station(item)
+    station = Station.new({
+      identifier: item["identifier"],
+      name: item["name"],
+      address: item["address"]})
+
+    if station.save
+      puts "Successfully imported: #{item["name"]}\n"
+    else 
+      puts "Failed to import:  #{item["name"]}\n"
+    end 
+
+  end 
+
 end
+
