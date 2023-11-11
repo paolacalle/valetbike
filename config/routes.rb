@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'home#index' #homepage 
+  root 'stations#index' #homepage 
 
   get 'users/show', to: 'users#show'
 
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get '/sign_up', to: 'users#new'
   post '/sign_up', to: 'users#create'
-
+  resources :users
   # resources :users, only: [:new, :create, :index, :show]
   resources :memberships, only: [:new, :create, :index, :show]
   resources :sessions, only: [:new, :create, :destroy]

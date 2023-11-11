@@ -9,11 +9,9 @@ class UsersController < ApplicationController
   end
 
   def index
+    @user = User.find(params[:user_id])
   end
 
-  # def new
-  
-  # end
 
   #Sign-up
   def create
@@ -23,10 +21,17 @@ class UsersController < ApplicationController
     logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to root_path
+      flash[:notice] = "You've successfully submitted. Thank you."
+      redirect_to rentals_path
     else
       logger.info("\n\n*****ERRORRRRRRRRR\n\n")
-      redirect_to sign_up_path
+
+      flash.now[:alert] ||= ""
+      @user.errors.full_messages.each do |message|
+        flash.now[:alert] << message + ". "
+        puts "#{message}"
+      end
+      render sign_up_path
     end
   end
 
