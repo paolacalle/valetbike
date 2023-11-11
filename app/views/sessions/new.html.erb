@@ -1,12 +1,8 @@
 <div class="session new">
 <h1 style="font-size:40px;">Login</h1>
   <br> 
-  <% if flash[:notice] %>
-    <%= content_tag :h1, flash[:notice] %>
-  <% else %>
-    <%= content_tag :h1, "Please Log in" %>
-  <% end %>
-
+  
+  <%= display_alerts %>
 
   <%= form_tag(sessions_path) do %>
     <table summary="login">
