@@ -1,31 +1,45 @@
 class UsersController < ApplicationController
 
+  skip_before_action :require_login, only: [:create, :new]
+
+  #keep login
   def show
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
+    render :current_user
   end
 
   def index
+    @user = User.find(params[:user_id])
   end
 
-  def new
-    @user = User.new
-  end
 
+  #Sign-up
   def create
+    logger.info("\n\n*****attempting to create new user\n\n")
+    logger.info("\n\n*****In new #{user_params}\n\n")
     @user = User.new(user_params)
+    logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to users_path
+      flash[:notice] = "You've successfully submitted. Thank you."
+      redirect_to rentals_path
     else
-      flash[:error] = "Error- please try to create an account again."
-      redirect_to :new
+      logger.info("\n\n*****ERRORRRRRRRRR\n\n")
+
+      flash.now[:alert] ||= ""
+      @user.errors.full_messages.each do |message|
+        flash.now[:alert] << message + ". "
+        puts "#{message}"
+      end
+      render sign_up_path
     end
   end
 
   private 
   
   def user_params
-    params.require(:user).permit(:gmail_address, :password)
+    logger.info("\n\n*****attempting to create new user\n\n")
+    params.permit(:email_address, :password, :password_confirmation, :first_name, :last_name)
   end
 
 end

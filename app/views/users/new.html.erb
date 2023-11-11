@@ -1,30 +1,36 @@
-<div class="access new">
-<h1 style="font-size:40px;">Sign up for Valetbike!</h1>
-
-
-  <%= form_tag(users_path) do %>
-    <table summary="login">
+<div class="users new">
+  <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+  <br> 
+  <%= display_alerts %>
+  <%= form_with url: '/sign_up', method: :post do |form| %>
+    <table summary="signup">
       <tr>
         <th><%= label_tag(:first_name) %></th>
-        <td><%= text_field_tag(:first_name, params[:first_name]) %></td>
+        <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:last_name) %></th>
-        <td><%= text_field_tag(:last_name, params[:last_name]) %></td>
+        <td><%= text_field_tag(:last_name, params[:last_name], required: true) %></td>
       </tr>
       <tr>
-        <th><%= label_tag(:gmail_address) %></th>
-        <td><%= text_field_tag(:gmail_address, params[:gmail_address]) %></td>
+        <th><%= label_tag(:email_address) %></th>
+        <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:password) %></th>
-        <td><%= password_field_tag(:password) %></td>
+        <td><%= password_field_tag(:password, nil, required: true, minlength: 8) %></td>
+      </tr>
+      <tr>
+        <th><%= label_tag(:password_confirmation) %></th>
+        <td><%= password_field_tag(:password_confirmation, nil, required: true, minlength: 8) %></td>
       </tr>
     </table>
-
+  
     <div class="form-buttons">
-      <%= submit_tag "Sign Up", class: 'btn btn-primary' %>
+      <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
-
+  
+    <p>Have an account? <%= link_to "Login now!", login_path %></p>
   <% end %>
+  
 </div>

@@ -1,17 +1,4 @@
-<div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
-  ID: <%=bike.identifier %>
-  <%# <% station = Station.find_by(identifier: station_identifier) %>
-  <div class="record-row <%= cycle("odd", "even", name: "row-cycler") %> flexbox vertical stretch">
-    <%# <%= station.address %> 
-    <% station = Station.find_by(identifier: bike.current_station_id) %>
-
-    <% if station.present? %>
-      <strong>Station Name:</strong> <%= station.name %><br>
-      <strong>Station Address:</strong> <%= station.address %>
-    <% else %>
-        <em>Station not found</em>
-    <% end %>
-    
-  </div>
-
+<div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch justify-space-between">
+  <div><%= bike.identifier %></div>
+  <div><%= bike.current_station.blank? ? "In Use" : "Docked (#{bike.current_station.address})" %></div>
 </div>
