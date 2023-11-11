@@ -11,25 +11,21 @@ class UsersController < ApplicationController
   def index
   end
 
-  def new
+  # def new
   
-  end
+  # end
 
   #Sign-up
   def create
     logger.info("\n\n*****attempting to create new user\n\n")
     logger.info("\n\n*****In new #{user_params}\n\n")
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to payments_path
+      redirect_to root_path
     else
-      if @user.email_address.present?
-        logger.info("\n\n*****Failed, email exists\n\n")
-        flash[:error] = "Email Exists..."
-      end
-      
+      logger.info("\n\n*****ERRORRRRRRRRR\n\n")
       redirect_to sign_up_path
     end
   end
