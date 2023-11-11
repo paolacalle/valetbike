@@ -1,13 +1,13 @@
-<div class="access new">
-<h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+<div class="users new">
+  <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
   <br> 
-  <% if flash[:error] %>
-  <%= content_tag :h1, flash[:error] %>
-  <% else %>
-  <%= content_tag :h1, "Please Log in" %>
-  <% end %>
+  
 
-  <%= form_tag @user do %>
+  <%= form_tag(@user) do |f| %>
+  
+    <% if @user.present? %>
+      <%= render 'layouts/error_messages', user: @user %>
+    <% end %>
     <table summary="login">
       <tr>
         <th><%= label_tag(:first_name) %></th>
@@ -28,16 +28,14 @@
       <tr>
         <th><%= label_tag(:password_confirmation) %></th>
         <td><%= password_field_tag(:password_confirmation) %></td>
-    </tr>
+      </tr>
     </table>
 
     <div class="form-buttons">
       <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
 
-
-    <p> Do have an account? </p>
-    <p> <%= link_to "Login to Account", login_path, class: 'btn btn-primary' %></p>
+    <p>Have an account? <%= link_to "Login now!", login_path %></p>
 
   <% end %>
 </div>
