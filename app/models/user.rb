@@ -11,5 +11,4 @@ class User < ApplicationRecord
     validates_uniqueness_of :email_address
 
     # validates :email_address, format: {with: EMAIL_REGEX, message: "Email invalid" }
-    attr_accessor :password_digest, :recovery_password_digest
 end

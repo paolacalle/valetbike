@@ -1,18 +1,31 @@
 <div class="page-section flexbox vertical stretch"> 
   <div class="section-inner flexbox vertical stretch">
-    <%= link_to 'View Station List', stations_path %>
-    <br>
+    <div class = "section-title flexbox horizontal center">
+      ValetBike Fleet!
+    </div>
+
+    <a class = "toggle" href="<%= stations_path %>">View Stations</a>
+    
     <div class="flexbox vertical stretch">
-      <h1>Bikes: </h1>
-      <br>
       <% if @bikes.present? %>
+
+        <div class="record-row header flexbox horizontal justify-space-between">
+          <% if params[:reverse].blank? || params[:reverse] == "0" %>
+            <a href="<%= bikes_path(params: {reverse: 1})%>">Sort ⬇</a>
+
+          <% else %>
+            <a href="<%= bikes_path%>">Sort ⬆</a>
+
+          <% end %>
+        </div>
+
         <%= render(partial: "bikes/row", collection: @bikes, as: :bike) %>
+
       <% else %>
       <div class="empty">
         No stations found.
       </div>
       <% end %>
-
 
     </div>
 	</div>
