@@ -9,28 +9,29 @@ class UsersController < ApplicationController
   end
 
   def index
+    @user = User.find(params[:user_id])
   end
 
-  def new
-  
-  end
 
   #Sign-up
   def create
     logger.info("\n\n*****attempting to create new user\n\n")
     logger.info("\n\n*****In new #{user_params}\n\n")
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      redirect_to payments_path
+      flash[:notice] = "You've successfully submitted. Thank you."
+      redirect_to rentals_path
     else
-      if @user.email_address.present?
-        logger.info("\n\n*****Failed, email exists\n\n")
-        flash[:error] = "Email Exists..."
+      logger.info("\n\n*****ERRORRRRRRRRR\n\n")
+
+      flash.now[:alert] ||= ""
+      @user.errors.full_messages.each do |message|
+        flash.now[:alert] << message + ". "
+        puts "#{message}"
       end
-      
-      redirect_to sign_up_path
+      render sign_up_path
     end
   end
 

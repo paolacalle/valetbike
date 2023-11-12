@@ -2,10 +2,6 @@ class Station < ApplicationRecord
   validates_presence_of    :identifier,
                            :name,
                            :address
-  attribute  :has_kiosk
-  attribute :needs_maintenance
-  attribute :dock_count
-  attribute :docked_bike_count
   
   validates_uniqueness_of  :identifier
   

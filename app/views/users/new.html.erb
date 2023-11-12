@@ -1,43 +1,41 @@
-<div class="access new">
-<h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+<div class="users new">
+  <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
   <br> 
-  <% if flash[:error] %>
-  <%= content_tag :h1, flash[:error] %>
-  <% else %>
-  <%= content_tag :h1, "Please Log in" %>
-  <% end %>
 
-  <%= form_tag @user do %>
-    <table summary="login">
+  <%= display_alerts %>
+  <%= form_with url: '/sign_up', method: :post do |form| %>
+    <table summary="signup">
+
       <tr>
         <th><%= label_tag(:first_name) %></th>
-        <td><%= text_field_tag(:first_name, params[:first_name]) %></td>
+        <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:last_name) %></th>
-        <td><%= text_field_tag(:last_name, params[:last_name]) %></td>
+        <td><%= text_field_tag(:last_name, params[:last_name], required: true) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:email_address) %></th>
-        <td><%= text_field_tag(:email_address, params[:email_address]) %></td>
+        <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:password) %></th>
-        <td><%= password_field_tag(:password) %></td>
+        <td><%= password_field_tag(:password, nil, required: true, minlength: 8) %></td>
       </tr>
       <tr>
         <th><%= label_tag(:password_confirmation) %></th>
-        <td><%= password_field_tag(:password_confirmation) %></td>
-    </tr>
+        <td><%= password_field_tag(:password_confirmation, nil, required: true, minlength: 8) %></td>
+      </tr>
     </table>
-
+  
     <div class="form-buttons">
       <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
 
-
-    <p> Do have an account? </p>
-    <p> <%= link_to "Login to Account", login_path, class: 'btn btn-primary' %></p>
+    <br>
+    <p> Do you have an account? </p>
+    <p> <%= link_to "Login", login_path, class: 'btn btn-primary' %></p>
 
   <% end %>
+  
 </div>

@@ -1,4 +1,5 @@
 <h1 style="font-size:40px;">New Payment</h1>
+
 <%= form_with model: @payment, url: payments_path, method: :post, local:true do |f| %>
     
   <%= f.label (:credit_card_info) %>

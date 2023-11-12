@@ -26,13 +26,30 @@
   line-height: 1.75em;
 }
 
+.record-row.header {
+  background: var(--black-color);
+  color:aliceblue;
+}
+
+
 .record-row.even {
   background: var(--medium-white-color);
+}
+
+.record-row.even.flexbox:hover{
+  background: var(--light-black-color);
+  color:aliceblue;
 }
 
 .record-row.odd {
   background: var(--dark-white-color);
 }
+
+.record-row.odd.flexbox:hover{
+  background: var(--light-black-color);
+  color:aliceblue;
+}
+
 
 
 /***********************************/
