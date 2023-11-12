@@ -1,11 +1,6 @@
 <div class="access new">
 <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
   <br> 
-  <% if flash[:error] %>
-  <%= content_tag :h1, flash[:error] %>
-  <% else %>
-  <%= content_tag :h1, "Please Log in" %>
-  <% end %>
 
   <%= form_tag @user do %>
     <table summary="login">
@@ -35,9 +30,9 @@
       <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
 
-
-    <p> Do have an account? </p>
-    <p> <%= link_to "Login to Account", login_path, class: 'btn btn-primary' %></p>
+    <br>
+    <p> Do you have an account? </p>
+    <p> <%= link_to "Login", login_path, class: 'btn btn-primary' %></p>
 
   <% end %>
 </div>

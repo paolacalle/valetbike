@@ -1,21 +1,13 @@
-  <h1 style="font-size:40px;">Create New Rental</h1>
+<h1 style="font-size:40px;">Create New Rental</h1>
 
-  <% if flash[:error] %>
-  <%= content_tag :h2, flash[:error] %>
-  <% elsif flash[:success] %>
-  <%= content_tag :h2, flash[:success] %>
-  <% end %>
+<%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
 
-  <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
+  <%= f.label (:rental_period) %>
+  <%= f.text_field (:rental_period) %>
 
-    <%= f.label (:rental_period) %>
-    <%= f.text_field (:rental_period) %>
-
-    <%= f.label (:return_by) %>
-    <%= f.date_field (:return_by) %>
-    
-    <%= f.submit %>
-    
-  <% end %>
-
- 
+  <%= f.label (:return_by) %>
+  <%= f.date_field (:return_by) %>
+  
+  <%= f.submit %>
+  
+<% end %>
