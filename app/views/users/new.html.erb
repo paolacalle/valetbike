@@ -1,9 +1,11 @@
 <div class="users new">
   <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
   <br> 
+
   <%= display_alerts %>
   <%= form_with url: '/sign_up', method: :post do |form| %>
     <table summary="signup">
+
       <tr>
         <th><%= label_tag(:first_name) %></th>
         <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
@@ -29,8 +31,11 @@
     <div class="form-buttons">
       <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
-  
-    <p>Have an account? <%= link_to "Login now!", login_path %></p>
+
+    <br>
+    <p> Do you have an account? </p>
+    <p> <%= link_to "Login", login_path, class: 'btn btn-primary' %></p>
+
   <% end %>
   
 </div>

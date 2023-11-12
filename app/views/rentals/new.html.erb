@@ -1,17 +1,13 @@
-  <h1 style="font-size:40px;">Create New Rental</h1>
-  <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
-    
-    <%= f.label (:identifier) %>
-    <%= f.text_field (:identifier) %>
+<h1 style="font-size:40px;">Create New Rental</h1>
 
-    <%= f.label (:rental_period) %>
-    <%= f.text_field (:rental_period) %>
+<%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
 
-    <%= f.label (:return_by) %>
-    <%= f.date_field (:return_by) %>
-    
-    <%= f.submit %>
-    
-  <% end %>
+  <%= f.label (:rental_period) %>
+  <%= f.text_field (:rental_period) %>
 
- 
+  <%= f.label (:return_by) %>
+  <%= f.date_field (:return_by) %>
+  
+  <%= f.submit %>
+  
+<% end %>

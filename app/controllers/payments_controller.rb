@@ -15,8 +15,8 @@ class PaymentsController < ApplicationController
       flash[:success] = "Payment complete"
       redirect_to payments_url
     else
-      flash.now[:error] = "Payment failed"
-      render :new
+      flash[:error] = "Payment failed"
+      redirect_to new_payment_path
     end
   end
 

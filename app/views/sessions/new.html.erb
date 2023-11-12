@@ -1,8 +1,9 @@
 <div class="session new">
 <h1 style="font-size:40px;">Login</h1>
   <br> 
-  
+
   <%= display_alerts %>
+
 
   <%= form_tag(sessions_path) do %>
     <table summary="login">
@@ -24,5 +25,8 @@
 
   <% end %>
 
-  <p>New user? <%= link_to "Sign up now!", sign_up_path %></p>
+  <br>
+  <p> Don't have an account? </p>
+  <p> <%= link_to "Create New user", sign_up_path, class: 'btn btn-primary' %></p>
+
 </div>

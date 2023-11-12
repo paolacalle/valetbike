@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_11_041347) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_10_223754) do
   create_table "bikes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "identifier"
     t.integer "current_station_id"
@@ -41,7 +41,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_11_041347) do
   end
 
   create_table "rentals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.integer "identifier"
     t.datetime "rented_at"
     t.datetime "returned_at"
     t.integer "rental_period"
