@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :stations, only: [:index]
   resources :bikes, only: [:index] 
 
-  resources :payments, only: [:index, :new, :create]
+  resources :payments, only: [:new]
   get 'payments', to: 'payments#index', as: 'payments'
   post 'payments', to: 'payments#create'
 
