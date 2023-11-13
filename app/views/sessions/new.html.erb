@@ -2,9 +2,6 @@
 <h1 style="font-size:40px;">Login</h1>
   <br> 
 
-  <%= display_alerts %>
-
-
   <%= form_tag(sessions_path) do %>
     <table summary="login">
       <br> 
@@ -20,7 +17,7 @@
     </table>
 
     <div class="form-buttons">
-      <%= submit_tag "Login in", class: 'btn btn-primary', style: 'color: black;' %>
+      <%= submit_tag "Login", class: 'btn btn-primary', style: 'color: black;' %>
     </div>
 
   <% end %>

@@ -1,25 +1,36 @@
-<div class="h1 text-center">
-  <h1>ValetBike!</h1>
-  <p>Payments</p>
-</div>
-
-<div>
-  <p>
-    <%= link_to "New Payment", new_payment_path, class: 'btn btn-primary' %>
-  </p>
-</div>
-
-<div class="page-section flexbox vertical stretch">
+<div class="page-section flexbox vertical stretch"> 
   <div class="section-inner flexbox vertical stretch">
-    <div class="flexbox vertical stretch">
+    <div class = "section-title flexbox horizontal center">
+      Payments 
+    </div>
+    <div>
+      <p>
+        <%= link_to "New Payment", new_payment_path, class: 'btn btn-primary' %>
+      </p>
       <br>
+    </div>
+
+    <div class="flexbox vertical stretch">
       <% if @payments.present? %>
+
+        <div class="record-row header flexbox horizontal justify-space-between">
+          <% if params[:reverse].blank? || params[:reverse] == "0" %>
+            <a href="<%= payments_path(params: {reverse: 1})%>">Sort ⬇</a>
+
+          <% else %>
+            <a href="<%= payments_path%>">Sort ⬆</a>
+
+          <% end %>
+        </div>
+
         <%= render(partial: "payments/row", collection: @payments, as: :payment) %>
+
       <% else %>
       <div class="empty">
         No payments found.
       </div>
       <% end %>
+
     </div>
 	</div>
 </div>

@@ -12,7 +12,7 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
     if @rental.save
-      flash[:success] = "Rental created!"
+      flash[:success] = "Rental created"
       redirect_to rentals_url
     else
       flash[:error] = "Rental creation failed"

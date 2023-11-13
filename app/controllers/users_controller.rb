@@ -21,16 +21,16 @@ class UsersController < ApplicationController
     logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "You've successfully submitted. Thank you."
+      flash[:notice] = "Welcome to your new account."
       redirect_to rentals_path
     else
       logger.info("\n\n*****ERRORRRRRRRRR\n\n")
 
-      flash.now[:alert] ||= ""
-      @user.errors.full_messages.each do |message|
-        flash.now[:alert] << message + ". "
-        puts "#{message}"
-      end
+      # flash.now[:alert] ||= ""
+      # @user.errors.full_messages.each do |message|
+        # flash.now[:alert] << message + ". "
+      #   puts "#{message}"
+      # end
       render sign_up_path
     end
   end

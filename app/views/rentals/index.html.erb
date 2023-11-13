@@ -1,27 +1,35 @@
-<div class="h1 text-center">
-  <h1>ValetBike!</h1>
-  <p>Rentals</p>
-</div>
-
-<div>
-  <p>
-    <%= link_to "Create New Rental", new_rental_path, class: 'btn btn-primary' %>
-  </p>
-</div>
-
-<div class="page-section flexbox vertical stretch">
+<div class="page-section flexbox vertical stretch"> 
   <div class="section-inner flexbox vertical stretch">
+    <div class = "section-title flexbox horizontal center">
+      Rentals 
+    </div>
+    <div>
+      <p>
+        <%= link_to "Create New Rental", new_rental_path, class: 'btn btn-primary' %>
+      </p>
+    </div>
+    <br>
     <div class="flexbox vertical stretch">
-      <br>
       <% if @rentals.present? %>
+
+        <div class="record-row header flexbox horizontal justify-space-between">
+          <% if params[:reverse].blank? || params[:reverse] == "0" %>
+            <a href="<%= rentals_path(params: {reverse: 1})%>">Sort ⬇</a>
+
+          <% else %>
+            <a href="<%= rentals_path%>">Sort ⬆</a>
+
+          <% end %>
+        </div>
+
         <%= render(partial: "rentals/row", collection: @rentals, as: :rental) %>
+
       <% else %>
       <div class="empty">
         No rentals found.
       </div>
       <% end %>
+
     </div>
 	</div>
 </div>
-
-

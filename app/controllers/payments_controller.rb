@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(params.require(:payment).permit(:credit_card_info, :amount))
     if @payment.save
-      flash[:success] = "Payment complete"
+      flash[:success] = "Payment completed"
       redirect_to payments_url
     else
       flash[:error] = "Payment failed"

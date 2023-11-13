@@ -1,8 +1,7 @@
 <div class="users new">
-  <h1 style="font-size:40px;">Sign up for Valetbike!</h1>
+  <h1 class="h1 text-center" style="font-size:40px;">Create an Account</h1>
   <br> 
 
-  <%= display_alerts %>
   <%= form_with url: '/sign_up', method: :post do |form| %>
     <table summary="signup">
 
@@ -33,7 +32,7 @@
     </div>
 
     <br>
-    <p> Do you have an account? </p>
+    <p> Already have an account? </p>
     <p> <%= link_to "Login", login_path, class: 'btn btn-primary' %></p>
 
   <% end %>
