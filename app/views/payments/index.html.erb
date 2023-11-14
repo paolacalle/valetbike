@@ -1,36 +1,38 @@
-<div class="page-section flexbox vertical stretch"> 
-  <div class="section-inner flexbox vertical stretch">
-    <div class = "section-title flexbox horizontal center">
-      Payments 
-    </div>
-    <div>
-      <p>
-        <%= link_to "New Payment", new_payment_path, class: 'btn btn-primary' %>
-      </p>
-      <br>
-    </div>
+  <head>
+    <title>Payments</title>
+  </head>
 
-    <div class="flexbox vertical stretch">
-      <% if @payments.present? %>
+  <body>
+    <div class="page-section flexbox vertical stretch"> 
+      <div class="section-inner flexbox vertical stretch">
+        <h1 class="h1 flexbox">Payments</h1>
+          <p>
+            <%= link_to "New Payment", new_payment_path, class: 'btn btn-primary' %>
+          </p>
+          <br>
+        <table class="flexbox vertical stretch">
+          <% if @payments.present? %>
 
-        <div class="record-row header flexbox horizontal justify-space-between">
-          <% if params[:reverse].blank? || params[:reverse] == "0" %>
-            <a href="<%= payments_path(params: {reverse: 1})%>">Sort ⬇</a>
+            <div class="record-row header flexbox horizontal justify-space-between">
+              <% if params[:reverse].blank? || params[:reverse] == "0" %>
+                <a href="<%= payments_path(params: {reverse: 1})%>">Sort ⬇</a>
+
+              <% else %>
+                <a href="<%= payments_path%>">Sort ⬆</a>
+
+              <% end %>
+            </div>
+
+            <%= render(partial: "payments/row", collection: @payments, as: :payment) %>
 
           <% else %>
-            <a href="<%= payments_path%>">Sort ⬆</a>
-
+          <p>
+            No payments found.
+          </p>
           <% end %>
-        </div>
 
-        <%= render(partial: "payments/row", collection: @payments, as: :payment) %>
+        </table>
 
-      <% else %>
-      <div class="empty">
-        No payments found.
       </div>
-      <% end %>
-
     </div>
-	</div>
-</div>
+  </body>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   root 'home#index' #homepage 
+  get 'home', to: 'home#index'
+  post 'home', to: 'home#index'
 
   get 'users/show', to: 'users#show'
 
