@@ -1,8 +1,11 @@
 module LayoutHelper
     def display_alerts
       if flash[:alert].present?
+        puts "there are alerts"
         content_tag(:div, class: "flash", id: "alert") do
-          content_tag(:div, flash[:alert], class: "text")
+          a = flash[:alert]
+          puts "The alert is/are " + a
+          content_tag(:div, a, class: "text")
         end
       end
     end

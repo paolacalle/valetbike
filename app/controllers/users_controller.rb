@@ -25,13 +25,12 @@ class UsersController < ApplicationController
       redirect_to rentals_path
     else
       logger.info("\n\n*****ERRORRRRRRRRR\n\n")
-
-      # flash.now[:alert] ||= ""
-      # @user.errors.full_messages.each do |message|
-        # flash.now[:alert] << message + ". "
-      #   puts "#{message}"
-      # end
-      render sign_up_path
+      flash.now[:alert] ||= ""
+      @user.errors.full_messages.each do |message|
+        flash.now[:alert] << message + ". "
+        puts "#{message}"
+      end
+      render :new
     end
   end
 
