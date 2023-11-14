@@ -15,4 +15,3 @@ module LayoutHelper
       end
     end
   end
-  

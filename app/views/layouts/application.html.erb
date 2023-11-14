@@ -16,7 +16,6 @@
     <%= javascript_importmap_tags %>
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700" rel="stylesheet" type="text/css">
     <link href="/favicon.ico" rel="icon" type="image/x-icon">
-    <title>ValetBike</title>
   </head>
   <body>
 
@@ -26,7 +25,6 @@
         <% if logged_in? %> 
           <% puts "hellllllo" %>
         <%end%>
-        <%= display_notices %>
         <%= yield %>
       </div>
     </div>

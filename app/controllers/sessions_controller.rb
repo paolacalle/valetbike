@@ -11,17 +11,17 @@ class SessionsController < ApplicationController
         logger.info("*** #{@user}")
         if @user && @user.authenticate(session_params[:password])
           session[:user_id] = @user.id
-          flash[:notice] = "You've successfully Logged In. Thank you."
+          flash[:notice] = "You are now logged in"
           redirect_to root_path
         else
-          flash.now[:alert] =  "Login is invalid!"
+          flash.now[:alert] =  "Login information invalid"
           render :new
         end
     end
 
     def destroy
         logger.info("*** Logged out #{cookies[:email_address]}")
-        flash[:notice] = "You have been signed out!"
+        flash[:notice] = "You are now signed out"
 
         # do logout process here
         session[:user_id] = nil 
