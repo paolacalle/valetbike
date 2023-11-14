@@ -4,12 +4,12 @@ class UsersController < ApplicationController
 
   #keep login
   def show
-    @user = User.find(params[:user_id])
-    render :current_user
+    @current_user = User.find(session[:user_id])
+    render :show
   end
 
   def index
-    @user = User.find(params[:user_id])
+    @current_user = User.find(session[:user_id])
   end
 
 

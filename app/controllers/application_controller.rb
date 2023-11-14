@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
     def require_login
         redirect_to new_session_path unless session.include? :user_id
+        
     end
 
     def logged_in?

@@ -22,7 +22,7 @@
     <%= render partial: 'layouts/navbar' %>
     <div id="site-container" class="flexbox vertical stretch flex-1">
       <div class="flexbox vertical center">
-        <% if logged_in? %> 
+        <% if @current_user.present? %> 
           <% puts "hellllllo" %>
         <%end%>
         <%= yield %>

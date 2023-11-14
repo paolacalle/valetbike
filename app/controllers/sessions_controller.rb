@@ -11,8 +11,8 @@ class SessionsController < ApplicationController
         logger.info("*** #{@user}")
         if @user && @user.authenticate(session_params[:password])
           session[:user_id] = @user.id
-          flash[:notice] = "You are now logged in"
-          redirect_to root_path
+          flash[:notice] = "You've successfully Logged In. Thank you."
+          redirect_to users_show_path
         else
           flash.now[:alert] =  "Login information invalid"
           render :new
