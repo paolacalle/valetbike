@@ -15,6 +15,9 @@ class RentalsController < ApplicationController
 
   def create
     @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
+    puts User.find(session[:user_id])
+    puts session[:user_id]
+    @rental.user = User.find(session[:user_id])
     if @rental.save
       flash[:success] = "Rental created"
       redirect_to rentals_url
@@ -38,5 +41,7 @@ class RentalsController < ApplicationController
   def destroy
   end
 
+  private 
+    
   
 end

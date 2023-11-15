@@ -10,5 +10,7 @@ class User < ApplicationRecord
 
     validates_uniqueness_of :email_address
 
+    has_many :rentals, class_name: :Rental, foreign_key: :rental
+
     # validates :email_address, format: {with: EMAIL_REGEX, message: "Email invalid" }
 end
