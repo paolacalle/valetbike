@@ -1,0 +1,32 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+.form-group {
+  margin-bottom: 15px;
+}
+  
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--light-black-color);
+  font-weight: bold;
+}
+
+input[type="text"], input[type="password"] {
+  /* Inherits styles from previous CSS */
+  width: 100%; /* Adjust as necessary */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+  
+  /* Inherits .btn and .btn-primary styles from previous CSS */
+  

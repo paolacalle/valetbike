@@ -15,22 +15,21 @@ class UsersController < ApplicationController
 
   #Sign-up
   def create
-    logger.info("\n\n*****attempting to create new user\n\n")
-    logger.info("\n\n*****In new #{user_params}\n\n")
+    # logger.info("\n\n*****attempting to create new user\n\n")
+    # logger.info("\n\n*****In new #{user_params}\n\n")
     @user = User.new(user_params)
-    logger.info("\n\n*****Set new\n\n")
+    # logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "Welcome to your new account."
       redirect_to rentals_path
     else
-      logger.info("\n\n*****ERRORRRRRRRRR\n\n")
+      puts "Can not create user"
       flash.now[:alert] ||= ""
       @user.errors.full_messages.each do |message|
         flash.now[:alert] << message + ". "
-        puts "#{message}"
       end
-      render :new
+      render :new, status: 500
     end
   end
 

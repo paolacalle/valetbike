@@ -8,14 +8,13 @@ class SessionsController < ApplicationController
     def create
         session_params = params.permit(:email_address, :password)
         @user = User.find_by(email_address: session_params[:email_address])
-        logger.info("*** #{@user}")
         if @user && @user.authenticate(session_params[:password])
           session[:user_id] = @user.id
           flash[:notice] = "You've successfully Logged In. Thank you."
           redirect_to users_show_path
         else
           flash.now[:alert] =  "Login information invalid"
-          render :new
+          render :new, status: 500
         end
     end
 
