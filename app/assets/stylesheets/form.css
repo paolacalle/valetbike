@@ -20,6 +20,7 @@ label {
 input[type="text"], input[type="password"] {
   /* Inherits styles from previous CSS */
   width: 100%; /* Adjust as necessary */
+  color: black;
 }
 
 .form-buttons {
@@ -28,5 +29,6 @@ input[type="text"], input[type="password"] {
   margin-top: 20px;
 }
   
-  /* Inherits .btn and .btn-primary styles from previous CSS */
-  
+input#search_by_address {
+  color: black;
+}

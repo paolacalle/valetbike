@@ -15,14 +15,20 @@
             <a href="<%= stations_path%>">Sort ⬆</a>
 
           <% end %>
+
+          <%= form_tag "/stations", method: "GET" do %>
+
+          <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
+          <% end %>
+
         </div>
 
         <%= render(partial: "stations/row", collection: @stations, as: :station) %>
 
       <% else %>
-      <div class="empty">
-        No stations found.
-      </div>
+        <div class="empty">
+          No stations found.
+        </div>
       <% end %>
 
     </div>
