@@ -15,10 +15,18 @@ class RentalsController < ApplicationController
 
   def create
     @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
-    puts User.find(session[:user_id])
+    @current_user = User.find(session[:user_id])
+    puts @current_user
     puts session[:user_id]
-    @rental.user = User.find(session[:user_id])
-    if @rental.save
+    @rental.user = @current_user
+    puts @rental.user
+    puts 'and then...'
+
+    if @rental.save   
+      puts @rental
+      @current_user.rental = @rental.id
+      puts @current_user.rental
+      puts User.find(session[:user_id]).rental
       flash[:success] = "Rental created"
       redirect_to rentals_url
     else
