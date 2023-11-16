@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
   def index
-    @payments = Payment.order(:amount)
+    if params[:reverse].blank? || params[:reverse] == "0"
+      @payments = Payment.all.order(id: :asc)
+    else 
+      @payments = Payment.all.order(id: :desc)
+    end
     render :index
   end
 
