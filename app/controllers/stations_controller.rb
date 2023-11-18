@@ -8,5 +8,10 @@ class StationsController < ApplicationController
     end
     puts @stations
   end
+
+  def show 
+    @station = Station.find_by(identifier: params[:id])
+    render :show
+  end
   
 end

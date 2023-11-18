@@ -83,3 +83,5 @@ gem 'dotenv-rails'
 # gem 'paperclip
 # gem 'uniquify'
 # gem 'will_paginate'
+
+gem "geocoder", "~> 1.8"

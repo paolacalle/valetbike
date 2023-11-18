@@ -1,6 +1,6 @@
 # This task imports bike data from a CSV file 
 # Use before importing bike data 
-# Usage: rake db:import_stations["notes/station-data.csv"]
+# Usage:
 
 namespace :db do 
 
@@ -23,8 +23,22 @@ namespace :db do
       name: item["name"],
       address: item["address"]})
 
+    location = Location.new({
+      name: station["name"],
+      address: station["address"]
+    })
+
+    location.geocode
+
     if station.save
       puts "Successfully imported: #{item["name"]}\n"
+
+      if location.save
+        puts "Sussessfuly saved geocordinates for #{item["name"]}"
+      else 
+        puts "Failed to save geocordinates for #{item["name"]}"
+      end
+
     else 
       puts "Failed to import:  #{item["name"]}\n"
     end 
