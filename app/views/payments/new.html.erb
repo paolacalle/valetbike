@@ -3,11 +3,11 @@
 <%= form_with model: @payment, url: payments_path, method: :post, local:true do |f| %>
     
   <%= f.label (:credit_card_info) %>
-  <%= f.text_field (:credit_card_info) %>
+  <%= f.text_field (:credit_card_info), placeholder: "0000000000000000" %>
 
   <%= f.label (:amount) %>
   <%= f.text_field (:amount) %>
   
-  <%= f.submit %>
+  <%= f.submit class: "btn button btn-primary"%>
   
 <% end %>
