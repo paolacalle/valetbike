@@ -16,17 +16,17 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
     @current_user = User.find(session[:user_id])
-    puts @current_user.has_bike.nil?
     if @current_user.has_bike.nil? 
       flash[:error] = "Your account has a nil rental currently...setting to false. try again"
       @current_user.has_bike=false
       @current_user.save
       redirect_to new_rental_path
     elsif @current_user.has_bike? #if has bike is true
-      flash[:error] = "Your account has a TRUE rental currently. Cannot rent multiple bikes before returning...that feature soon to be released"
+      flash[:error] = "You already have an active rental. Cannot rent multiple bikes before returning...that feature soon to be released"
       redirect_to rentals_url
     elsif !@current_user.has_bike #if has bike is false
       @current_user.has_bike=true
+      @current_user.current_rental=@rental
       @current_user.save
       @current_user.has_bike = true
       @current_user.save
@@ -53,6 +53,15 @@ class RentalsController < ApplicationController
   end
   
   def update
+    puts "returning rental..."
+    @current_user = User.find(session[:user_id])
+    Rental.find(id: @current_user.current_rental.to_i).returned_at=DateTime.now
+    puts @current_user.current_rental.returned_at
+    @current_user.current_rental=nil
+    puts @current_user.current_rental
+    @current_rental.has_bike=false
+    puts @current_rental.has_bike
+    puts "rental returned...hopefully"
   end
 
   def edit
@@ -60,8 +69,5 @@ class RentalsController < ApplicationController
 
   def destroy
   end
-
-  private 
-    
   
 end

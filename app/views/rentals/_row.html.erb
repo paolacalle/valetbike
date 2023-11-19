@@ -1,8 +1,17 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
   <%= rental.id %>
-    <b>Rental period: <%= rental.rental_period %> </b>
-    <br>
-    <p><b>Return by: <%= rental.return_by %> </b>
-    <p>User: <%=rental.user.id%>
-
+  <b>Rental period: <%= rental.rental_period %> </b>
+  <br>
+  <p><b>Return by: <%= rental.return_by %> </b>
+  <p>User: <%=rental.user.id%>
+  <% puts rental.id %>
+  <% puts User.find(session[:user_id]).current_rental %>
+  <% if rental.id==User.find(session[:user_id]).current_rental %>
+    <% puts "current_user.current_rental.id is equal to the rental.id" %>
+    <div class="left-align">
+      <p>
+        <%= link_to "Return Rental", return_path, class: 'btn btn-primary' %>
+      </p>
+    </div>
+  <%end%>
 </div>
