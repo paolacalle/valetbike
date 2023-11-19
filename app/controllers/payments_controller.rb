@@ -1,6 +1,10 @@
 class PaymentsController < ApplicationController
   def index
-    @payments = Payment.order(:amount)
+    if params[:reverse].blank? || params[:reverse] == "0"
+      @payments = Payment.all.order(id: :asc)
+    else 
+      @payments = Payment.all.order(id: :desc)
+    end
     render :index
   end
 
@@ -12,7 +16,7 @@ class PaymentsController < ApplicationController
   def create
     @payment = Payment.new(params.require(:payment).permit(:credit_card_info, :amount))
     if @payment.save
-      flash[:success] = "Payment complete"
+      flash[:success] = "Payment completed"
       redirect_to payments_url
     else
       flash[:error] = "Payment failed"
