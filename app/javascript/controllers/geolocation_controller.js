@@ -28,4 +28,6 @@ export default class extends Controller {
   search () {
     navigator.geolocation.getCurrentPosition(this.success, this.error, options);
   }
+
+
 }

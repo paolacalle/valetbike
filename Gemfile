@@ -85,3 +85,6 @@ gem 'dotenv-rails'
 # gem 'will_paginate'
 
 gem "geocoder", "~> 1.8"
+
+# dynamic map
+gem "mapkick-rb"

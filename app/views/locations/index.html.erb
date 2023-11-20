@@ -8,6 +8,9 @@
 
   </div>
 
+
+  <% js_map [{latitude: 42.3363, longitude: -72.6233}] %>
+
   <%= form_with url: locations_path, method: :get do |form| %>
     <%= form.text_field :place, value: params[:place]%>
     <%= form.select :distance, [1, 5, 10]%>
