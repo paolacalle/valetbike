@@ -1,0 +1,28 @@
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Locationsssss</h1>
+
+  </div>
+
+
+  <% js_map [{latitude: 42.3363, longitude: -72.6233}] %>
+
+  <%= form_with url: locations_path, method: :get do |form| %>
+    <%= form.text_field :place, value: params[:place]%>
+    <%= form.select :distance, [1, 5, 10]%>
+    <%= form.submit %>
+  <% end %>
+
+  <% if params[:count].present? %>
+    <%= params[:count] %>
+  <% end %>
+
+  
+  <div id="locations" class="min-w-full">
+    <%= render @locations %>
+  </div>
+</div>

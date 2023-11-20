@@ -1,9 +1,42 @@
 /* currently does not work...not invoked or something - ryan */
 /* change navbar background color to custom */
-.navbar-custom {
-    background-color: var(--blue-color);
+#navbar {
+  padding-top: 2%;
+  padding-bottom: 4%;
+  z-index: 100;
+  background-color: var(--blue-color);
+  height: 5em;
+}
+
+#navbar-content {
+  height: 3em;
+  width: 100%;
+}
+
+@media (min-width: 80em){
+  #navbar-content {
+    width: 70em;
   }
+
+  .logo {
+
+  }
+}
+
   
 .white-fill {
   fill: var(--medium-white-color);
+
 }
+
+.logo {
+  margin-left: 1em;
+}
+
+.dropdown-menu {
+  z-index: 1000; /* Adjust the value as needed */
+  position: relative;
+}
+
+}
+

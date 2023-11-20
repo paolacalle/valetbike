@@ -1,14 +1,19 @@
-#alert, #notice {
+.flash{
   padding: 20px;
   color: white;
-  margin: 0; /* Remove margin to allow full width */
   width: 90%; /* Set width to 100% of the parent element */
+  opacity: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  
 }
 
 #notice {
   background-color: var(--green-color); /* Override color for notice */
+  border-color: 3px, solid, var(--dark-green-color);
 }
 
 #alert {
   background-color: var(--red-color); /* Red for alert, green for notice */
+  border-color: 3px, solid, var(--dark-green-color);
 }
