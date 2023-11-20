@@ -1,19 +1,33 @@
 .flash{
   padding: 20px;
-  color: white;
-  width: 90%; /* Set width to 100% of the parent element */
+  /* color: white; */
+  margin: 0; /* Remove margin to allow full width */
+  width: 100%; /* Set width to 100% of the parent element */
   opacity: 90%;
   margin-left: auto;
   margin-right: auto;
-  
+}
+
+#success {
+  color: var(--green-dark-color);
+  background-color: var(--green-light-color);
+  border-color: var(--green-mid-color);
 }
 
 #notice {
-  background-color: var(--green-color); /* Override color for notice */
-  border-color: 3px, solid, var(--dark-green-color);
+  color: var(--blue-dark-color);
+  background-color: var(--blue-light-color);
+  border-color: var(--blue-mid-color);
 }
 
 #alert {
-  background-color: var(--red-color); /* Red for alert, green for notice */
-  border-color: 3px, solid, var(--dark-green-color);
+  color: var(--yellow-dark-color);
+  background-color: var(--yellow-light-color);
+  border-color: var(--yellow-mid-color);
+}
+
+#error {
+  color: var(--red-dark-color);
+  background-color: var(--red-light-color);
+  border-color: var(--red-mid-color);
 }

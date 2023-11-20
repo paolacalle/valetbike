@@ -24,22 +24,17 @@
 
   </head>
   <body>
-
     
     <div id="site-container" class="flexbox vertical stretch">
       <%= render partial: 'layouts/navbar' %>
       <div class="flexbox vertical stretch flex-1">
-        <%= display_alerts %>
-        <%= display_notices %>
-
-        <%= display_errors %>
         <%= display_successes %>
-
+        <%= display_notices %>
+        <%= display_alerts %>
+        <%= display_errors %>
         <%= yield %>
       </div>
     </div>
-
-
   </body>
 </html>
 

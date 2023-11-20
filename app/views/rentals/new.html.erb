@@ -5,11 +5,9 @@
   <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
     <br>
     <br>
-
     <tr>
-    
-    
 <th><b><%= f.label (:rental_period) %></b></th>
+<td><%= f.text_field (:rental_period) %></td>
 <br>
 <th>
   <label for "rental_hours">Hours</label>
@@ -26,11 +24,8 @@
       <td><%= f.date_field (:return_by) %></td>
     </tr>
     <br>
-    
-</div>
-<div>
-  <br>
-  <b><%= f.submit "Submit", class: "btn button btn-primary"%></b>
-      
+<br>
+<p>
+<%= f.submit class: "btn button btn-primary"%>
   <% end %>
 </div>

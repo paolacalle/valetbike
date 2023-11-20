@@ -29,17 +29,10 @@ Rails.application.routes.draw do
   get 'payments', to: 'payments#index', as: 'payments'
   post 'payments', to: 'payments#create'
 
-  # below not set up in the controller...but will need to just add the simple thing to the resources list above
-  # get 'payments/:id' , to: 'payments#show', as: 'payment'
-  # get 'payments/update'
-  # get 'payments/edit'
-  # get 'payments/destroy'
-
-
   #Rentals routes
   resources :rentals, only: [:index, :new, :create, :update]
   post 'rentals', to: 'rentals#create'
-  get 'rentals/return', to: 'rentals#update', as: 'return'
+  get 'rentals/return/:id', to: 'rentals#update', as: "return"
 
   # below not set up in the controller...but will need to just add the simple thing to the resources list above
   # get 'rentals/:id' , to: 'rentals#show', as: 'rental' 

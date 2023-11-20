@@ -14,36 +14,48 @@ class RentalsController < ApplicationController
   end
 
   def create
+    puts "moved to rentals_controller#create"
     @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
+    puts "created...not yet saved"
+    @rental.rented_at=DateTime.now
+    puts "rental rented_at set to now...not yet saved"
     @current_user = User.find(session[:user_id])
-    if @current_user.has_bike.nil? 
-      flash[:error] = "Your account has a nil rental currently...setting to false. try again"
+    puts "current_user.has_bike is going to be below"
+    puts @current_user.has_bike
+    if !@current_user.has_bike #if has bike is false
+      puts "User does not have bike"
+      @rental.user=@current_user
+      puts "Set rental user to current user, saving rental now"
+      if @rental.save
+        puts "Rental saved, setting current user has_bike to true now"
+        @current_user.has_bike=true
+        puts "Current user has_bike set to true now. Saving current user"
+        if @current_user.save
+          flash[:success] = "Rental created"
+          redirect_to rentals_url
+        else
+          flash[:error] = "Rental failed. Rental is still attributed to the user, even though the user isn't tracking the rental"
+          puts "rental failed. rental is still attributed to the user"
+          redirect_to rentals_url
+        end
+      else
+        flash[:error] = "Rental failed. Rental was not able to be saved."
+        redirect_to new_rental_path
+      end
+    elsif @current_user.has_bike.nil?
+      puts "User has bike is nil"
+      flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
       @current_user.has_bike=false
       @current_user.save
       redirect_to new_rental_path
     elsif @current_user.has_bike? #if has bike is true
+      puts "User has a bike"
       flash[:error] = "You already have an active rental. Cannot rent multiple bikes before returning...that feature soon to be released"
       redirect_to rentals_url
-    elsif !@current_user.has_bike #if has bike is false
-      @current_user.has_bike=true
-      @current_user.current_rental=@rental
-      @current_user.save
-      @current_user.has_bike = true
-      @current_user.save
-      puts @current_user.has_bike?
-      puts @current_user
-      puts session[:user_id]
-      @rental.user = @current_user
-      puts @rental.user
-      if @rental.save
-        flash[:success] = "Rental created"
-        redirect_to rentals_url
-      else
-        flash[:error] = "Rental creation failed"
-        redirect_to new_rental_path
-      end
     else
-      flash[:error] = "Rental creation failed...your rental status is not nil, true, or false. something is majorly wrong"
+      puts "user hasbike is none of these :true, false, nil"
+      flash[:error] = "Rental creation failed...your rental status is not nil, true, or false. Something is majorly wrong"
+      redirect_to new_rental_path
     end
   end
 
@@ -55,13 +67,28 @@ class RentalsController < ApplicationController
   def update
     puts "returning rental..."
     @current_user = User.find(session[:user_id])
-    Rental.find(id: @current_user.current_rental.to_i).returned_at=DateTime.now
-    puts @current_user.current_rental.returned_at
-    @current_user.current_rental=nil
-    puts @current_user.current_rental
-    @current_rental.has_bike=false
-    puts @current_rental.has_bike
-    puts "rental returned...hopefully"
+    @rental=Rental.find(params[:id])
+    if @rental.complete?
+      flash[:error] = "This rental has already been marked completed"
+    else
+      @rental.complete=true
+      @rental.returned_at=DateTime.now
+      puts @rental.returned_at
+      @current_user.has_bike=false
+      if @current_user.save
+        puts "current user has_bike set to false. saving rental complete to be true now"
+        if @rental.save
+          flash[:success] = "Rental completed successfully"
+          puts @rental.returned_at
+          redirect_to rentals_url
+        else 
+          flash[:error] = "The rental failed to be completed successfully...but the user has_bike is now false"
+          redirect_to rentals_url
+        end
+      else
+        flash[:error] = "The current user not set has_bike to false. Something went wrong"
+      end
+    end
   end
 
   def edit
@@ -69,5 +96,4 @@ class RentalsController < ApplicationController
 
   def destroy
   end
-  
 end

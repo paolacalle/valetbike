@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         @user = User.find_by(email_address: session_params[:email_address])
         if @user && @user.authenticate(session_params[:password])
           session[:user_id] = @user.id
-          flash[:notice] = "You've successfully Logged In. Thank you."
+          flash[:notice] = "You are now logged in"
           redirect_to users_show_path
         else
           flash.now[:alert] =  "Login information invalid"

@@ -1,10 +1,8 @@
-/* currently does not work...not invoked or something - ryan */
-/* change navbar background color to custom */
 #navbar {
   padding-top: 2%;
   padding-bottom: 4%;
   z-index: 100;
-  background-color: var(--blue-color);
+  background-color: var(--valetbike-blue-color);
   height: 5em;
 }
 
@@ -15,26 +13,19 @@
 
 ul.navbar-nav.ml-auto {
   margin-top: 2%;
-  background-color: var(--blue-color);
+  background-color: var(--valetbike-blue-color);
 }
 
 @media (min-width: 80em){
   #navbar-content {
     width: 30em;
   }
-
 }
 
 .white-fill {
   fill: var(--medium-white-color);
-
 }
 
 .logo {
   margin-left: 1em;
 }
-
-
-
-
-
