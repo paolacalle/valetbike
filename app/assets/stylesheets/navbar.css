@@ -4,6 +4,6 @@
     background-color: var(--blue-color);
   }
   
-  .white-fill {
-    fill: var(--medium-white-color);
-  }
+.white-fill {
+  fill: var(--medium-white-color);
+}
