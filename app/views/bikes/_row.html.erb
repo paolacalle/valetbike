@@ -1,4 +1,5 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch justify-space-between">
   <div><%= bike.identifier %></div>
   <div><%= bike.current_station.blank? ? "In Use" : "Docked (#{bike.current_station.address})" %></div>
+  <%= link_to "Select Bike", new_rental_path(selected_bike_id: bike.id), class: "fill-block"%>
 </div>
