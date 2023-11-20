@@ -5,7 +5,7 @@
     </div>
 
     <div class="flexbox vertical stretch">
-      <% if @stations.present? %>
+    
 
         <div class="record-row header flexbox horizontal justify-space-between">
           <% if params[:reverse].blank? || params[:reverse] == "0" %>
@@ -19,6 +19,9 @@
           <%= form_tag "/stations", method: "GET" do %>
 
           <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
+
+          
+
           <% end %>
 
           <div data-controller="geolocation">
@@ -26,7 +29,7 @@
           </div>
 
         </div>
-
+      <% if @stations.present? %>
         <%= render(partial: "stations/row", collection: @stations, as: :station) %>
 
       <% else %>

@@ -13,17 +13,18 @@
   width: 100%;
 }
 
-@media (min-width: 80em){
-  #navbar-content {
-    width: 70em;
-  }
-
-  .logo {
-
-  }
+ul.navbar-nav.ml-auto {
+  margin-top: 2%;
+  background-color: var(--blue-color);
 }
 
-  
+@media (min-width: 80em){
+  #navbar-content {
+    width: 30em;
+  }
+
+}
+
 .white-fill {
   fill: var(--medium-white-color);
 
@@ -33,10 +34,7 @@
   margin-left: 1em;
 }
 
-.dropdown-menu {
-  z-index: 1000; /* Adjust the value as needed */
-  position: relative;
-}
+
 
 
 
