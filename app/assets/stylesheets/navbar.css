@@ -1,9 +1,31 @@
-/* currently does not work...not invoked or something - ryan */
-/* change navbar background color to custom */
-.navbar-custom {
-    background-color: var(--valetbike-blue-color);
+#navbar {
+  padding-top: 2%;
+  padding-bottom: 4%;
+  z-index: 100;
+  background-color: var(--valetbike-blue-color);
+  height: 5em;
+}
+
+#navbar-content {
+  height: 3em;
+  width: 100%;
+}
+
+ul.navbar-nav.ml-auto {
+  margin-top: 2%;
+  background-color: var(--valetbike-blue-color);
+}
+
+@media (min-width: 80em){
+  #navbar-content {
+    width: 30em;
   }
-  
+}
+
 .white-fill {
   fill: var(--medium-white-color);
+}
+
+.logo {
+  margin-left: 1em;
 }

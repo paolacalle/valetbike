@@ -1,8 +1,11 @@
-#error, #alert, #notice, #success {
+.flash{
   padding: 20px;
   /* color: white; */
   margin: 0; /* Remove margin to allow full width */
   width: 100%; /* Set width to 100% of the parent element */
+  opacity: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #success {

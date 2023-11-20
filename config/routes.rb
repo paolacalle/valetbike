@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :locations
 
   root 'home#index' #homepage 
   get 'home', to: 'home#index'
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
       
   # end 
 
-  resources :stations, only: [:index]
+  resources :stations, only: [:index, :show]
   resources :bikes, only: [:index] 
 
   resources :payments, only: [:new]
