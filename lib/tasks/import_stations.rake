@@ -1,6 +1,6 @@
 # This task imports bike data from a CSV file 
 # Use before importing bike data 
-# Usage:
+# Usage: rake db:import_stations["notes/station-data.csv"]
 
 namespace :db do 
 
