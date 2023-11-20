@@ -1,6 +1,7 @@
 class StationsController < ApplicationController
   
   def index
+
     @stations = Station.all.order(identifier: :asc)
     
     if params[:search_by_address] && params[:search_by_address] != ""
@@ -12,6 +13,12 @@ class StationsController < ApplicationController
   def show 
     @station = Station.find_by(identifier: params[:id])
     render :show
+
+    if params[:reverse].blank? || params[:reverse] == "0"
+      @stations = Station.all.order(identifier: :asc)
+    else 
+      @stations = Station.all.order(identifier: :desc)
+    end
+
   end
-  
 end

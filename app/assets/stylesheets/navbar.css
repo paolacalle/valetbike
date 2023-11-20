@@ -26,6 +26,7 @@
   
 .white-fill {
   fill: var(--medium-white-color);
+
 }
 
 .logo {
@@ -36,3 +37,6 @@
   z-index: 1000; /* Adjust the value as needed */
   position: relative;
 }
+
+}
+

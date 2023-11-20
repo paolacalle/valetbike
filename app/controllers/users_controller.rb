@@ -21,6 +21,8 @@ class UsersController < ApplicationController
     # logger.info("\n\n*****Set new\n\n")
     if @user.save
       session[:user_id] = @user.id
+      @user.has_bike = false
+      @user.save
       flash[:notice] = "Welcome to your new account."
       redirect_to rentals_path
     else

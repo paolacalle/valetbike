@@ -31,7 +31,10 @@
       <div class="flexbox vertical stretch flex-1">
         <%= display_alerts %>
         <%= display_notices %>
-        <%= turbo_frame_tag "modal" %>
+
+        <%= display_errors %>
+        <%= display_successes %>
+
         <%= yield %>
       </div>
     </div>

@@ -2,6 +2,6 @@
   <%= payment.id %>
     <b>Credit card info: <%= payment.credit_card_info %> </b>
     <br>
-    <p><b>Amount: <%= payment.amount %> </b>
+    <p><b>Amount: <%= number_to_currency(payment.amount) %> </b>
 
 </div>
