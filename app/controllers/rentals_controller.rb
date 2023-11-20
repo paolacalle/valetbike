@@ -69,7 +69,4 @@ class RentalsController < ApplicationController
 
   def destroy
   end
-
-  
-  
 end
