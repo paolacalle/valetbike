@@ -6,11 +6,8 @@ class LocationsController < ApplicationController
     if params[:place].present?
       @locations = Location.near(params[:place], params[:distance] || 5, order: :distance)
     else
+      puts "locations"
       @locations = Location.all
-    end
-    if !@location.nil?
-      puts "hello there "
-      params[:count] = @location.count
     end
   end
 
