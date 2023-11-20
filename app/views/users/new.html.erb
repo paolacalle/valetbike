@@ -1,40 +1,61 @@
-<div class="users new">
-  <h1 class="h1 text-center" style="font-size:40px;">Create an Account</h1>
-  <br> 
-
-  <%= form_with url: '/sign_up', method: :post do |form| %>
-    <table summary="signup">
-
-      <tr>
-        <th><%= label_tag(:first_name) %></th>
-        <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
-      </tr>
-      <tr>
-        <th><%= label_tag(:last_name) %></th>
-        <td><%= text_field_tag(:last_name, params[:last_name], required: true) %></td>
-      </tr>
-      <tr>
-        <th><%= label_tag(:email_address) %></th>
-        <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true) %></td>
-      </tr>
-      <tr>
-        <th><%= label_tag(:password) %></th>
-        <td><%= password_field_tag(:password, nil, required: true, minlength: 8) %></td>
-      </tr>
-      <tr>
-        <th><%= label_tag(:password_confirmation) %></th>
-        <td><%= password_field_tag(:password_confirmation, nil, required: true, minlength: 8) %></td>
-      </tr>
-    </table>
-  
-    <div class="form-buttons">
-      <%= submit_tag "Sign Up", class: 'btn btn-primary', style: 'color: black;' %>
+<div class="page-section stretch"> 
+  <div class="section-inner stretch">    
+    <div class = "section-title flexbox horizontal justify-content-center">
+    Create an Acoount 
     </div>
 
-    <br>
-    <p> Already have an account? </p>
-    <p> <%= link_to "Login", login_path, class: 'btn btn-primary' %></p>
+    <div class="flexbox horizontal justify-content-center">
 
-  <% end %>
-  
+      <%= form_with url: '/sign_up', method: :post do |form| %>
+        <table summary="signup">
+
+          <tr>
+            <th><%= label_tag(:first_name) %></th>
+          </tr>
+          <tr>
+            <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
+          </tr>
+
+          <tr>
+            <th><%= label_tag(:last_name) %></th>
+          </tr>
+            <td><%= text_field_tag(:last_name, params[:last_name], required: true) %></td>
+          </tr>
+
+          <tr>
+            <th><%= label_tag(:email_address) %></th>
+          </tr>
+          <tr>
+            <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true) %></td>
+          </tr>
+
+          <tr>
+            <th><%= label_tag(:password) %></th>
+          </tr>
+          <tr>
+            <td><%= password_field_tag(:password, nil, required: true, minlength: 8) %></td>
+          </tr>
+
+          <tr>
+            <th><%= label_tag(:password_confirmation) %></th>
+          </tr>
+          <tr>
+            <td><%= password_field_tag(:password_confirmation, nil, required: true, minlength: 8) %></td>
+          </tr>
+        </table>
+      
+        <div class="form-buttons">
+          <%= submit_tag "Sign Up", class: 'btn button btn-primary' %>
+        </div>
+
+        <div class="text-center">
+          <br>
+          <p> Already have an account? </p>
+          <p> <%= link_to "Login", login_path, class: 'btn button btn-primary' %></p>
+        </div>
+
+      <% end %>
+      
+    </div>
+  </div>
 </div>

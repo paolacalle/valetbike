@@ -25,16 +25,16 @@
           <% if session[:user_id].present? %>
             <% puts "user is logged in" %>
             <li class="nav-item">
-              <%= link_to 'Stations', stations_path, class: 'nav-link' %>
+              <%= link_to 'New Rental', stations_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Bikes', bikes_path, class: 'nav-link' %>
+              <% link_to 'Bikes', bikes_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Rentals', rentals_path, class: 'nav-link' %>
+              <%= link_to 'Past Rentals', rentals_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Payments', payments_path, class: 'nav-link' %>
+              <% link_to 'Payments', payments_path, class: 'nav-link' %>
             </li>
             <li class="nav-item dropdown">
               <div class="dropdown">

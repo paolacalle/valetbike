@@ -3,19 +3,22 @@
     <div class = "section-title flexbox horizontal justify-content-center">
       Login 
     </div>
-    <div class="flexbox horizontal justify-content-center text-right">
+    <div class="flexbox horizontal justify-content-center">
       <%= form_tag(sessions_path) do %>
       <table summary="login">
-        <br> 
         <tr>
           <th><%= label_tag(:email_address) %></th>
-          <td><%= text_field_tag(:email_address, params[:email_address]) %></td>
+
+        </tr>
+        <tr>
+          <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true, placeholder: "Enter email") %></td>
         </tr>
         <tr>
           <th><%= label_tag(:password) %></th>
-          <td><%= password_field_tag(:password) %></td>
         </tr>
-        <br> 
+        <tr>
+          <td><%= password_field_tag(:password, nil, required: true, minlength: 8, placeholder: "Enter password") %></td>
+        </tr>
       </table>
       <div class="text-center form-buttons">
         <br>
