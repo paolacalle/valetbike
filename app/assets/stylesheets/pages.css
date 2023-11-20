@@ -37,7 +37,7 @@
 }
 
 .record-row.even.flexbox:hover{
-  background: var(--light-black-color);
+  background: var(--valetbike-blue-dark-color);
   color:aliceblue;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .record-row.odd.flexbox:hover{
-  background: var(--light-black-color);
+  background: var(--valetbike-blue-dark-color);
   color:aliceblue;
 }
 

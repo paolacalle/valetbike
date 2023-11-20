@@ -10,8 +10,26 @@
   --medium-white-color:     #FDFCFD;
   --white-color:            #FFFFFF;
 
-  --green-color:            #3BD6AF;
-  --orange-color:           #F89356;
-  --blue-color:             #4B719D;
-  --red-color:             #e00f0f;
+  --valetbike-blue-light-color: #7798BE;
+  --valetbike-blue-color:   #4B719D;
+  --valetbike-blue-dark-color: #324C69;
+
+  --green-dark-color:       #155724;
+  --green-mid-color:        #C3E6CB;
+  --green-light-color:      #D4EDDA;
+
+  --blue-dark-color:        #004085;
+  --blue-mid-color:         #B8DAFF;
+  --blue-light-color:       #CCE5FF;
+
+  --yellow-dark-color:      #856404;
+  --yellow-mid-color:       #FFEEBA;
+  --yellow-light-color:     #FFF3CD;
+
+  --red-dark-color:         #721C24;
+  --red-mid-color:          #F5C6CB;
+  --red-light-color:        #F8D7DA;
+
+  --orange-color:           #FFA500;
+  --red-color:             #FF0000;
 }

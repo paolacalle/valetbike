@@ -1,14 +1,30 @@
-#alert, #notice {
+#error, #alert, #notice, #success {
   padding: 20px;
-  color: white;
+  /* color: white; */
   margin: 0; /* Remove margin to allow full width */
-  width: 90%; /* Set width to 100% of the parent element */
+  width: 100%; /* Set width to 100% of the parent element */
+}
+
+#success {
+  color: var(--green-dark-color);
+  background-color: var(--green-light-color);
+  border-color: var(--green-mid-color);
 }
 
 #notice {
-  background-color: var(--green-color); /* Override color for notice */
+  color: var(--blue-dark-color);
+  background-color: var(--blue-light-color);
+  border-color: var(--blue-mid-color);
 }
 
 #alert {
-  background-color: var(--red-color); /* Red for alert, green for notice */
+  color: var(--yellow-dark-color);
+  background-color: var(--yellow-light-color);
+  border-color: var(--yellow-mid-color);
+}
+
+#error {
+  color: var(--red-dark-color);
+  background-color: var(--red-light-color);
+  border-color: var(--red-mid-color);
 }

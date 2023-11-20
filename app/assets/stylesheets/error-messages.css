@@ -1,8 +1,8 @@
 /* Error Messages CSS */
 .error-explanation {
-    background-color: #fed7d7; 
-    border: 1px solid #f98080; 
-    color: #c53030; 
+    background-color: var(--red-light-color); 
+    border: 1px solid var(--red-mid-color); 
+    color: var(--red-dark-color); 
     padding: 1rem; 
     border-radius: 0.375rem; 
     margin-top: 1rem; 

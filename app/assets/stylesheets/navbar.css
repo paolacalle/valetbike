@@ -1,9 +1,9 @@
 /* currently does not work...not invoked or something - ryan */
 /* change navbar background color to custom */
 .navbar-custom {
-    background-color: var(--blue-color);
+    background-color: var(--valetbike-blue-color);
   }
   
-  .white-fill {
-    fill: var(--medium-white-color);
-  }
+.white-fill {
+  fill: var(--medium-white-color);
+}
