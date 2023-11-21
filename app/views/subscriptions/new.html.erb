@@ -1,0 +1,7 @@
+<%= form_with model: @subscription, url: subscriptions_path, method: :post, local:true do |f| %>
+
+
+    
+    <%= f.submit %>
+
+<%= button_to "subscribe", subscription_path(subscription), method: :post %>

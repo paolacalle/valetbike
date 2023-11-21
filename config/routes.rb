@@ -45,6 +45,37 @@ Rails.application.routes.draw do
   # get 'rentals/edit'
   # get 'rentals/destroy'
 
+  resources :checkouts_path
+  resources :checkouts
+  resources :subscriptions
+
+  get "payments/index", to: "payments#index"
+
+  namespace :user do
+    root "products#index"
+    resources :products, only: [:show]
+    resources :charges, only: [:new, :create] do
+      get "success", to: "charges#success"
+      get "cancel", to: "charges#cancel"
+    end
+
+    resources :subscriptions, only: [:new, :create] do
+      get "success", to: "subscriptions#success"
+      get "cancel", to: "subscriptions#cancel"
+      post "manage", to: "subscriptions#manage"
+      get "manage-return", to: "subscriptions#manage_return"
+    end
+    resources :unsubscriptions, only: [:create]
+  end
+
+  Rails.application.routes.draw do
+    resources :webhooks, only: :create
+  end
+
+  scope controller: :static do
+    get :pricing
+  end
+
 end
 
 

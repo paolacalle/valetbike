@@ -1,38 +1,47 @@
-  <head>
-    <title>Payments</title>
-  </head>
+<% if params[:success] %>
+  <div class="alert alert-success nb-5" role="alert">
+    welcome to valetbike!
+  </div>
+<% end %>
 
-  <body>
-    <div class="page-section flexbox vertical stretch"> 
-      <div class="section-inner flexbox vertical stretch">
-        <h1 class="h1 flexbox">Payments</h1>
-          <p>
-            <%= link_to "New Payment", new_payment_path, class: 'btn btn-primary' %>
-          </p>
-          <br>
-        <table class="flexbox vertical stretch">
-          <% if @payments.present? %>
+<div>
+<%= button_to "Purchase monthly", checkouts_path,
+  class: "btn btn-primary", method: :post,
+    data: {turbo: false},
+    params: {
+      checkout: {
+        items: [ {
+          price: "price_1OEGBPAEDQD8Ll07rFDWe0yD",
+          quantity: 1
+        }]
+      }
+    } %>
+</div>
 
-            <div class="record-row header flexbox horizontal justify-space-between">
-              <% if params[:reverse].blank? || params[:reverse] == "0" %>
-                <a href="<%= payments_path(params: {reverse: 1})%>">Sort ⬇</a>
+<div>
+<%= button_to "Purchase day pass", checkouts_path,
+  class: "btn btn-primary", method: :post,
+    data: {turbo: false},
+    params: {
+      checkout: {
+        items: [ {
+          price: "price_1OEGBjAEDQD8Ll07ZOPkdWra",
+          quantity: 1
+        }]
+      }
+    } %>
+</div>
 
-              <% else %>
-                <a href="<%= payments_path%>">Sort ⬆</a>
-
-              <% end %>
-            </div>
-
-            <%= render(partial: "payments/row", collection: @payments, as: :payment) %>
-
-          <% else %>
-          <p>
-            No payments found.
-          </p>
-          <% end %>
-
-        </table>
-
-      </div>
-    </div>
-  </body>
+<div>
+<%= button_to "Purchase yearly membership", checkouts_path,
+  class: "btn btn-primary", method: :post,
+    data: {turbo: false},
+    params: {
+      checkout: {
+        items: [ {
+          price: "price_1OEG8iAEDQD8Ll07wvONOSHj",
+          quantity: 1
+        }]
+      }
+    } %>
+</div>

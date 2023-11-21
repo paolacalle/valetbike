@@ -14,4 +14,17 @@ class User < ApplicationRecord
     has_many :rentals, class_name: :Rental, foreign_key: :id
 
     # validates :email_address, format: {with: EMAIL_REGEX, message: "Email invalid" }
+
+    
+    after_save :assign_customer_id 
+    def assign_customer_id
+        if self.customer_id.blank? 
+        customer = Stripe::Customer.create(email: email)
+        self.update(customer_id: customer.id)
+        end
+    end
+
+    def subscribed?
+        subscription.present?
+    end
 end

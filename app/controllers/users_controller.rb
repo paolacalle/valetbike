@@ -42,4 +42,9 @@ class UsersController < ApplicationController
     params.permit(:email_address, :password, :password_confirmation, :first_name, :last_name)
   end
 
+  def subscribe
+    @user.subscribed = true
+  end
+
+
 end
