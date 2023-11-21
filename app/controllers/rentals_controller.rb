@@ -25,7 +25,8 @@ class RentalsController < ApplicationController
     puts @current_user.has_bike
     if !@current_user.has_bike #if has bike is false
       puts "User does not have bike"
-      @rental.user=@current_user
+      @rental.user = @current_user
+      @rental.bike = params[:selected_bike_id]
       puts "Set rental user to current user, saving bike now"
       # puts @bike.identifier
       # @bike.current_station_id.delete

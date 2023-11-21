@@ -14,6 +14,10 @@ class SessionsController < ApplicationController
           redirect_to users_show_path
         else
           flash.now[:alert] =  "Login information invalid"
+          flash.now[:alert] ||= ""
+          @user.errors.full_messages.each do |message|
+            flash.now[:alert] << message + ". "
+          end
           render :new, status: 500
         end
     end
