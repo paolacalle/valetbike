@@ -14,7 +14,12 @@ class RentalsController < ApplicationController
   end
 
   def create
-    @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by))
+    
+    @rental = Rental.new(params.require(:rental).permit(:rental_period, :return_by, :rental_hours, :rental_minutes))
+    puts :rental_hours
+    puts :rental_minutes
+    puts :return_by
+    
     @current_user = User.find(session[:user_id])
     if @current_user.has_bike.nil? 
       flash[:error] = "Your account has a nil rental currently...setting to false. try again"

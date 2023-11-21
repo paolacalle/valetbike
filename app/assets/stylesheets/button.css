@@ -1,5 +1,15 @@
 
 
 .button{
-    background-color: rgb(132 204 22);
+    background-color: var(--blue-color);
+}
+
+.button:hover {
+    background-color:#324c69;
+    transition: 0.7s;
+}
+
+.button:focus {
+    outline-color: transparent;
+    outline-style:solid;
 }

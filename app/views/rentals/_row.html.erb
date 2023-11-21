@@ -1,6 +1,6 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
   <%= rental.id %>
-  <b>Rental period: <%= rental.rental_period %> </b>
+  <b>Rental period: <%= rental.rental_hours " hours " rental.rental_minutes " minutes" %> </b>
   <br>
   <p><b>Return by: <%= rental.return_by %> </b>
   <p>User: <%=rental.user.id%>
