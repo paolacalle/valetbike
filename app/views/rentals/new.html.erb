@@ -10,15 +10,17 @@
 <td><%= f.text_field (:rental_period) %></td>
 <br>
 <th>
-  <label for "rental_hours">Hours</label>
+  <f.label for (:rental_hours)>Hours</label>
 </th>
-<td><input type="number" name="rental_hours" min="0" max="10" step="1" class="form-control" id="rental_hours"></td>
+<td><input type="number" name="rental_hours" min="0" max="9" step="1" class="form-control" id= :rental_hours></td>
       <br>
       <th>
-        <label for "rental_hours">Minutes</label>
+        <f.label for (:rental_hours)>Minutes</label>
       </th>
-      <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id="rental_minutes"></td>
+      <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id= :rental_minutes></td>
     </tr>
+
+    
     <tr>
       <th><b><%= f.label (:return_by) %></b></th>
       <td><%= f.date_field (:return_by) %></td>

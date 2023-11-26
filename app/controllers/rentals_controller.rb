@@ -15,11 +15,20 @@ class RentalsController < ApplicationController
 
   def create
     puts "moved to rentals_controller#create"
-    @rental = Rental.new(params.require(:rental).permit(:bike, :rental_period, :return_by))
+    @rental = Rental.new(params.require(:rental).permit(:bike, :rental_hours, :rental_minutes))
+    puts "creating rental period"
+    rental_period= ""
+    rental_period.concat(params[:rental_hours].to_s, params[:rental_minutes].to_s)
+    @rental.rental_period = rental_period
+    puts @rental.rental_period
     # @bike = Bike.find(params[:bike])
     puts "created...not yet saved"
     @rental.rented_at=DateTime.now
+    puts @rental.rented_at
     puts "rental rented_at set to now...not yet saved"
+    return_by= (@rental.rented_at + @rental.rental_period[0].to_i.hours + @rental.rental_period[1,2].to_i.minutes)
+    puts return_by
+    puts "return by created (currently the wrong time though)"
     @current_user = User.find(session[:user_id])
     puts "current_user.has_bike is going to be below"
     puts @current_user.has_bike
