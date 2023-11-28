@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   post 'payments', to: 'payments#create'
 
   #Rentals routes
-  resources :rentals, only: [:index, :new, :create, :update]
+  resources :rentals, only: [:index, :new, :create, :update, :show]
   post 'rentals', to: 'rentals#create'
   get 'rentals/return/:id', to: 'rentals#update', as: "return"
 

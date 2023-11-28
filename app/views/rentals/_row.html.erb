@@ -9,6 +9,7 @@
   <% if !rental.complete %>
     <p>
       <%= link_to "Return Rental", return_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
+      <%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
     </p>
   <% else %>
     <p>Rental is complete

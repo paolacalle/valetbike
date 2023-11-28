@@ -38,7 +38,7 @@ class RentalsController < ApplicationController
           puts "Current user has_bike set to true now. Saving current user"
           if @current_user.save
             flash[:success] = "Rental created"
-            redirect_to payments_url
+            redirect_to rentals_url
           else
             flash[:error] = "Rental failed. Rental is still attributed to the user, even though the user isn't tracking the rental"
             puts "rental failed. rental is still attributed to the user"
