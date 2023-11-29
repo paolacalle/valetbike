@@ -3,10 +3,10 @@
   <b>Rental period: <%= rental.rental_period %> </b>
   <p><b>Return by: <%= rental.return_by %> </b>
   <p>User: <%=rental.user.id%>
-  <p>Complete: <%= rental.complete?%>
+  <p>Complete: <%= rental.is_complete?%>
   <p>Rented At: <%=rental.rented_at%>
   <p>Bike: <%=rental.bike.identifier%>
-  <% if !rental.complete %>
+  <% if !rental.is_complete %>
     <p>
       <%= link_to "Return Rental", return_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
     </p>
