@@ -26,14 +26,15 @@ class RentalsController < ApplicationController
       logger.info("@current_user.has_bike = #{@current_user.has_bike}")
     if !@current_user.has_bike #if has bike is false
       logger.info("@current_user does not have a bike")
-      @rental.user=@current_user
+      @rental.user = @current_user
       logger.info("@rental.user just set to @current_user")
 
       #below is the parameter stuff that doesnt pass the bike info over
       logger.info("selected_bike_id param is #{params[:selected_bike_id]}") 
-      @rental.bike_id = Bike.find(params[:selected_bike_id])
+      # @rental.bike_id = Bike.find(params[:selected_bike_id]) #ryan tried this
+      @rental.bike = params[:selected_bike_id]
       
-      logger.info("@rental.bike_id just set to #{params[:selected_bike_id]}")
+      logger.info("@rental.bike just set to #{@rental.bike}")
       puts "Set rental user to current user, saving bike now"
       # puts @bike.identifier
       # @bike.current_station_id.delete
@@ -45,7 +46,7 @@ class RentalsController < ApplicationController
           if @current_user.save
             logger.info("@current_user.save was a success")
             flash[:success] = "Rental created"
-            redirect_to rentals_url
+            redirect_to payments_url
           else
             logger.info("*** Rental failed to @current_user.save #{@rental.errors.full_messages}. Rental was saved and is still attributed to the user")
             flash[:error] = "Rental failed. Rental is still attributed to the user, even though the user isn't tracking the rental."
