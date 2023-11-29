@@ -8,7 +8,7 @@
     <tr>
 
 <th><b><%= f.label (:bike_id) %></b></th>
-<%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %>
+<td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
 
 <th><b><%= f.label (:rental_period) %></b></th>
 <td><%= f.text_field (:rental_period) %></td>
