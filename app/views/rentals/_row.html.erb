@@ -7,7 +7,9 @@
   <% end %>
   <% if !rental.is_complete %>
     <p>
-      <%= link_to "Return Rental", return_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
+      <%= link_to "Return Rental", return_path(id: rental.id), class: 'btn btn-primary' %>
+
     </p>
+
   <% end %>
 </div>

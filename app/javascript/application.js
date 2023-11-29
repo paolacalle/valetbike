@@ -5,4 +5,20 @@ import "controllers"
 import "mapkick/bundle"
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  const returnButton = document.getElementById('return-rental-button');
+  const popupModal = document.getElementById('popup-modal');
+  const cancelReturn = document.getElementById('cancel-return');
+
+  returnButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    popupModal.classList.remove('hidden');
+  });
+
+  cancelReturn.addEventListener('click', () => {
+    popupModal.classList.add('hidden');
+  });
+});
+
+
   
