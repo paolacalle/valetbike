@@ -46,7 +46,7 @@ class RentalsController < ApplicationController
           if @current_user.save
             logger.info("@current_user.save was a success")
             flash[:success] = "Rental created"
-            redirect_to payments_url
+            redirect_to rentals_url
           else
             logger.info("*** Rental failed to @current_user.save #{@rental.errors.full_messages}. Rental was saved and is still attributed to the user")
             flash[:error] = "Rental failed. Rental is still attributed to the user, even though the user isn't tracking the rental."

@@ -23,6 +23,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       @user.has_bike = false
       @user.save
+      ApplicationMailer.welcome_email(@user).deliver
       flash[:notice] = "Welcome to your new account."
       redirect_to rentals_path
     else

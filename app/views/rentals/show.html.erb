@@ -1,4 +1,13 @@
 <div>
   <h1 class="font-bold text-4xl">Rentals#show</h1>
   <p>Find me in app/views/rentals/show.html.erb</p>
+
+  <%= RQRCode::QRCode.new(@rental.user.id.to_s + "bike" + @rental.id.to_s).as_svg(
+    color: "000",
+    shape_rendering: "crispEdges",
+    module_size: 11,
+    standalone: true,
+    use_path: true
+  ).html_safe %>
+
 </div>
