@@ -30,9 +30,9 @@ class RentalsController < ApplicationController
       logger.info("@rental.user just set to @current_user")
 
       #below is the parameter stuff that doesnt pass the bike info over
-      logger.info("selected_bike_id param is #{params[:selected_bike_id]}") 
+      logger.info("selected_bike_id param is #{params.inspect}") 
       # @rental.bike_id = Bike.find(params[:selected_bike_id]) #ryan tried this
-      @rental.bike = params[:selected_bike_id]
+      @rental.bike_id = params[:selected_bike_id]
       
       logger.info("@rental.bike just set to #{@rental.bike}")
       puts "Set rental user to current user, saving bike now"
@@ -55,7 +55,7 @@ class RentalsController < ApplicationController
         else
           logger.info("*** Rental failed to @rental.save")
           flash[:error] = "Rental failed. Rental was not able to be saved. #{@rental.errors.full_messages}"
-          redirect_to new_rental_path
+          render :new, status: 500
         end
       # else
       #   flash[:error] = "Rental failed. Bike was not able to be saved."
