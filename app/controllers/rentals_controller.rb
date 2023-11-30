@@ -1,11 +1,12 @@
 class RentalsController < ApplicationController
   def index
     if params[:reverse].blank? || params[:reverse] == "0"
-      @rentals = Rental.all.order(rented_at: :desc)
+      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :asc)
     else 
-      @rentals = Rental.all.order(rented_at: :asc)
+      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :desc)
     end
     render :index
+
   end
 
   def new
