@@ -16,8 +16,8 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(rental_params)
     @rental.rented_at = DateTime.now
-  
     @current_user = User.find(session[:user_id])
+    logger.info("@current_user was set to user ##{@current_user.id}")
     rental_creation(@current_user, @rental)
   end
   
@@ -30,31 +30,35 @@ class RentalsController < ApplicationController
     puts "returning rental..."
     @current_user = User.find(session[:user_id])
     @rental=Rental.find(params[:id])
+    @bike = Bike.find(@rental.bike_id)
 
-    Bike.find(@rental.bike_id).update(current_station_id: params[:new_station_id])
-    
     if @rental.is_complete?
       flash[:error] = "This rental has already been marked completed"
     else
-      @rental.is_complete=true
-      @rental.returned_at=DateTime.now
-      puts @rental.returned_at
+      dock_bike(@bike)
+      
+      # Update user bike status 
       @current_user.has_bike=false
       if @current_user.save
-        puts "current user has_bike set to false. saving rental complete to be true now"
+        puts "Current user has_bike set to false. Saving rental complete to be true now"
+        @rental.is_complete=true
+        @rental.returned_at=DateTime.now
+
         if @rental.save
-          flash[:success] = "Rental completed successfully"
-          puts @rental.returned_at
-          redirect_to rentals_url
+          flash[:success] << "Rental completed."
         else 
           flash[:error] = "The rental failed to be completed successfully...but the user has_bike is now false"
-          redirect_to rentals_url
         end
       else
-        flash[:error] = "The current user not set has_bike to false. Something went wrong"
+        flash[:error] ||= "The current user not set has_bike to false."
+        @current_user.errors.full_messages.each do |message|
+          flash.now[:error] << message + ". \n"
+        end
       end
+      redirect_to rentals_url
     end
   end
+
 
   def edit
   end
@@ -70,9 +74,10 @@ class RentalsController < ApplicationController
   
   def rental_creation(user, rental)
     if user.has_bike.nil?
+      logger.info("@current_user does not have a bike")
       user.update(has_bike: false)
       flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
-      redirect_to new_rental_path
+      render :new, status: 500
     elsif user.has_bike == false
       process_new_rental(user, rental)
     else
@@ -82,15 +87,18 @@ class RentalsController < ApplicationController
   end
   
   def process_new_rental(user, rental)
+    logger.info("User does not have a bike")
     rental.user = user
-
     if rental.save
       user.update(has_bike: true)
       dedock_bike(rental)
-      flash[:success] = "Rental created"
+      flash[:success] << "Rental created. Enjoy your bike!"
       redirect_to payments_url
     else
-      flash[:error] = "Rental failed. Rental was not able to be saved. #{rental.errors.full_messages}"
+      flash.now[:error] ||= "Rental was not able to be saved.\n"
+      rental.errors.full_messages.each do |message|
+        flash.now[:error] << message + ". \n"
+      end
       render :new, status: 500
     end
   end
@@ -98,7 +106,21 @@ class RentalsController < ApplicationController
   def dedock_bike(rental)
     bike = Bike.find(rental.bike_id)
     bike.current_station_id = nil
-    bike.save
-    flash[:success] = "Bike dedocked"
+    if bike.save
+      flash[:success] = "Bike docked. "
+    else
+      flash.now[:error] ||= "Unable to de-dock bike.\n"
+      bike.errors.full_messages.each do |message|
+        flash.now[:error] << message + ". \n"
+      end
+      render :new, status: 500
+    end
   end
+
+  def dock_bike(bike)
+    bike.update(current_station_id: params[:new_station_id])
+    flash[:success] = "Bike returned. "
+    logger.info("Bike docked @ #{@bike.current_station_id}")
+  end
+
 end

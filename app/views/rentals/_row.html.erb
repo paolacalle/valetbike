@@ -5,9 +5,7 @@
   <% if !rental.bike.nil?%>
     <p>Bike: <%=rental.bike.identifier%>
   <% end %>
-  <% if !rental.is_complete %>
-
-  
+  <% if !rental.is_complete %>  
   <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
     <button data-action="dialog#open">
       Return Bike
@@ -17,11 +15,16 @@
       <div class="p-8">
         <%= render(partial: "rentals/return", object: rental, as: :rental) %>
         <form method="dialog">
-          <button type="submit" autofocus>Cancel</button>
+          <button type="submit" class='btn button btn-primary'autofocus>Cancel</button>
         </form>
       </div>
     </dialog>
   </div>
+
+    <p>
+      <%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
+    </p>
+
   <% end %>
 </div>
 
