@@ -5,8 +5,9 @@
     </div>
     <div>
       <p>
-        <%= link_to "Return Rental", return_path, class: 'btn btn-primary' %>
+        <%= link_to "Return Rental", return_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
       </p>
     </div>
   </div>
 </div>
+

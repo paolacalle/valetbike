@@ -1,0 +1,15 @@
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#returnModal {
+    background-color: var(--valetbike-blue-dark-color);
+    color: var(--medium-white-color);
+    border: 1px solid var(--medium-white-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 50%; /* Cover most of the window */
+    height: 50%; /* Cover most of the window */
+    animation: fadeIn 0.3s;
+ }
