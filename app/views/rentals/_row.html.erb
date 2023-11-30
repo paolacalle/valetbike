@@ -6,10 +6,22 @@
     <p>Bike: <%=rental.bike.identifier%>
   <% end %>
   <% if !rental.is_complete %>
-    <p>
-      <%= link_to "Return Rental", return_path(id: rental.id), class: 'btn btn-primary' %>
 
-    </p>
+  
+  <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+    <button data-action="dialog#open">
+      Return Bike
+    </button>
 
+    <dialog data-dialog-target="modal", id="returnModal">
+      <div class="p-8">
+        <%= render(partial: "rentals/return", object: rental, as: :rental) %>
+        <form method="dialog">
+          <button type="submit" autofocus>Cancel</button>
+        </form>
+      </div>
+    </dialog>
+  </div>
   <% end %>
 </div>
+

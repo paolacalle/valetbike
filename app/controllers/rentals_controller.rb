@@ -32,6 +32,7 @@ class RentalsController < ApplicationController
     @rental=Rental.find(params[:id])
 
     Bike.find(@rental.bike_id).update(current_station_id: params[:new_station_id])
+    
     if @rental.is_complete?
       flash[:error] = "This rental has already been marked completed"
     else

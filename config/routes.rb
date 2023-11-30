@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   #Rentals routes
   resources :rentals, only: [:index, :new, :create, :update]
   post 'rentals', to: 'rentals#create'
-  get '/return/:id', to: 'rentals#return', as: 'return'
+  patch '/return/:id', to: 'rentals#update', as: 'return'
 
   # below not set up in the controller...but will need to just add the simple thing to the resources list above
   # get 'rentals/:id' , to: 'rentals#show', as: 'rental' 
