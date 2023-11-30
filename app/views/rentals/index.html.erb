@@ -11,23 +11,22 @@
     <br>
     <div class="flexbox vertical stretch">
       <% if @rentals.present? %>
-
+          <% logger.info("@rental.user is equal to @current user") %>
         <div class="record-row header flexbox horizontal justify-space-between">
-          <% if params[:reverse].blank? || params[:reverse] == "0" %>
-            <a href="<%= rentals_path(params: {reverse: 1})%>">Sort ⬇</a>
+            <% if params[:reverse].blank? || params[:reverse] == "0" %>
+              <a href="<%= rentals_path(params: {reverse: 1})%>">Sort ⬇</a>
 
-          <% else %>
-            <a href="<%= rentals_path%>">Sort ⬆</a>
+            <% else %>
+              <a href="<%= rentals_path%>">Sort ⬆</a>
 
-          <% end %>
-        </div>
-
-        <%= render(partial: "rentals/row", collection: @rentals, as: :rental) %>
+            <% end %>
+          </div>
+          <%= render(partial: "rentals/row", collection: @rentals, as: :rental) %>
 
       <% else %>
-      <div class="empty">
-        No rentals found.
-      </div>
+        <div class="empty">
+          No rentals found.
+        </div>
       <% end %>
 
     </div>
