@@ -67,8 +67,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_001414) do
     t.integer "identifier"
     t.string "name"
     t.string "address"
+    t.integer "has_kiosk"
+    t.integer "needs_maintenance"
+    t.integer "dock_count"
+    t.integer "docked_bike_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subscriptions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "plan_id"
+    t.string "customer_id"
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.datetime "current_period_end"
+    t.datetime "current_period_start"
+    t.string "interval"
+    t.string "subscription_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -79,8 +97,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_001414) do
     t.string "password"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
+    t.boolean "subscribed"
+    t.date "subscribed_date"
+    t.date "subscribed_end"
+    t.string "stripe_id"
     t.integer "current_rental"
   end
 
+  add_foreign_key "subscriptions", "users"
 end
