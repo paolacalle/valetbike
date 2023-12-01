@@ -3,4 +3,19 @@
   <p>Find me in app/views/memberships/new.html.erb</p>
 </div>
 
+<%= form_with model: @membership, url: memberships_path, method: :post, local:true do |f| %>
+  <%= f.label :one_day, "One day membership" %>
+  <%= f.radio_button :expiration_date, 1.days.from_now, class: 'btn button btn-primary' %>
+
+  <%= f.label :one_day, "Month membership" %>
+  <%= f.radio_button :expiration_date, 1.months.from_now, class: 'btn button btn-primary' %>
+
+  <%= f.label :one_day, "Year membership" %>
+  <%= f.radio_button :expiration_date, 1.years.from_now, class: 'btn button btn-primary' %>
+
+  <%= f.submit class: "btn button btn-primary"%>
+<% end %>
+
+
+
 

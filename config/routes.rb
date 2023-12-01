@@ -34,6 +34,11 @@ Rails.application.routes.draw do
   post 'rentals', to: 'rentals#create'
   get 'rentals/return/:id', to: 'rentals#update', as: "return"
 
+  # Memberships routes
+  resources :memberships, only: [:index, :new, :create, :update, :show]
+  #get 'memberships', to: 'memberships#index', as: 'memberships'
+  #post 'memberships', to: 'memberships#create'
+
   # below not set up in the controller...but will need to just add the simple thing to the resources list above
   # get 'rentals/:id' , to: 'rentals#show', as: 'rental' 
   # get 'rentals/edit'
