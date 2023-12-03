@@ -16,7 +16,7 @@ class RentalsController < ApplicationController
 
   def create
     puts "moved to rentals_controller#create"
-    @rental = Rental.new(params.require(:rental).permit(:bike, :rental_hours, :rental_minutes))
+    @rental = Rental.new(rental_params)
     puts "creating rental period"
     @rental_period= ""
     @rental_period.concat(params[:rental_hours].to_s, params[:rental_minutes].to_s)
@@ -106,7 +106,7 @@ class RentalsController < ApplicationController
   private
   
   def rental_params
-    params.require(:rental).permit(:bike_id, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
+    params.require(:rental).permit(:bike_id, :rental_period, :return_by, :rental_hours, :rental_minutes).merge(bike_id: params[:selected_bike_id])
   end
   
   def rental_creation(user, rental)
@@ -132,6 +132,7 @@ class RentalsController < ApplicationController
       flash[:success] << "Rental created. Enjoy your bike!"
       redirect_to payments_url
     else
+      logger.info("rental didn't save")
       flash.now[:error] ||= "Rental was not able to be saved.\n"
       rental.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"
@@ -144,8 +145,10 @@ class RentalsController < ApplicationController
     bike = Bike.find(rental.bike_id)
     bike.current_station_id = nil
     if bike.save
-      flash[:success] = "Bike docked. "
+      logger.info("bike got dedocked")
+      flash[:success] = "Bike dedocked. "
     else
+      logger.info("bike not dedocked")
       flash.now[:error] ||= "Unable to de-dock bike.\n"
       bike.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"
