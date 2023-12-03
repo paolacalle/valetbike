@@ -1,11 +1,12 @@
 class RentalsController < ApplicationController
   def index
     if params[:reverse].blank? || params[:reverse] == "0"
-      @rentals = Rental.all.order(id: :asc)
+      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :asc)
     else 
-      @rentals = Rental.all.order(id: :desc)
+      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :desc)
     end
     render :index
+
   end
 
   def new
@@ -53,54 +54,10 @@ class RentalsController < ApplicationController
     puts @return_by
     puts "return by created (currently the wrong time though)"
     @current_user = User.find(session[:user_id])
-    puts "current_user.has_bike is going to be below"
-    puts @current_user.has_bike
-    if !@current_user.has_bike #if has bike is false
-      puts "User does not have bike"
-      @rental.user = @current_user
-      @rental.bike = params[:selected_bike_id]
-      puts "Set rental user to current user, saving bike now"
-      # puts @bike.identifier
-      # @bike.current_station_id.delete
-      # if @bike.save
-        # puts "Set bike current station to nil, saving rental now"
-        if @rental.save
-          puts "Rental saved, setting current user has_bike to true now"
-          @current_user.has_bike=true
-          puts "Current user has_bike set to true now. Saving current user"
-          if @current_user.save
-            flash[:success] = "Rental created"
-            redirect_to payments_url
-          else
-            flash[:error] = "Rental failed. Rental is still attributed to the user, even though the user isn't tracking the rental"
-            puts "rental failed. rental is still attributed to the user"
-            redirect_to rentals_url
-          end
-        else
-          flash[:error] = "Rental failed. Rental was not able to be saved."
-          redirect_to new_rental_path
-        end
-      # else
-      #   flash[:error] = "Rental failed. Bike was not able to be saved."
-      #   redirect_to new_rental_path
-      # end
-    elsif @current_user.has_bike.nil?
-      puts "User has bike is nil"
-      flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
-      @current_user.has_bike=false
-      @current_user.save
-      redirect_to new_rental_path
-    elsif @current_user.has_bike? #if has bike is true
-      puts "User has a bike"
-      flash[:error] = "You already have an active rental. Cannot rent multiple bikes before returning"
-      redirect_to rentals_url
-    else
-      puts "user hasbike is none of these :true, false, nil"
-      flash[:error] = "Rental creation failed...your rental status is not nil, true, or false. Something is majorly wrong"
-      redirect_to new_rental_path
-    end
+    logger.info("@current_user was set to user ##{@current_user.id}")
+    rental_creation(@current_user, @rental)
   end
-
+  
   def show
     @rental = Rental.find(params[:id])
     render :show
@@ -110,32 +67,97 @@ class RentalsController < ApplicationController
     puts "returning rental..."
     @current_user = User.find(session[:user_id])
     @rental=Rental.find(params[:id])
-    if @rental.complete?
+    @bike = Bike.find(@rental.bike_id)
+
+    if @rental.is_complete?
       flash[:error] = "This rental has already been marked completed"
     else
-      @rental.complete=true
-      @rental.returned_at=DateTime.now
-      puts @rental.returned_at
+      dock_bike(@bike)
+      
+      # Update user bike status 
       @current_user.has_bike=false
       if @current_user.save
-        puts "current user has_bike set to false. saving rental complete to be true now"
+        puts "Current user has_bike set to false. Saving rental complete to be true now"
+        @rental.is_complete=true
+        @rental.returned_at=DateTime.now
+
         if @rental.save
-          flash[:success] = "Rental completed successfully"
-          puts @rental.returned_at
-          redirect_to rentals_url
+          flash[:success] << "Rental completed."
         else 
           flash[:error] = "The rental failed to be completed successfully...but the user has_bike is now false"
-          redirect_to rentals_url
         end
       else
-        flash[:error] = "The current user not set has_bike to false. Something went wrong"
+        flash[:error] ||= "The current user not set has_bike to false."
+        @current_user.errors.full_messages.each do |message|
+          flash.now[:error] << message + ". \n"
+        end
       end
+      redirect_to rentals_url
     end
   end
+
 
   def edit
   end
 
   def destroy
   end
+
+  private
+  
+  def rental_params
+    params.require(:rental).permit(:bike_id, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
+  end
+  
+  def rental_creation(user, rental)
+    if user.has_bike.nil?
+      logger.info("@current_user does not have a bike")
+      user.update(has_bike: false)
+      flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
+      render :new, status: 500
+    elsif user.has_bike == false
+      process_new_rental(user, rental)
+    else
+      flash[:error] = "You already have an active rental. Cannot rent multiple bikes before returning"
+      redirect_to rentals_url
+    end
+  end
+  
+  def process_new_rental(user, rental)
+    logger.info("User does not have a bike")
+    rental.user = user
+    if rental.save
+      user.update(has_bike: true)
+      dedock_bike(rental)
+      flash[:success] << "Rental created. Enjoy your bike!"
+      redirect_to payments_url
+    else
+      flash.now[:error] ||= "Rental was not able to be saved.\n"
+      rental.errors.full_messages.each do |message|
+        flash.now[:error] << message + ". \n"
+      end
+      render :new, status: 500
+    end
+  end
+
+  def dedock_bike(rental)
+    bike = Bike.find(rental.bike_id)
+    bike.current_station_id = nil
+    if bike.save
+      flash[:success] = "Bike docked. "
+    else
+      flash.now[:error] ||= "Unable to de-dock bike.\n"
+      bike.errors.full_messages.each do |message|
+        flash.now[:error] << message + ". \n"
+      end
+      render :new, status: 500
+    end
+  end
+
+  def dock_bike(bike)
+    bike.update(current_station_id: params[:new_station_id])
+    flash[:success] = "Bike returned. "
+    logger.info("Bike docked @ #{@bike.current_station_id}")
+  end
+
 end

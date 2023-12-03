@@ -6,28 +6,31 @@
     <br>
     <br>
     <tr>
-<th><b><%= f.label (:rental_period) %></b></th>
-<td><%= f.text_field (:rental_period) %></td>
-<br>
-<th>
-  <f.label for (:rental_hours)>Hours</label>
-</th>
-<td><input type="number" name="rental_hours" min="0" max="9" step="1" class="form-control" id= :rental_hours></td>
+
+    <th><b><%= f.label (:bike_id) %></b></th>
+    <td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
+
+    <th><b><%= f.label (:rental_period) %></b></th>
+    <td><%= f.text_field (:rental_period) %></td>
+
+    <br>
+    <th>
+      <f.label for (:rental_hours)>Hours</label>
+    </th>
+    <td><input type="number" name="rental_hours" min="0" max="9" step="1" class="form-control" id= :rental_hours></td>
       <br>
       <th>
         <f.label for (:rental_hours)>Minutes</label>
       </th>
       <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id= :rental_minutes></td>
     </tr>
-
     
-    <tr>
-      <th><b><%= f.label (:return_by) %></b></th>
-      <td><%= f.date_field (:return_by) %></td>
-    </tr>
+          <th><b><%= f.label (:return_by) %></b></th>
+          <td><%= f.date_field (:return_by) %></td>
+        </tr>
+        <br>
     <br>
-<br>
-<p>
-<%= f.submit class: "btn button btn-primary"%>
+    <p>
+    <%= f.submit class: "btn button btn-primary"%>
   <% end %>
 </div>

@@ -1,15 +1,30 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
-  <%= rental.id %>
   <b>Rental period: <%= rental.rental_period %> </b>
   <p><b>Return by: <%= rental.return_by %> </b>
-  <p>User: <%=rental.user.id%>
-  <p>Complete: <%= rental.complete?%>
   <p>Rented At: <%=rental.rented_at%>
-  <p>Bike: <%=rental.bike.identifier%>
-  <% if !rental.complete %>
-    <p>
-      <%= link_to "Return Rental", return_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
-    </p>
-  <% else %>
-    <p>Rental is complete
+  <% if !rental.bike.nil?%>
+    <p>Bike: <%=rental.bike.identifier%>
   <% end %>
+  <% if !rental.is_complete %>  
+  <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+    <button data-action="dialog#open">
+      Return Bike
+    </button>
+
+    <dialog data-dialog-target="modal", id="returnModal">
+      <div class="p-8">
+        <%= render(partial: "rentals/return", object: rental, as: :rental) %>
+        <form method="dialog">
+          <button type="submit" class='btn button btn-primary'autofocus>Cancel</button>
+        </form>
+      </div>
+    </dialog>
+  </div>
+
+    <p>
+      <%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
+    </p>
+
+  <% end %>
+</div>
+

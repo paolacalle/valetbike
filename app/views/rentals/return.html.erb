@@ -1,0 +1,19 @@
+<div class="page-section flexbox vertical stretch"> 
+  <div class="section-inner flexbox vertical stretch">
+    <div class = "section-title flexbox horizontal center">
+      Return rental
+    </div>
+    <div>
+        <%= form_with model: Rental.find(params[:id]), url: rentals_path(id: Rental.find(params[:id])), method: :put, local: true do |f| %>
+            <tr>
+            <th><%= label_tag(:new_station_id) %></th>
+            </tr>
+            <tr>
+                <td><%= text_field_tag(:new_station_id, params[:new_station_id], required: true, placeholder: "Enter New Station Number") %></td>
+            </tr>
+            <%= f.submit "Return Rental", class: 'btn button btn-primary' %>
+        <% end %>
+    </div>
+  </div>
+</div>
+
