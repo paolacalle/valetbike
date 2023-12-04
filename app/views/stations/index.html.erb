@@ -1,44 +1,33 @@
-<div class="page-section flexbox vertical stretch"> 
-  <div class="section-inner flexbox vertical stretch">
-    <div class = "section-title flexbox horizontal center">
-      Stations 
-    </div>
-
-    <div class="flexbox vertical stretch">
-    
-
+<head>
+  <title>Stations - ValetBike</title>
+</head>
+<body>
+  <section class="page-section">
+    <h1 class="section-title">Stations</h1>
+    <section class="section-inner flexbox vertical stretch">
       <div class="record-row header flexbox horizontal justify-space-between">
         <% if params[:reverse].blank? || params[:reverse] == "0" %>
           <a href="<%= stations_path(params: {reverse: 1})%>">Sort ⬇</a>
-
         <% else %>
           <a href="<%= stations_path%>">Sort ⬆</a>
-
         <% end %>
 
         <%= form_tag "/stations", method: "GET" do %>
-
         <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
-
-        
-
         <% end %>
 
         <div data-controller="geolocation">
           <button data-action="geolocation#search">Search near me</button>
         </div>
-
       </div>
 
       <% if @stations.present? %>
         <%= render(partial: "stations/row", collection: @stations, as: :station) %>
-
       <% else %>
         <div class="empty">
           No stations found.
         </div>
       <% end %>
-
-    </div>
-	</div>
-</div>
+    </section>
+  </section>
+</body>
