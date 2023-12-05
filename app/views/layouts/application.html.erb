@@ -24,9 +24,10 @@
 
   </head>
   <body>
-    
     <div id="site-container" class="flexbox vertical stretch">
       <%= render partial: 'layouts/navbar' %>
+      <div style="padding-top: 4em;">
+      </div>
       <div class="flexbox vertical center">
         <%= display_successes %>
         <%= display_notices %>
@@ -35,6 +36,7 @@
         <%= yield %>
       </div>
     </div>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>
 
