@@ -15,46 +15,32 @@ class RentalsController < ApplicationController
   end
 
   def create
+    logger.info("entered into create")
+
+    puts params.inspect
     puts "moved to rentals_controller#create"
     @rental = Rental.new(rental_params)
+    puts params.inspect
+    logger.info("new rental created with rental_params")
+
     puts "creating rental period"
     @rental_period= ""
     @rental_period.concat(params[:rental_hours].to_s, params[:rental_minutes].to_s)
-    @rental.rental_period = @rental_period
-    puts @rental.rental_period
     # @bike = Bike.find(params[:bike])
     puts "created...not yet saved"
-    @rental.rented_at=DateTime.now
-    puts @rental.rented_at
-    puts "rental rented_at set to now...not yet saved"
-    logger.info("rental.rental_period")
-    puts @rental.rental_period
-
-    logger.info("rental.rental_period 0,1,2 .to_i")
-    puts @rental.rental_period[0].to_i
-    puts @rental.rental_period[1].to_i
-    puts @rental.rental_period[2].to_i
-
-    logger.info("rental.rental_period 0,1,2")
-    puts @rental.rental_period[0]
-    puts @rental.rental_period[1]
-    puts @rental.rental_period[2]
-    logger.info("rental.rental_period -1 position is")
-    puts @rental.rental_period[-1]
-    logger.info("rental.rental_period -2 position is")
-    puts @rental.rental_period[-2]
-
-
-    logger.info("rental.rental_period extraneous")
-    puts @rental.rental_period[0].to_i
-    puts @rental.rental_period
-    puts @rental.rental_period[2]
-    puts @rental.rental_period[1] + @rental.rental_period[2]
-    @return_by= (@rental.rented_at + @rental.rental_period[0].to_i.hours + @rental.rental_period[1,2].to_i.minutes)
+    @rented_at=DateTime.now.in_time_zone(nil)
+    puts @rented_at
+    logger.info("rental_period ")
+    puts @rental_period
+    @return_by= (@rented_at + @rental_period[0].to_i.hours + @rental_period[1,2].to_i.minutes)
     puts @return_by
-    puts "return by created (currently the wrong time though)"
+    puts "return by created"
     @current_user = User.find(session[:user_id])
     logger.info("@current_user was set to user ##{@current_user.id}")
+    @rental.rented_at = @rented_at
+    puts @rental.rented_at
+    @rental.rental_period = @rental_period
+    @rental.return_by = @return_by
     rental_creation(@current_user, @rental)
   end
   
@@ -103,10 +89,9 @@ class RentalsController < ApplicationController
   def destroy
   end
 
-  private
   
   def rental_params
-    params.require(:rental).permit(:bike_id, :rental_period, :return_by, :rental_hours, :rental_minutes).merge(bike_id: params[:selected_bike_id])
+    params.require(:rental).permit(:bike_id, :rental_hours, :rental_minutes, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
   end
   
   def rental_creation(user, rental)
