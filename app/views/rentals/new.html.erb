@@ -1,36 +1,39 @@
-<h1 style="font-size:40px;">Create New Rental </h1>
+<head>
+  <title>New Rental - ValetBike</title>
+</head>
+<body>
+  <section class="page-section">
+    <h1 class="section-title">Create New Rental</h1>
+    <div class="section-inner flexbox horizontal justify-content-center">
+      <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
+      <br>
+      <br>
+      <tr>
 
+      <th><b><%= f.label (:bike_id) %></b></th>
+      <td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
 
-<div class="flexbox horizontal justify-content-center">
-  <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
-    <br>
-    <br>
-    <tr>
+      <th><b><%= f.label (:rental_period) %></b></th>
+      <td><%= f.text_field (:rental_period) %></td>
 
-    <th><b><%= f.label (:bike_id) %></b></th>
-    <td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
+      <br>
 
-    <th><b><%= f.label (:rental_period) %></b></th>
-    <td><%= f.text_field (:rental_period) %></td>
+      <th><label for "rental_hours">Hours</label></th>
+      <td><input type="number" name="rental_hours" min="0" max="10" step="1" class="form-control" id="rental_hours"></td>
+      
+      <br>
 
-    <br>
-    <th>
-      <label for "rental_hours">Hours</label>
-    </th>
-    <td><input type="number" name="rental_hours" min="0" max="10" step="1" class="form-control" id="rental_hours"></td>
-          <br>
-          <th>
-            <label for "rental_hours">Minutes</label>
-          </th>
-          <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id="rental_minutes"></td>
-        </tr>
-        <tr>
-          <th><b><%= f.label (:return_by) %></b></th>
-          <td><%= f.date_field (:return_by) %></td>
-        </tr>
-        <br>
-    <br>
-    <p>
-    <%= f.submit class: "btn button btn-primary"%>
-  <% end %>
-</div>
+      <th><label for "rental_hours">Minutes</label></th>
+      <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id="rental_minutes"></td>
+      
+      <th><b><%= f.label (:return_by) %></b></th>
+      <td><%= f.date_field (:return_by) %></td>
+
+      </tr>
+      <br>
+      <br>
+      <%= f.submit class: "btn button btn-primary"%>
+      <% end %>
+    </div>
+  </section>
+</body>
