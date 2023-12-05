@@ -109,3 +109,15 @@
     flex-direction: column;
   }
 }
+
+@media (min-width: 768px) {
+  .page-header {
+    padding-top: 200; /* nav height */
+  }
+  .sticky-nav {
+      position:fixed;
+      top:0;
+      width: 100%;
+      z-index: 99999999;
+  }
+}
