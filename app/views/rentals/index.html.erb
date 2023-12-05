@@ -13,10 +13,10 @@
           <% logger.info("@rental.user is equal to @current user") %>
         <div class="record-row header flexbox horizontal justify-space-between">
             <% if params[:reverse].blank? || params[:reverse] == "0" %>
-              <a href="<%= rentals_path(params: {reverse: 1})%>">Sort ⬇</a>
+              <a href="<%= rentals_path(params: {reverse: 1})%>">New ⬇</a>
 
             <% else %>
-              <a href="<%= rentals_path%>">Sort ⬆</a>
+              <a href="<%= rentals_path%>">Past ⬆</a>
 
             <% end %>
           </div>

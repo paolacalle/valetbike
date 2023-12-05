@@ -23,22 +23,11 @@ namespace :db do
       name: item["name"],
       address: item["address"]})
 
-    location = Location.new({
-      name: station["name"],
-      address: station["address"]
-    })
-
-    location.geocode
-
+    station.geocode
+    puts "Stations Location: #{station.longitude} & #{station.latitude}"
+    
     if station.save
       puts "Successfully imported: #{item["name"]}\n"
-
-      if location.save
-        puts "Sussessfuly saved geocordinates for #{item["name"]}"
-      else 
-        puts "Failed to save geocordinates for #{item["name"]}"
-      end
-
     else 
       puts "Failed to import:  #{item["name"]}\n"
     end 

@@ -18,14 +18,14 @@ export default class extends Controller {
     console.log(`Latitude : ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`More or less ${crd.accuracy} meters.`);
-    location.assign(`/locations?place=${crd.latitude},${crd.longitude}`)
+    station.assign(`/stations?place=${crd.latitude},${crd.longitude}`)
   }
 
   error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
 
-  search () {
+  search() {
     navigator.geolocation.getCurrentPosition(this.success, this.error, options);
   }
 
