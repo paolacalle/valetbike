@@ -2,15 +2,42 @@
   <title>Homepage - ValetBike</title>
 </head>
 <body>
-  <section class="page-section">
-    <h1 class="section-title">Home</h1>
-    <p class="section-inner">This is where we should put some About info...or searching for a bike on the map</p>
+  <section class="page-section image-background">
+    <blockquote class="section-inner h2" style="text-align: center">Bike to go, go to Bike</blockquote>
   </section>
+  <section class="page-section">
+    <h1 class="section-title">ValetBike Stats</h1>
+    
+    <div class="white-background">
+      <h1 class="section-inner h4">There are <%= Station.count %> stations throughout Nipmuc Notch</h1>
+    </div>
+    <div class="blue-background">
+      <p class="section-inner h4"><%= Bike.where.not(current_station_id: nil).count %> Bikes available end of divs</p>
+    </div>
+    <div class="white-background">
+      <p class="section-inner h4"><%= Bike.where(current_station_id: nil).count %> Bikes in use (or current station is nil)</p>
+    </div>
+
+  </section>
+
+  <section class="page-section">
+    <h1 class="section-title">Membership Options</h1>
+    <%= link_to new_payment_path, :action => 'go' do %> 
+      <div class="flexbox horizontal wrap justify-space-between">
+        <div class="box-inner h4" style="width: 33%">$__ for a Day</div>
+        <div class="box-inner h4" style="width: 33%">$__ for a Month</div>
+        <div class="box-inner h4" style="width: 33%">$__ for a Year</div>
+      </div>
+    <% end %>
+  </section>
+  
+  
+  
   <section class="page-section">
     <h1 class="section-title">Section 2</h1>
     <p class="section-inner">This is where we should put some About info...or searching for a bike on the map</p>
   </section>
   <section class="page-section">
-    <blockquote class="section-inner h2" style="text-align: center">"Bike around the block, Bike across the town."</blockquote>
+    <blockquote class="section-inner h4" style="text-align: center">"Bike around the block, Bike across the town."</blockquote>
   </section>
 </body>
