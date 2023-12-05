@@ -6,18 +6,53 @@
   max-width: 80em;
   width: 100%;
   margin-top: 4em;
+  margin-bottom: 2em;
 }
-
+ 
 .page-section .section-inner {
-  margin-right: 1.4em;
-  margin-left: 1.4em;
+  margin-right: 6%;
+  margin-left: 6%;
 }
 
 .page-section .section-title {
   font-family: var(--title-font);
   font-weight: 500;
   font-size: 2.5em;
+  margin-right: 6%;
+  margin-left: 6%;
   margin-bottom: 1em;
+}
+
+.page-section .box-inner {
+  padding: 4%;
+  border-width: 2; /* not currently working */
+  border-style: 10px solid rgba(red, 0.6) inset; /* not currently working */
+
+  background-color: var(--valetbike-blue-light-color);
+  /* border-style: inset; */
+  color: var(--medium-white-color); /* change font color to white */
+}
+
+.image-background {
+  opacity: 0.7;
+  background-image:url("hampcountyimage.jpeg");
+  color:aliceblue;
+  padding-top: 6%;
+  padding-bottom: 6%;
+}
+
+.blue-background {
+  background-color: var(--valetbike-blue-light-color);
+  color: var(--medium-white-color);
+  padding-top: 6%;
+  padding-bottom: 6%;
+}
+
+.white-background {
+  background-color: var(--dark-white-color);
+  color: var(--black-color);
+  padding-top: 6%;
+  padding-bottom: 6%;
 }
 
 .record-row {
@@ -31,13 +66,12 @@
   color:aliceblue;
 }
 
-
 .record-row.even {
   background: var(--medium-white-color);
 }
 
 .record-row.even.flexbox:hover{
-  background: var(--valetbike-blue-dark-color);
+  background: var(--valetbike-blue-color);
   color:aliceblue;
 }
 
@@ -46,7 +80,7 @@
 }
 
 .record-row.odd.flexbox:hover{
-  background: var(--valetbike-blue-dark-color);
+  background: var(--valetbike-blue-color);
   color:aliceblue;
 }
 
@@ -56,8 +90,6 @@
   width: 100%;
   text-decoration: none;
 }
-
-
 
 /***********************************/
 /*         Responsiveness          */
@@ -72,5 +104,20 @@
     font-size: 1.9em;
     margin-bottom: .6em;
   }
+  
+  .flexbox {
+    flex-direction: column;
+  }
+}
 
+@media (min-width: 768px) {
+  .page-header {
+    padding-top: 200; /* nav height */
+  }
+  .sticky-nav {
+      position:fixed;
+      top:0;
+      width: 100%;
+      z-index: 99999999;
+  }
 }
