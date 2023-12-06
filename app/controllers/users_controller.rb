@@ -36,6 +36,16 @@ class UsersController < ApplicationController
     end
   end
 
+
+  # Save user coordniates
+  def save_coordinates
+    puts "USERRRRRRRRRRRRRRR ********** #{params[:latitude]} and #{params[:longitude]}"
+    session[:user_latitude] = params[:latitude]
+    session[:user_longitude] = params[:longitude]
+    puts "SESSIONS ---> #{session[:user_longitude]} and #{session[:user_latitude]}"
+    render json: { message: 'Coordinates saved successfully: '}
+  end
+
   private 
   
   def user_params
