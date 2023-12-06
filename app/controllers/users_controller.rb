@@ -42,7 +42,11 @@ class UsersController < ApplicationController
     puts "USERRRRRRRRRRRRRRR ********** #{params[:latitude]} and #{params[:longitude]}"
     session[:user_latitude] = params[:latitude]
     session[:user_longitude] = params[:longitude]
-    puts "SESSIONS ---> #{session[:user_longitude]} and #{session[:user_latitude]}"
+
+    session.each do |key, value|
+      logger.info "Session key: #{key}, value: #{value}"
+    end
+    
     render json: { message: 'Coordinates saved successfully: '}
   end
 

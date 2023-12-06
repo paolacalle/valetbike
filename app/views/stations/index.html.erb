@@ -6,22 +6,36 @@
     <h1 class="section-title">Stations</h1>
 
     <section class="section-inner flexbox vertical stretch">
+    
       <div class="record-row header flexbox horizontal justify-space-between">
         <% if params[:reverse].blank? || params[:reverse] == "0" %>
-          <a href="<%= stations_path(params: {reverse: 1})%>">Sort ⬇</a>
+          <a href="<%= stations_path(params: { reverse: 1 }) %>">Sort ⬇</a>
         <% else %>
-          <a href="<%= stations_path%>">Sort ⬆</a>
+          <a href="<%= stations_path %>">Sort ⬆</a>
         <% end %>
-
+      
         <%= form_tag "/stations", method: "GET" do %>
-        <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
+          <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
+          <% if params[:search_nearest].present? && params[:search_nearest] == "1" %>
+            <%= hidden_field_tag :search_nearest, 1 %>
+          <% end %>
+          <%= submit_tag "Search" %>
         <% end %>
-
-        <div data-controller="geolocation">
-          <button data-action="geolocation#search">Search near me</button>
-        </div>
-
+      
+        <% if params[:search_nearest].blank? || params[:search_nearest] == "0" %>
+          <div data-controller="geolocation">
+            <button data-action="geolocation#search">Search near me</button>
+          </div>
+        <% else %>
+          <% if params[:reverse].blank? || params[:reverse] == "0" %>
+            <a href="<%= stations_path(params: { search_nearest: 1, reverse: 1 }) %>">Sort ⬇</a>
+          <% else %>
+            <a href="<%= stations_path(params: { search_nearest: 1 }) %>">Sort ⬆</a>
+          <% end %>
+          <a href="<%= stations_path %>">Reload All Stations</a>
+        <% end %>
       </div>
+  
 
       <% if @stations.present? %>
         <%= render(partial: "stations/row", collection: @stations, as: :station) %>
