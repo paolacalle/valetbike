@@ -55,12 +55,25 @@
 
   <section class="page-section">
     <h1 class="section-title">Membership Options</h1>
-    <%= link_to new_payment_path, :action => 'go' do %> 
-      <div class="flexbox horizontal wrap justify-space-between">
-        <div class="box-inner h4" style="width: 33%">$__ for a Day</div>
-        <div class="box-inner h4" style="width: 33%">$__ for a Month</div>
-        <div class="box-inner h4" style="width: 33%">$__ for a Year</div>
+    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Day
+        <% end %>
       </div>
-    <% end %>
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Month
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Year
+        <% end %>
+      </div>
+    </div>
+  </section>
+  
+  <section class="page-section empty">
   </section>
 </body>
