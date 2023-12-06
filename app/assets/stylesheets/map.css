@@ -1,0 +1,23 @@
+
+#map {
+  flex: 1;
+  height: 400px; /* Set the desired height for the map */
+}
+#sidebar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 250px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+  overflow-y: auto; /* Enable scrollbar if needed */
+}
+.sidebar-item {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+.sidebar-item:hover {
+  background-color: #f0f0f0;
+}
