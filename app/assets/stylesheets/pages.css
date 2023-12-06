@@ -2,6 +2,10 @@
 /*       Universal Page Style       */
 /************************************/
 
+.page-header {
+  padding-top: 5em;
+}
+
 .page-section {
   max-width: 80em;
   width: 100%;
@@ -97,6 +101,10 @@
 /***********************************/
 
 @media (max-width:48em) {
+  .page-header {
+    padding-top: 0em;
+  }
+  
   .page-section {
     margin-top: 3em;
   }
@@ -112,9 +120,7 @@
 }
 
 @media (min-width: 768px) {
-  .page-header {
-    padding-top: 200; /* nav height */
-  }
+
   .sticky-nav {
       position:fixed;
       top:0;
