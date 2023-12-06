@@ -5,8 +5,18 @@
   <section class="page-section">
     <h1 class="section-title">Stations</h1>
 
-    <section class="section-inner flexbox vertical stretch">
+    <section class="page-section">
+      <div class="flexbox horizontal wrap justify-space-between">
+        <div class="box-inner h2" style="width: 50%">
+        
+        </div>
+        <div class="box-inner h2" style="width: 50%"><%= js_map [{latitude: session[:user_latitude], longitude: session[:user_longitude]}] %></div>
+      </div>
+    </section>
     
+
+    <section class="section-inner flexbox vertical stretch">
+
       <div class="record-row header flexbox horizontal justify-space-between">
         <% if params[:reverse].blank? || params[:reverse] == "0" %>
           <a href="<%= stations_path(params: { reverse: 1 }) %>">Sort ⬇</a>

@@ -27,6 +27,8 @@ class StationsController < ApplicationController
       end
      
     end
+    puts @stations
+    order = params[:reverse] == "1" ? :desc : :asc
 
   end
   
