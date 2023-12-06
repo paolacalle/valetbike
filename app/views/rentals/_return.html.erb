@@ -1,18 +1,15 @@
 <div class="page-section flexbox vertical stretch"> 
   <div class="section-inner flexbox vertical stretch">
     <div class = "section-title flexbox horizontal center">
-      Return rental
+      Return Bike
     </div>
     <div>
       <p>
-
         <%= form_with model: @rental, url: return_path(Rental.find(rental.id)), method: :patch, local: true do |f| %>
+          <th><b><% f.label (:new_station_id) %>Station Returning To:</b></th>
+          <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true %></td>
 
-            <th><b><%= f.label (:new_station_id) %></b></th>
-            <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true %></td>
-
-            <%= f.submit class: "btn button btn-primary"%>
-        
+          <%= f.submit class: "btn button btn-primary"%>
         <% end %>
        
       </p>
