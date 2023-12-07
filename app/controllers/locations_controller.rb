@@ -4,6 +4,7 @@ class LocationsController < ApplicationController
   # GET /locations or /locations.json
   def index
     if params[:place].present?
+      session[:user_location] = params[:place]
       @locations = Location.near(params[:place], params[:distance] || 5, order: :distance)
     else
       puts "locations"
