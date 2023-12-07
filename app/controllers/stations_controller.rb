@@ -23,12 +23,11 @@ class StationsController < ApplicationController
         puts "#{[params[:lat].to_f, params[:long].to_f]}"
         @stations = @stations.near([params[:lat].to_f, params[:long].to_f], 0.3)
         session[:user_latitude] = params[:lat]
-        session[:user_latitude]
+        session[:user_longitude] = params[:long]
       end
      
     end
-    puts @stations
-    order = params[:reverse] == "1" ? :desc : :asc
+
 
   end
   
