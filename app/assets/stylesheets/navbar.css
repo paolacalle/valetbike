@@ -1,31 +1,27 @@
+/* You can modify the styles as needed */
 #navbar {
-  padding-top: 2%;
-  padding-bottom: 4%;
-  z-index: 100;
-  background-color: var(--valetbike-blue-color);
-  height: 5em;
-}
-
-#navbar-content {
-  height: 3em;
-  width: 100%;
-}
-
-ul.navbar-nav.ml-auto {
-  margin-top: 2%;
+  padding: 10px 0;
   background-color: var(--valetbike-blue-color);
 }
 
-@media (min-width: 80em){
-  #navbar-content {
-    width: 30em;
+.navbar-brand {
+  margin-right: 1em;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.nav-link {
+  padding: 0.5em 1em;
+}
+
+.dropdown-menu {
+  min-width: 100%;
+}
+
+@media (min-width: 992px) {
+  .navbar-nav {
+    margin-top: 0;
   }
-}
-
-.white-fill {
-  fill: var(--medium-white-color);
-}
-
-.logo {
-  margin-left: 1em;
 }
