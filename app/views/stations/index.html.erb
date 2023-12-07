@@ -69,6 +69,21 @@
         },
       <% end %>
     ];
+
+    <% if params[:search_nearest].present? %>
+      <% if params[:long].present? %>
+        var marker = new mapboxgl.Marker({ color: 'red' })
+          .setLngLat([<%= params[:long].to_f %>, <%= params[:lat].to_f %>])
+          .setPopup(new mapboxgl.Popup().setHTML('<h3><%= User.find(session[:user_id]).first_name %> is here!</h3>'))
+          .addTo(map);
+      <% else %>
+        var marker = new mapboxgl.Marker({ color: 'red' })
+        .setLngLat([<%= session[:user_longitude].to_f %>, <%= session[:user_latitude].to_f %>])
+        .setPopup(new mapboxgl.Popup().setHTML('<h3><%= User.find(session[:user_id]).first_name %> is here!</h3>'))
+        .addTo(map);
+      <% end %>
+    <% end %>
+  
   
     stations.forEach(function(station) {
       var popupContent = '<h3>' + station.name + '</h3>';
