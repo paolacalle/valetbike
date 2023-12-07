@@ -54,8 +54,8 @@
     var map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-72.54, 42.40],
-      zoom: 9
+      center: [-72.42, 42.35],
+      zoom: 10
     });
   
     var stations = [
@@ -77,6 +77,8 @@
           .setLngLat([<%= params[:long].to_f %>, <%= params[:lat].to_f %>])
           .setPopup(new mapboxgl.Popup().setHTML('<h3><%= User.find(session[:user_id]).first_name %> is here!</h3>'))
           .addTo(map);
+
+        map.flyTo({center: [<%= params[:long].to_f %>, <%= params[:lat].to_f %>], zoom: 15 });
       <% else %>
         var marker = new mapboxgl.Marker({ color: 'red' })
         .setLngLat([<%= session[:user_longitude].to_f %>, <%= session[:user_latitude].to_f %>])
@@ -87,7 +89,7 @@
   
   
     stations.forEach(function(station) {
-      var popupContent = '<h3><b>Name:</b>' + station.name + '<br><br><b>' + " # Docked Bikes: </b>" + station.docked_count + '</h3>';
+      var popupContent = '<h3><b>Name: </b>' + station.name + '<br><br><b>' + " # Docked Bikes: </b>" + station.docked_count + '</h3>';
    
       var marker = new mapboxgl.Marker()
         .setLngLat([station.longitude, station.latitude])
