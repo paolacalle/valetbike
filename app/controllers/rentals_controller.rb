@@ -91,7 +91,7 @@ class RentalsController < ApplicationController
 
   
   def rental_params
-    params.require(:rental).permit(:bike_id, :rental_hours, :rental_minutes, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
+    params.permit(:bike_id, :rented_at).merge(bike_id: params[:selected_bike_id])
   end
   
   def rental_creation(user, rental)

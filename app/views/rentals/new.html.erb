@@ -2,7 +2,7 @@
 
 
 <div class="flexbox horizontal justify-content-center">
-  <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
+  <%= form_with url: rentals_path, method: :post, local:true do |f| %>
     <br>
     <br>
     <table>
@@ -11,16 +11,12 @@
         <td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
       </tr>
       <tr>
-        <th><b><f.label for (:rental_hours)>Hours</label></b></th>
+        <th><b><f.label for (:rental_hours)>Hours </label></b></th>
         <td><input type="number" name="rental_hours" min="0" max="9" step="1" class="form-control" id= :rental_hours></td>
       </tr>
       <tr>
-        <th><b><f.label for (:rental_hours)>Minutes</label></b></th>
+        <th><b><f.label for (:rental_minutes)>Minutes </label></b></th>
         <td><input type="number" name="rental_minutes" min="0" max="45" step="15" class="form-control" id= :rental_minutes></td>
-      </tr>
-      <tr>
-        <th><b><%= f.label (:return_by) %></b></th>
-        <td><%= f.date_field (:return_by) %></td>
       </tr>
     </table>
     <br>
