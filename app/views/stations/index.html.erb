@@ -1,33 +1,112 @@
+<!DOCTYPE html>
+<html>
 <head>
-  <title>Stations - ValetBike</title>
+  <meta charset="utf-8">
+  <title>Display Stations on Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet">
 </head>
 <body>
+
   <section class="page-section">
-    <h1 class="section-title">Stations</h1>
-    <section class="section-inner flexbox vertical stretch">
-      <div class="record-row header flexbox horizontal justify-space-between">
-        <% if params[:reverse].blank? || params[:reverse] == "0" %>
-          <a href="<%= stations_path(params: {reverse: 1})%>">Sort ⬇</a>
-        <% else %>
-          <a href="<%= stations_path%>">Sort ⬆</a>
-        <% end %>
 
-        <%= form_tag "/stations", method: "GET" do %>
+    <h1 class="section-title">Check Our Stations</h1>
+
+    <div class="record-row header flexbox horizontal justify-space-between">
+      <% if params[:reverse].blank? || params[:reverse] == "0" %>
+        <a href="<%= stations_path(params: { reverse: 1 }) %>">Sort ⬇</a>
+      <% else %>
+        <a href="<%= stations_path %>">Sort ⬆</a>
+      <% end %>
+    
+      <%= form_tag "/stations", method: "GET" do %>
         <%= text_field_tag :search_by_address, params[:search_by_address], class: "search-control", placeholder: "Search Address" %>
+        <% if params[:search_nearest].present? && params[:search_nearest] == "1" %>
+          <%= hidden_field_tag :search_nearest, 1 %>
         <% end %>
-
+        <%= submit_tag "Search" %>
+      <% end %>
+    
+      <% if params[:search_nearest].blank? || params[:search_nearest] == "0" %>
         <div data-controller="geolocation">
           <button data-action="geolocation#search">Search near me</button>
         </div>
-      </div>
-
-      <% if @stations.present? %>
-        <%= render(partial: "stations/row", collection: @stations, as: :station) %>
       <% else %>
-        <div class="empty">
-          No stations found.
-        </div>
+        <% if params[:reverse].blank? || params[:reverse] == "0" %>
+          <a href="<%= stations_path(params: { search_nearest: 1, reverse: 1 }) %>">Sort ⬇</a>
+        <% else %>
+          <a href="<%= stations_path(params: { search_nearest: 1 }) %>">Sort ⬆</a>
+        <% end %>
+        <a href="<%= stations_path %>">Reload All Stations</a>
       <% end %>
-    </section>
+    </div>
+
+    <div id="map-container" class="sketchy">
+      <div id="map"></div>
+      <div id="sidebar"></div>
+    </div>
   </section>
+
+  <script>
+    mapboxgl.accessToken = '<%= ENV["MAPBOX_ACCESS_TOKEN"] %>';
+  
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [-72.54, 42.40],
+      zoom: 9
+    });
+  
+    var stations = [
+      <% @stations.each do |station| %>
+        {
+          name: '<%= station.name %>',
+          longitude: <%= station.longitude %>,
+          latitude: <%= station.latitude %>,
+          address: '<%= station.address %>',
+          id: '<%= station.id %>',
+        },
+      <% end %>
+    ];
+  
+    stations.forEach(function(station) {
+      var popupContent = '<h3>' + station.name + '</h3>';
+  
+      var marker = new mapboxgl.Marker()
+        .setLngLat([station.longitude, station.latitude])
+        .setPopup(new mapboxgl.Popup().setHTML(popupContent))
+        .addTo(map);
+  
+      var sidebar = document.getElementById('sidebar');
+      var sidebarItem = document.createElement('div');
+      sidebarItem.className = 'sidebar-item';
+      sidebarItem.textContent = station.address;
+  
+      sidebarItem.addEventListener('click', function() {
+        map.flyTo({ center: [station.longitude, station.latitude], zoom: 15 });
+
+        var selectedLink = document.querySelector('.selected-station-link');
+        if (selectedLink) {
+          selectedLink.remove();
+        }
+  
+        var selectStationLink = document.createElement('a');
+        selectStationLink.textContent = 'Select Station';
+        selectStationLink.href = '/bikes?selected_station_id=' + station.id;
+        selectStationLink.className = 'selected-station-link fill-block';
+  
+        sidebarItem.appendChild(selectStationLink);
+      });
+  
+      sidebar.appendChild(sidebarItem);
+    });
+  </script>
+  
+
+  
+
+
+
 </body>
+</html>
