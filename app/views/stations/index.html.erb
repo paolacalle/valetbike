@@ -66,6 +66,7 @@
           latitude: <%= station.latitude %>,
           address: '<%= station.address %>',
           id: '<%= station.id %>',
+          docked_count: '<%=  station.docked_bikes.count %>',
         },
       <% end %>
     ];
@@ -86,8 +87,8 @@
   
   
     stations.forEach(function(station) {
-      var popupContent = '<h3>' + station.name + '</h3>';
-  
+      var popupContent = '<h3><b>Name:</b>' + station.name + '<br><br><b>' + " # Docked Bikes: </b>" + station.docked_count + '</h3>';
+   
       var marker = new mapboxgl.Marker()
         .setLngLat([station.longitude, station.latitude])
         .setPopup(new mapboxgl.Popup().setHTML(popupContent))
