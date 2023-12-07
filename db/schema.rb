@@ -74,12 +74,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_29_001414) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.string "email_address"
+    t.string "email_address", null: false
     t.boolean "has_bike"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
     t.integer "current_rental"
   end
 

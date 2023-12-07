@@ -1,15 +1,14 @@
-<div class="page-section flexbox vertical stretch"> 
-  <div class="section-inner flexbox vertical stretch">
-    <div class = "section-title flexbox horizontal center">
-      Rentals 
-    </div>
-    <div>
-      <p>
-        <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
-      </p>
-    </div>
+<head>
+  <title>Rentals - ValetBike</title>
+</head>
+<body>
+  <section class="page-section">
+    <h1 class="section-title">Rentals</h1>
+    <p class="section-inner" style="text-align: center;">
+      <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
+    </p>
     <br>
-    <div class="flexbox vertical stretch">
+    <div class="section-inner flexbox vertical stretch">
       <% if @rentals.present? %>
           <% logger.info("@rental.user is equal to @current user") %>
         <div class="record-row header flexbox horizontal justify-space-between">
@@ -22,13 +21,11 @@
             <% end %>
           </div>
           <%= render(partial: "rentals/row", collection: @rentals, as: :rental) %>
-
       <% else %>
         <div class="empty">
           No rentals found.
         </div>
       <% end %>
-
     </div>
-	</div>
-</div>
+  </section>
+</body>

@@ -1,26 +1,79 @@
-<div>
-  <br>
-  <br>
-  <br>
-  <div class="center-content">
-    <h1 class=h1>Home</h1>
-
-    
-  </div>
-  <p>This is where we should put some About info...or searching for a bike on the map</p>
-  <br>
-  <div>
-    <h2 class=h2>Links for developing</h2>
-    <ul style="list-style-type:disc;">
-      <li><%= link_to "Refer to the Figma visualization (click here)", "https://www.figma.com/file/jLAscgKzd4HPAfotfuieGu/ValetBike?type=design&node-id=0%3A1&mode=design&t=op9OSiDs7IVGALMT-1" %></li>
-      <li><%= link_to "Want to find colors complementary to our main blue? click here", "https://www.colorhexa.com/4b719d"%></li>
-      <li><%= link_to "These colors were used as reference for the flash messages: click here", "https://getbootstrap.com/docs/4.0/components/alerts/"%></li>
-    </ul>
+<head>
+  <title>Homepage - ValetBike</title>
+</head>
+<body>
+  <section class="page-section image-background">
+    <blockquote class="section-inner h2" style="text-align: center">Bike to go, go to Bike</blockquote>
+  </section>
+  
+  <section class="page-section">
+    <h1 class="section-title">How it works</h1>
+    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          Begin Membership
+        <% end %>
+      </div>
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_rental_path, class: "fill-block", :action => 'go' do %>
+          Make a Rental
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Use the Code
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Unlock the Bike
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        *insert bike here*
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Return the Bike to any Station
+        <% end %>
+      </div>
     </div>
-</div>
+  </section>
 
+  <section class="page-section">
+    <h1 class="section-title">ValetBike Stats</h1>
+    <div class="white-background">
+      <h1 class="section-inner h4"><%= Station.count %> stations throughout Nipmuc Notch</h1>
+    </div>
+    <div class="blue-background">
+      <p class="section-inner h4"><%= Bike.where.not(current_station_id: nil).count %> bikes available</p>
+    </div>
+    <div class="white-background">
+      <p class="section-inner h4"><%= Bike.where(current_station_id: nil).count %> bikes currently in use (or current station is nil)</p>
+    </div>
+  </section>
 
-
-
-
-
+  <section class="page-section">
+    <h1 class="section-title">Membership Options</h1>
+    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Day
+        <% end %>
+      </div>
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Month
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Year
+        <% end %>
+      </div>
+    </div>
+  </section>
+  
+  <section class="page-section empty">
+  </section>
+</body>

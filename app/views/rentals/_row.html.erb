@@ -1,30 +1,24 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
-  <p>Rented: <%=rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')%> </b>
+  <p><b>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes </b>
   <p><b>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %> </b>
-  <p>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes 
-  <% if !rental.bike.nil?%>
-    <p>Bike: <%=rental.bike.identifier%>
-  <% end %>
-  <% if !rental.is_complete %>  
-  <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
-    <button data-action="dialog#open">
-      Return Bike
-    </button>
+  <p>Rented: <%=rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')%> </b>
+  <p>Bike: <%=rental.bike.identifier%>
+  <% if !rental.is_complete %> 
+    <div class="flexbox justify-space-between"> 
+      <p><%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %></p>
+      <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+        <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
 
-    <dialog data-dialog-target="modal", id="returnModal">
-      <div class="p-8">
-        <%= render(partial: "rentals/return", object: rental, as: :rental) %>
-        <form method="dialog">
-          <button type="submit" class='btn button btn-primary'autofocus>Cancel</button>
-        </form>
+        <dialog data-dialog-target="modal", id="returnModal">
+          <div class="p-8">
+            <%= render(partial: "rentals/return", object: rental, as: :rental) %>
+            <form method="dialog">
+              <button type="submit" class='btn button btn-primary'autofocus>Cancel</button>
+            </form>
+          </div>
+        </dialog>
       </div>
-    </dialog>
-  </div>
-
-    <p>
-      <%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %>
-    </p>
-
+    </div>  
   <% end %>
 </div>
 
