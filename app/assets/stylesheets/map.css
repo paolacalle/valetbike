@@ -1,23 +1,115 @@
+#map-container {
+  position: relative;
+  display: flex;
+  height: 400px; /* Set the desired height for the map */
+  border: 2px solid #000;
+  padding: 20px;
+  margin: 20px;
+}
 
 #map {
   flex: 1;
-  height: 400px; /* Set the desired height for the map */
+  height: 100%;
 }
+
 #sidebar {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 250px;
+  width: 300px; /* Set the desired width for the sidebar */
   background-color: white;
   border: 1px solid #ccc;
   padding: 10px;
-  z-index: 1;
   overflow-y: auto; /* Enable scrollbar if needed */
 }
+
 .sidebar-item {
   cursor: pointer;
   margin-bottom: 5px;
+  border: 1px solid #060606;
+  padding: 2px;
 }
+
 .sidebar-item:hover {
   background-color: #f0f0f0;
+}
+
+
+.selected-station-link  {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: rgb(0 107 179);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.selected-station-link:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.selected-station-link:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.selected-station-link::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+.sketchy {
+  padding: 4rem 8rem;
+  display: inline-block;
+  border: 3px solid #333333;
+  border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+  text-transform: uppercase;
+  letter-spacing: 0.3ch;
+  background: #ffffff;
+  position: relative;
+  
+  &::before {
+      content: '';
+      border: 2px solid #353535;
+      display: block;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
+      border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
+  }
 }
