@@ -2,6 +2,10 @@
 /*       Universal Page Style       */
 /************************************/
 
+.page-header {
+  padding-top: 5em;
+}
+
 .page-section {
   max-width: 80em;
   width: 100%;
@@ -15,6 +19,7 @@
 }
 
 .page-section .section-title {
+  text-align: center;
   font-family: var(--title-font);
   font-weight: 500;
   font-size: 2.5em;
@@ -23,14 +28,14 @@
   margin-bottom: 1em;
 }
 
-.page-section .box-inner {
+.page-section .flexbox .link-box {
   padding: 4%;
-  border-width: 2; /* not currently working */
-  border-style: 10px solid rgba(red, 0.6) inset; /* not currently working */
-
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
   background-color: var(--valetbike-blue-light-color);
-  /* border-style: inset; */
   color: var(--medium-white-color); /* change font color to white */
+  width: var(--width);
+  flex-wrap: wrap;
 }
 
 .image-background {
@@ -96,6 +101,10 @@
 /***********************************/
 
 @media (max-width:48em) {
+  .page-header {
+    padding-top: 0em;
+  }
+  
   .page-section {
     margin-top: 3em;
   }
@@ -111,9 +120,6 @@
 }
 
 @media (min-width: 768px) {
-  .page-header {
-    padding-top: 200; /* nav height */
-  }
   .sticky-nav {
       position:fixed;
       top:0;

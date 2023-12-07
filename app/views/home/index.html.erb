@@ -8,13 +8,37 @@
   
   <section class="page-section">
     <h1 class="section-title">How it works</h1>
-    <div class="flexbox horizontal wrap justify-space-between">
-      <div class="box-inner h4" style="width: 33%">Begin Membership (insert link)</div>
-      <div class="box-inner h4" style="width: 33%">Make a Rental (insert link)</div>
-      <div class="box-inner h4" style="width: 33%">Use the code</div>
-      <div class="box-inner h4" style="width: 33%">Unlock the Bike</div>
-      <div class="box-inner h4" style="width: 33%">*insert bike here*</div>
-      <div class="box-inner h4" style="width: 33%">Return the Bike to any Station (insert link)</div>
+
+    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          Begin Membership
+        <% end %>
+      </div>
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_rental_path, class: "fill-block", :action => 'go' do %>
+          Make a Rental
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Use the Code
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Unlock the Bike
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        *insert bike here*
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
+          Return the Bike to any Station
+        <% end %>
+      </div>
+      
     </div>
   </section>
 
@@ -33,12 +57,25 @@
 
   <section class="page-section">
     <h1 class="section-title">Membership Options</h1>
-    <%= link_to new_payment_path, :action => 'go' do %> 
-      <div class="flexbox horizontal wrap justify-space-between">
-        <div class="box-inner h4" style="width: 33%">$__ for a Day</div>
-        <div class="box-inner h4" style="width: 33%">$__ for a Month</div>
-        <div class="box-inner h4" style="width: 33%">$__ for a Year</div>
+    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Day
+        <% end %>
       </div>
-    <% end %>
+      <div class="link-box" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Month
+        <% end %>
+      </div>
+      <div class="link-box h4" style="--width: 33%;">
+        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+          $__ for a Year
+        <% end %>
+      </div>
+    </div>
+  </section>
+  
+  <section class="page-section empty">
   </section>
 </body>

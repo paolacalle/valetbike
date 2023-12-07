@@ -1,21 +1,18 @@
-<div class="page-section flexbox vertical stretch"> 
+<div class="page-section flexbox vertical stretch" style="text-align: center;"> 
   <div class="section-inner flexbox vertical stretch">
-    <div class = "section-title flexbox horizontal center">
-      Return rental
+    <div class = "section-title">
+      Return Bike
     </div>
     <div>
-      <p>
-
-        <%= form_with model: @rental, url: return_path(Rental.find(rental.id)), method: :patch, local: true do |f| %>
-
-            <th><b><%= f.label (:new_station_id) %></b></th>
-            <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true %></td>
-
-            <%= f.submit class: "btn button btn-primary"%>
-        
-        <% end %>
-       
-      </p>
+      <%= form_with model: @rental, url: return_path(Rental.find(rental.id)), method: :patch, local: true do |f| %>
+        <th><b><% f.label (:new_station_id)%>Station Returning To</b></th>
+        <div style="color: black;">
+          <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true%></td>
+        </div>
+        <div>
+          <%= f.submit class: "btn button btn-primary"%>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
