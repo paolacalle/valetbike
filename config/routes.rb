@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   get '/sign_up', to: 'users#new'
   post '/sign_up', to: 'users#create'
+  post '/geolocation/save_coordinates', to: 'users#save_coordinates'
   resources :users
   # resources :users, only: [:new, :create, :index, :show]
   resources :memberships, only: [:new, :create, :index, :show]
