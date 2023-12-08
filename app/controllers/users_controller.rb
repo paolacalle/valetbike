@@ -1,10 +1,10 @@
-class UsersController < ApplicationController
+class UsersController < Devise::UsersController
 
-  skip_before_action :authenticate_user!, only: [:new, :create]
+  # skip_before_action :authenticate_user!, only: [:new, :create]
 
   #keep login
   def show
-    @current_user = User.find(session[:user_id])
+    @current_user = current_user.id
     render :show
   end
 
@@ -15,11 +15,11 @@ class UsersController < ApplicationController
 
   #Sign-up
   def create
-    # logger.info("\n\n*****attempting to create new user\n\n")
-    # logger.info("\n\n*****In new #{user_params}\n\n")
+    logger.info("\n\n*****attempting to create new user\n\n")
+    logger.info("\n\n*****In new #{user_params}\n\n")
     @user = User.new(user_params)
     @user.has_bike = false
-    # logger.info("\n\n*****Set new\n\n")
+    logger.info("\n\n*****Set new\n\n")
     if @user.save
       sign_in(@user)
       session[:user_id] = @user.id
