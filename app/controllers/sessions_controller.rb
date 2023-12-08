@@ -21,6 +21,6 @@ class SessionsController < ApplicationController
   def destroy
     sign_out(current_user) # Devise method to sign out the user
     flash[:notice] = "You are now signed out"
-    redirect_to login_path
+    redirect_to new_user_session_path
   end
 end
