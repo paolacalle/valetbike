@@ -9,20 +9,10 @@ Rails.application.routes.draw do
   get 'users/show', to: 'users#show'
 
   #Sessions routes
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  get  '/logout', to: 'sessions#destroy'
-  delete 'logout', to: 'sessions#destroy'
-
-  get '/sign_up', to: 'users#new'
-  post '/sign_up', to: 'users#create'
   post '/geolocation/save_coordinates', to: 'users#save_coordinates'
-  resources :users
   # resources :users, only: [:new, :create, :index, :show]
   resources :memberships, only: [:new, :create, :index, :show]
-  resources :sessions, only: [:new, :create, :destroy]
       
-  # end 
 
   resources :stations, only: [:index, :show]
   resources :bikes, only: [:index] 
