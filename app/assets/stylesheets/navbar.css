@@ -2,6 +2,8 @@
 #navbar {
   padding: 10px 0;
   background-color: var(--valetbike-blue-color);
+  color: white;
+  z-index: 1;
 }
 
 .navbar-brand {
