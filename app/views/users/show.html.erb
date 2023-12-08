@@ -3,3 +3,14 @@
   <p>Find me in app/views/users/show.html.erb</p>
 </div>
 
+<h1> Membership information </h1>
+
+<% @membership = Membership.find(session[:user_id]) %>
+<p> you have been a member since <%= @membership.created_at %> <p>
+<p> your membership will expire at <%= @membership.expiration_date %> </p>
+
+<p>
+<%= link_to "membership information", memberships_url, class: 'btn button btn-primary' %>
+</p>
+
+

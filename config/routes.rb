@@ -37,7 +37,10 @@ Rails.application.routes.draw do
   resources :rentals, only: [:index, :new, :create, :update, :show]
   post 'rentals', to: 'rentals#create'
   patch '/return/:id', to: 'rentals#update', as: 'return'
-
+  
+  # Memberships routes
+  resources :memberships, only: [:index, :new, :create, :update]
+  get '/memberships/:id', to: 'memberships#show'
 end
 
 

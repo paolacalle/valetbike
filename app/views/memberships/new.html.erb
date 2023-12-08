@@ -1,6 +1,25 @@
-<div>
-  <h1 class="font-bold text-4xl">Memberships#new</h1>
-  <p>Find me in app/views/memberships/new.html.erb</p>
-</div>
+
+<%= form_with url: memberships_path, method: :post, authenticity_token: false, commit: false do |f| %>
+  
+  <%= f.radio_button :membership_type, "day", class: 'btn button btn-primary' %>
+  <%= f.label :membership_type, "One day membership" %>
+
+  <%= f.label :membership_type, "Month membership" %>
+  <%= f.radio_button :membership_type, "month", class: 'btn button btn-primary' %>
+
+  <%= f.label :membership_type, "Year membership" %>
+  <%= f.radio_button :membership_type, "year", class: 'btn button btn-primary' %>
+
+
+
+  <div class="form-buttons">
+  <%= submit_tag "Create membership", name: nil, class: 'btn button btn-primary' %>
+  </div>
+<% end %>
+
+
+
+
+
 
 

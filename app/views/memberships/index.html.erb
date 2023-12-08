@@ -1,4 +1,48 @@
-<div>
-  <h1 class="font-bold text-4xl">Memberships#index</h1>
-  <p>Find me in app/views/memberships/index.html.erb</p>
-</div>
+<%= @current_user = User.find(session[:user_id]) %>
+
+
+<% if @current_user.has_membership %>
+  <%= @membership = Membership.find(session[:user_id]) %>
+  <p> you have been a member since <%= @membership.created_at %> </p>
+  <p> your membership will expire at <%= @membership.expiration_date %> </p>
+
+  <p>
+  This will be a link to delete your membership
+</p>
+
+<% else %>
+  <h1>Create a membership with ValetBike!</h1>
+
+  <style>
+  box {
+    width: 320px;
+    height: 200px;
+    padding: 10px;
+    border: 5px solid gray;
+    margin: 0;
+  }
+  </style>
+
+  <box>
+  <h1>One day membership</h1>
+  A day full of amazing adventures in Nipmuk Notch! For only $10!
+  </box>
+
+  <box>
+  <h1>Month membership</h1>
+  Fill your days with biking for the whole month, for just $20!
+  </box>
+
+  <box>
+  <h1>Year membership</h1>
+  A year of biking awaits you! Get your year of access for just $200!
+  </box>
+
+  <p>
+    <%= link_to "I want in!!!", new_membership_path, class: 'btn button btn-primary' %>
+  </p>
+<% end %>
+
+
+
+
