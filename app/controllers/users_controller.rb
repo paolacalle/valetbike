@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   
   def user_params
     logger.info("\n\n*****attempting to create new user\n\n")
-    params.permit(:email_address, :password, :password_confirmation, :first_name, :last_name)
+    params.permit(:email, :password, :password_confirmation, :first_name, :last_name)
   end
 
 end
