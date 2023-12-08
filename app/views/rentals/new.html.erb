@@ -18,10 +18,6 @@
     <h1 class="section-title">Create New Rental</h1>
     <div class="section-inner flexbox horizontal justify-content-center">
       <%= form_with model: @rental, url: rentals_path, method: :post, local:true do |f| %>
-        <br>
-        <br>
-
-        <tr>
 
         <th><b><%= f.label (:bike_id) %></b></th>
         <td><%= text_field_tag :selected_bike_id, params[:selected_bike_id], class: "search-control", readonly: true %></td>
@@ -41,9 +37,6 @@
         
         <th><b><%= f.label (:return_by) %></b></th>
         <td><%= f.date_field (:return_by) %></td>
-
-        </tr>
-        <br>
         <br>
         <%= f.submit class: "btn button btn-primary"%>
       <% end %>

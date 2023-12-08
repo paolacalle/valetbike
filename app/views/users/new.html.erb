@@ -1,48 +1,27 @@
 <div class="page-section stretch"> 
   <div class="section-inner stretch">    
     <div class = "section-title flexbox horizontal justify-content-center">
-    Create an Acoount 
+    Create an Account 
     </div>
 
     <div class="flexbox horizontal justify-content-center">
 
       <%= form_with url: '/sign_up', method: :post do |form| %>
-        <table summary="signup">
 
-          <tr>
             <th><%= label_tag(:first_name) %></th>
-          </tr>
-          <tr>
             <td><%= text_field_tag(:first_name, params[:first_name], required: true) %></td>
-          </tr>
-
-          <tr>
+        
             <th><%= label_tag(:last_name) %></th>
-          </tr>
             <td><%= text_field_tag(:last_name, params[:last_name], required: true) %></td>
-          </tr>
 
-          <tr>
             <th><%= label_tag(:email_address) %></th>
-          </tr>
-          <tr>
             <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true) %></td>
-          </tr>
-
-          <tr>
+          
             <th><%= label_tag(:password) %></th>
-          </tr>
-          <tr>
             <td><%= password_field_tag(:password, nil, required: true, minlength: 8) %></td>
-          </tr>
 
-          <tr>
             <th><%= label_tag(:password_confirmation) %></th>
-          </tr>
-          <tr>
             <td><%= password_field_tag(:password_confirmation, nil, required: true, minlength: 8) %></td>
-          </tr>
-        </table>
       
         <div class="form-buttons">
           <%= submit_tag "Sign Up", class: 'btn button btn-primary' %>
