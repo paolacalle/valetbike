@@ -1,20 +1,24 @@
-<div>
-  <h1 class="font-bold text-4xl">Memberships#new</h1>
-  <p>Find me in app/views/memberships/new.html.erb</p>
-</div>
 
-<%= form_with model: @membership, url: memberships_path, method: :post, local:true do |f| %>
-  <%= f.label :one_day, "One day membership" %>
-  <%= f.radio_button :expiration_date, 1.days.from_now, class: 'btn button btn-primary' %>
+<%= form_with url: memberships_path, method: :post, authenticity_token: false, commit: false do |f| %>
+  
+  <%= f.radio_button :membership_type, "day", class: 'btn button btn-primary' %>
+  <%= f.label :membership_type, "One day membership" %>
 
-  <%= f.label :one_day, "Month membership" %>
-  <%= f.radio_button :expiration_date, 1.months.from_now, class: 'btn button btn-primary' %>
+  <%= f.label :membership_type, "Month membership" %>
+  <%= f.radio_button :membership_type, "month", class: 'btn button btn-primary' %>
 
-  <%= f.label :one_day, "Year membership" %>
-  <%= f.radio_button :expiration_date, 1.years.from_now, class: 'btn button btn-primary' %>
+  <%= f.label :membership_type, "Year membership" %>
+  <%= f.radio_button :membership_type, "year", class: 'btn button btn-primary' %>
 
-  <%= f.submit class: "btn button btn-primary"%>
+
+
+  <div class="form-buttons">
+  <%= submit_tag "Create membership", name: nil, class: 'btn button btn-primary' %>
+  </div>
 <% end %>
+
+
+
 
 
 

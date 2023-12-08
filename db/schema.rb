@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_01_212739) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_231817) do
   create_table "bikes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "identifier"
     t.integer "current_station_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_212739) do
   end
 
   create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "type"
+    t.string "membership_type"
     t.float "cost"
     t.date "expiration_date"
     t.datetime "created_at", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_212739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "amount"
+    t.integer "user_id"
   end
 
   create_table "rentals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_01_212739) do
     t.string "password_digest"
     t.integer "current_rental"
     t.boolean "has_membership"
+    t.boolean "has_payment"
   end
 
 end

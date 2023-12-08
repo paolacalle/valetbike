@@ -1,12 +1,18 @@
-<h1 style="font-size:40px;">New Payment</h1>
 
-<%= form_with model: @payment, url: payments_path, method: :post, local:true do |f| %>
+<% @membership = Membership.find(session[:user_id]) %>
+
+<box>
+<h1> <%= @membership.membership_type %> membership</h1>
+<p>
+A <%= @membership.membership_type %> full of amazing adventures in Nipmuk Notch!
+</p>
+
+</box>
+
+<%= form_with url: payments_path, method: :post, local:true, authenticity_token: false, commit: false do |f| %>
     
   <%= f.label (:credit_card_info) %>
   <%= f.text_field (:credit_card_info), placeholder: "0000000000000000" %>
-
-  <%= f.label (:amount) %>
-  <%= f.text_field (:amount) %>
   
   <%= f.submit class: "btn button btn-primary"%>
   
