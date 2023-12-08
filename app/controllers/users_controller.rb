@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  skip_before_action :require_login, only: [:create, :new]
+  skip_before_action :authenticate_user!, only: [:new, :create]
 
   #keep login
   def show
@@ -18,12 +18,13 @@ class UsersController < ApplicationController
     # logger.info("\n\n*****attempting to create new user\n\n")
     # logger.info("\n\n*****In new #{user_params}\n\n")
     @user = User.new(user_params)
+    @user.has_bike = false
     # logger.info("\n\n*****Set new\n\n")
     if @user.save
+      sign_in(@user)
       session[:user_id] = @user.id
-      @user.has_bike = false
-      @user.save
       ApplicationMailer.welcome_email(@user).deliver
+
       flash[:notice] = "Welcome to your new account."
       redirect_to rentals_path
     else

@@ -1,34 +1,26 @@
 class SessionsController < ApplicationController
-    skip_before_action :require_login, only: [:create, :new]
+  skip_before_action :authenticate_user!, only: [:new, :create]
 
-    def new
+  def new
+    # Render the login form
+  end
 
+  def create
+    user = User.find_by(email: params[:email])
+
+    if user && user.valid_password?(params[:password])
+      sign_in(user) # Devise method to sign in the user
+      flash[:notice] = "You are now logged in"
+      redirect_to users_show_path
+    else
+      flash.now[:alert] = "Invalid email or password"
+      render :new
     end
+  end
 
-    def create
-        session_params = params.permit(:email, :password)
-        @user = User.find_by(email: session_params[:email])
-        if @user && @user.authenticate(session_params[:password])
-          session[:user_id] = @user.id
-          flash[:notice] = "You are now logged in"
-          redirect_to users_show_path
-        else
-          flash.now[:alert] =  "Login information invalid"
-          flash.now[:alert] ||= ""
-
-          render :new, status: 500
-        end
-    end
-
-    def destroy
-        logger.info("*** Logged out #{cookies[:email]}")
-        flash[:notice] = "You are now signed out"
-
-        # do logout process here
-        session[:user_id] = nil 
-        cookies[:user_name] = nil
-        @current_user = nil
-
-        redirect_to login_path
-    end
+  def destroy
+    sign_out(current_user) # Devise method to sign out the user
+    flash[:notice] = "You are now signed out"
+    redirect_to login_path
+  end
 end
