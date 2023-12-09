@@ -1,17 +1,27 @@
-/* You can modify the styles as needed */
 #navbar {
   padding: 10px 0;
   background-color: var(--valetbike-blue-color);
   color: white;
-  z-index: 1;
+  z-index: 9999; /* high to stay above other elements */
+  position: sticky; /* Sticky positioning */
+  top: 0; /* Stick to the top */
 }
 
+/* Rest of your CSS rules */
 .navbar-brand {
   margin-right: 1em;
 }
 
 .navbar-toggler {
   border: none;
+}
+
+.glow-on-hover {
+  transition: filter 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  filter: drop-shadow(0 0 8px rgba(204, 0, 0, 0.7)); /* Glowing effect */
 }
 
 .nav-link {

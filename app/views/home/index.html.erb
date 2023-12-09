@@ -5,6 +5,14 @@
   <section class="page-section image-background">
     <blockquote class="section-inner h2" style="text-align: center">Bike to go, go to Bike</blockquote>
   </section>
+
+  <% if user_signed_in? %>
+
+    <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= button_to "Sign in", new_user_session_path %>
+  <% end %>
+
   
   <section class="page-section">
     <h1 class="section-title">How it works</h1>
