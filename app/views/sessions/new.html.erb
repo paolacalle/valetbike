@@ -7,10 +7,10 @@
       <%= form_tag(sessions_path) do %>
       <table summary="login">
         <tr>
-          <th><%= label_tag(:email_address) %></th>
+          <th><%= label_tag(:email) %></th>
         </tr>
         <tr>
-          <td><%= text_field_tag(:email_address, params[:email_address], type: 'email', required: true, placeholder: "Enter email") %></td>
+          <td><%= text_field_tag(:email, params[:email], type: 'email', required: true, placeholder: "Enter email") %></td>
         </tr>
         <tr>
           <th><%= label_tag(:password) %></th>
@@ -21,14 +21,14 @@
       </table>
       <div class="text-center form-buttons">
         <br>
-        <%= submit_tag "Login", class: 'btn button btn-primary', style: 'color: black;' %>
+        <%= submit_tag "Login", class: 'btn button btn-primary' %>
       </div>
       <% end %>
     </div>
     <div class="text-center">
       <br>
       <p> Don't have an account? </p>
-      <p> <%= link_to "Create Account", sign_up_path, class: 'btn button btn-primary' %></p>
+      <p> <%= link_to "Create Account", new_user_session_path, class: 'btn button btn-primary' %></p>
     </div>
   </div>
 </div>

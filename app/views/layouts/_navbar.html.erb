@@ -1,67 +1,56 @@
-<!-- app/views/layouts/_navbar.html.erb -->
-<div id="navbar" class="navbar-fixed-top flexbox horizontal sticky-nav">
-  <nav class="navbar navbar-expand-lg navbar-header navbar-dark navbar-custom">
-    <div class="container">
-      <div class="navbar-header">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+<nav id="navbar" class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="<%= home_path %>">
+      <%= render inline: Rails.root.join('app/assets/images/logo.svg').read %>
+    </a>
 
-      </div>
+    <button class="navbar-toggler glow-on-hover" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+        <g>
+          <rect x="10" y="25" width="80" height="10" rx="2" fill="#FFFFFF" />
+          <rect x="10" y="45" width="80" height="10" rx="2" fill="#FFFFFF" />
+          <rect x="10" y="65" width="80" height="10" rx="2" fill="#FFFFFF" />
 
+          <path d="M50,10 L60,20 L50,30 L40,20 Z" fill="#CC0000" />
+        </g>
+      </svg>
+    </button>
+  
+  
 
-      <%= link_to home_path, method: :post do %>
-        <div class="logo white-fill">
-          <%= render inline: Rails.root.join('app/assets/images/logo.svg').read %>
-        </div>
-      <% end %>
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: 'nav-link' %>
+        </li>
 
-      <div class="collapse navbar-collapse" id="navbar-content">
-        <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to 'Home', root_path, class: 'nav-link' %>
+            <%= link_to 'New Rental', stations_path, class: 'nav-link' %>
           </li>
-
-          <% if session[:user_id].present? %>
-            <% puts "user is logged in" %>
-            <li class="nav-item">
-              <%= link_to 'New Rental', stations_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <% link_to 'Bikes', bikes_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Past Rentals', rentals_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <% link_to 'Payments', payments_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item dropdown">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  User
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <%= link_to 'Account', users_show_path, class: 'dropdown-item' %>
-                  <%= link_to 'Logout', logout_path, class: 'dropdown-item' %>
-                </div>
+          <li class="nav-item">
+            <%= link_to 'Past Rentals', rentals_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item dropdown">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                User
+              </button>
+              <div class="dropdown-menu z-0" aria-labelledby="dropdownMenuButton">
+                <%= link_to 'Account', users_show_path, class: 'dropdown-item' %>
+                <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </div>
-          
-            </li>
-          <% else %>
+            </div>
+          </li>
+        <% else %>
           <li class="nav-item">
-          
-            <%= link_to 'Login', login_path, class: 'nav-link' %>
+            <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
-        
-            <%= link_to 'Sign Up', sign_up_path, class: 'nav-link' %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
           </li>
-          <% end %>
-
-          <!-- Add more page links as needed -->
-        </ul>
-      </div>
+        <% end %>
+      </ul>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>
