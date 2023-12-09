@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
   post 'home', to: 'home#index'
 
+  get '/about_us', to: 'about_us#index', as: 'about_us'
+
+
   get 'users/show', to: 'users#show'
 
   #Sessions routes
