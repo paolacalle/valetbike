@@ -4,16 +4,26 @@
       <%= render inline: Rails.root.join('app/assets/images/logo.svg').read %>
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon">|||||</span>
+    <button class="navbar-toggler glow-on-hover" type="button" data-toggle="collapse" data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+        <g>
+          <rect x="10" y="25" width="80" height="10" rx="2" fill="#FFFFFF" />
+          <rect x="10" y="45" width="80" height="10" rx="2" fill="#FFFFFF" />
+          <rect x="10" y="65" width="80" height="10" rx="2" fill="#FFFFFF" />
+
+          <path d="M50,10 L60,20 L50,30 L40,20 Z" fill="#CC0000" />
+        </g>
+      </svg>
     </button>
+  
+  
 
     <div class="collapse navbar-collapse" id="navbar-content">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <%= link_to 'Home', root_path, class: 'nav-link' %>
         </li>
-        
+
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to 'New Rental', stations_path, class: 'nav-link' %>
