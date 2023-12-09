@@ -1,9 +1,9 @@
 class RentalsController < ApplicationController
   def index
     if params[:reverse].blank? || params[:reverse] == "0"
-      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :desc)
+      @rentals = Rental.where(user_id: current_user.id).order(rented_at: :desc)
     else 
-      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :asc)
+      @rentals = Rental.where(user_id: current_user.id).order(rented_at: :asc)
     end
     render :index
 
@@ -17,9 +17,9 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(rental_params)
     @rental.rented_at = DateTime.now
-    @current_user = User.find(session[:user_id])
-    logger.info("@current_user was set to user ##{@current_user.id}")
-    rental_creation(@current_user, @rental)
+    @user = User.find(current_user.id)
+    logger.info("@user was set to user ##{@user.id}")
+    rental_creation(@user, @rental)
   end
   
   def show
@@ -29,7 +29,7 @@ class RentalsController < ApplicationController
   
   def update
     puts "returning rental..."
-    @current_user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
     @rental=Rental.find(params[:id])
     @bike = Bike.find(@rental.bike_id)
 
@@ -39,8 +39,8 @@ class RentalsController < ApplicationController
       dock_bike(@bike)
       
       # Update user bike status 
-      @current_user.has_bike=false
-      if @current_user.save
+      @user.has_bike=false
+      if @user.save
         puts "Current user has_bike set to false. Saving rental complete to be true now"
         @rental.is_complete=true
         @rental.returned_at=DateTime.now
@@ -52,7 +52,7 @@ class RentalsController < ApplicationController
         end
       else
         flash[:error] ||= "The current user not set has_bike to false."
-        @current_user.errors.full_messages.each do |message|
+        @user.errors.full_messages.each do |message|
           flash.now[:error] << message + ". \n"
         end
       end
@@ -75,7 +75,7 @@ class RentalsController < ApplicationController
   
   def rental_creation(user, rental)
     if user.has_bike.nil?
-      logger.info("@current_user does not have a bike")
+      logger.info("@user does not have a bike")
       user.update(has_bike: false)
       flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
       render :new, status: 500
