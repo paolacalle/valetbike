@@ -52,7 +52,7 @@ class RentalsController < ApplicationController
   
   def update
     puts "returning rental..."
-    @user = User.find(user.id)
+    @user = current_user
     @rental=Rental.find(params[:id])
     @bike = Bike.find(@rental.bike_id)
 
@@ -63,23 +63,48 @@ class RentalsController < ApplicationController
       
       # Update user bike status 
       @user.has_bike=false
+
       if @user.save
         puts "Current user has_bike set to false. Saving rental complete to be true now"
-        @rental.is_complete=true
-        @rental.returned_at=DateTime.now
-
+        @rental.is_complete = true
+        @rental.returned_at = DateTime.now
+      
+        if @rental.returned_at > @rental.return_by
+          puts "Calculating late fees"
+          late_seconds = (@rental.returned_at - @rental.return_by).to_i
+      
+          late_fee_rate = 0.0005
+          late_fee = late_fee_rate * late_seconds
+      
+          @rental.payment_amount += late_fee
+        end
+      
+        # Set payment_required to true if payment_amount is greater than 0
+        @rental.payment_required = @rental.payment_amount > 0
+      
         if @rental.save
-          flash[:success] << "Rental completed."
+          flash[:success] = "Rental completed."
+      
+          # Redirect only if payment is required
+          if @rental.payment_required
+            redirect_to new_payment_path(amount: @rental.payment_amount, rental_id: @rental.id)
+          end
+
         else 
           flash[:error] = "The rental failed to be completed successfully...but the user has_bike is now false"
         end
+
       else
-        flash[:error] ||= "The current user not set has_bike to false."
+
+        flash[:error] = "The current user not set has_bike to false."
         @user.errors.full_messages.each do |message|
           flash.now[:error] << message + ". \n"
         end
+
       end
+
       redirect_to rentals_url
+
     end
   end
 
@@ -90,6 +115,7 @@ class RentalsController < ApplicationController
   def destroy
   end
 
+  private
   
   def rental_params
     params.permit(:bike_id, :rented_at).merge(bike_id: params[:selected_bike_id])
@@ -101,6 +127,9 @@ class RentalsController < ApplicationController
       user.update(has_bike: false)
       flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
       render :new, status: 500
+    elsif Rental.where(payment_required: true, user_id: user.id).exists? #prob ineffienct, but best way I can think of rn
+      flash[:error] = "Payment needed for previous rental."
+      redirect_to rentals_url
     elsif user.has_bike == false
       process_new_rental(user, rental)
     else
@@ -115,8 +144,21 @@ class RentalsController < ApplicationController
     if rental.save
       user.update(has_bike: true)
       dedock_bike(rental)
-      flash[:success] << "Rental created. Enjoy your bike!"
-      redirect_to payments_url
+      flash[:success] << "Rental created."
+
+      if user.has_membership
+        flash[:success] << " Your a member so no payment needed."
+        redirect_to users_show_path
+      else
+        # Calculate the total duration in seconds
+        total_seconds = params[:rental_hours].to_i * 3600 + params[:rental_minutes].to_i * 60
+        # Calculate the total price: 1$ per hr
+        total_price = 0.0003 * total_seconds
+        rental.update(payment_required: true, payment_amount: total_price)
+
+        redirect_to new_payment_path(amount: total_price, rental_id: rental.id)
+      end
+
     else
       logger.info("rental didn't save")
       flash.now[:error] ||= "Rental was not able to be saved.\n"

@@ -24,12 +24,20 @@ class MembershipsController < ApplicationController
   
     @membership = Membership.new()
 
+    if params[:membership_type] == "day"
+      @membership.cost = 10
+    elsif params[:membership_type] == "month"
+      @membership.cost = 20
+    elsif params[:membership_type] == "year"
+      @membership.cost = 200
+    end
+
     # Check if payment was made
     if !current_user.has_payment?
       # Logic to create a payment method
       # Redirect to payment method creation if necessary
       logger.info("User does not have a payment method.")
-      redirect_to new_payment_path(membership_type: params[:membership_type])
+      redirect_to new_payment_path(membership_type: params[:membership_type], amount: @membership.cost)
       return
     end
 

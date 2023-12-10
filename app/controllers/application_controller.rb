@@ -20,8 +20,9 @@ class ApplicationController < ActionController::Base
       
       # To do a simple test you can change the logic to  :) (very good coding here lol)
       # membership && membership.expiration_date > Date.yesterday
+      # assuming memebrship is a day
 
-      if membership && membership.expiration_date < Date.today
+      if membership && membership.expiration_date < Date.yesterday
         membership.destroy
         current_user.update(has_membership: false)
         
