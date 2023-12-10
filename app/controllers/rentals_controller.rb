@@ -148,6 +148,7 @@ class RentalsController < ApplicationController
 
       if user.has_membership
         flash[:success] << " Your a member so no payment needed."
+        rental.update(payment_amount: 0.0)
         redirect_to users_show_path
       else
         # Calculate the total duration in seconds

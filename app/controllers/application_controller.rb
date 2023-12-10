@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       # membership && membership.expiration_date > Date.yesterday
       # assuming memebrship is a day
 
-      if membership && membership.expiration_date < Date.yesterday
+      if membership && membership.expiration_date < Date.today
         membership.destroy
         current_user.update(has_membership: false)
         
