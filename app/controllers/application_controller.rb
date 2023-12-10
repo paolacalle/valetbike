@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
     before_action :require_login, only: [:new_session]
     before_action :check_membership_expiration, if: :user_signed_in?
   
+    # may not be needed anymore
     def require_login
       if user_signed_in?
         logger.info("AUTHENTICATED")
