@@ -2,7 +2,7 @@
   <p>Rented: <%=rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')%> </b>
   <p>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes 
   <p>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %> </b>
-  <p><b>Returned at: </b>
+  <p>Returned at: 
   <% if rental.returned_at.nil? %>
     <b>Rental has not been returned</b>
   <% else %>
