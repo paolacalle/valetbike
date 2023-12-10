@@ -1,8 +1,13 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
-  <p><b>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes </b>
-  <p><b>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %> </b>
   <p>Rented: <%=rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')%> </b>
-  <p>Bike: <%=rental.bike.identifier%>
+  <p>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes 
+  <p>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %> </b>
+  <p><b>Returned at: </b>
+  <% if rental.returned_at.nil? %>
+    <b>Rental has not been returned</b>
+  <% else %>
+    <%=rental.returned_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %>
+  <% end %>
   <% if !rental.is_complete %> 
     <div class="flexbox justify-space-between"> 
       <p><%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %></p>
