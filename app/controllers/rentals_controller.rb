@@ -15,10 +15,34 @@ class RentalsController < ApplicationController
   end
 
   def create
+    logger.info("entered into create")
+
+    puts params.inspect
+    puts "moved to rentals_controller#create"
     @rental = Rental.new(rental_params)
-    @rental.rented_at = DateTime.now
     @user = User.find(current_user.id)
     logger.info("@user was set to user ##{@user.id}")
+    puts params.inspect
+    logger.info("new rental created with rental_params")
+
+    puts "creating rental period"
+    @rental_period= ""
+    @rental_period.concat(params[:rental_hours].to_s, params[:rental_minutes].to_s)
+    # @bike = Bike.find(params[:bike])
+    puts "created...not yet saved"
+    @rented_at=DateTime.now.in_time_zone(nil)
+    puts @rented_at
+    logger.info("rental_period ")
+    puts @rental_period
+    @return_by= (@rented_at + @rental_period[0].to_i.hours + @rental_period[1,2].to_i.minutes)
+    puts @return_by
+    puts "return by created"
+    @user = User.find(current_user.id)
+    logger.info("@user was set to user ##{@user.id}")
+    @rental.rented_at = @rented_at
+    puts @rental.rented_at
+    @rental.rental_period = @rental_period
+    @rental.return_by = @return_by
     rental_creation(@user, @rental)
   end
   
@@ -67,10 +91,9 @@ class RentalsController < ApplicationController
   def destroy
   end
 
-  private
   
   def rental_params
-    params.require(:rental).permit(:bike_id, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
+    params.permit(:bike_id, :rented_at).merge(bike_id: params[:selected_bike_id])
   end
   
   def rental_creation(user, rental)
@@ -96,6 +119,7 @@ class RentalsController < ApplicationController
       flash[:success] << "Rental created. Enjoy your bike!"
       redirect_to payments_url
     else
+      logger.info("rental didn't save")
       flash.now[:error] ||= "Rental was not able to be saved.\n"
       rental.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"
@@ -108,8 +132,10 @@ class RentalsController < ApplicationController
     bike = Bike.find(rental.bike_id)
     bike.current_station_id = nil
     if bike.save
-      flash[:success] = "Bike docked. "
+      logger.info("bike got dedocked")
+      flash[:success] = "Bike dedocked. "
     else
+      logger.info("bike not dedocked")
       flash.now[:error] ||= "Unable to de-dock bike.\n"
       bike.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"
