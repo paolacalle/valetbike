@@ -1,25 +1,70 @@
-<div>
-  <h1 class="font-bold text-4xl mb-4">Welcome, <%= current_user.first_name %>!</h1>
+<section class="page-section">
+  <div class="section-inner flexbox horizontal justify-content-center">
+    <div>
+      <!-- Welcome Message -->
+      <h1 class="font-bold text-4xl mb-4 text-indigo-600" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);"><%= current_user.first_name.capitalize %>'s Account</h1>
 
-  <div class="mt-6">
-    <h2 class="text-2xl font-semibold">Membership Information</h2>
+      <!-- Membership Information Card -->
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Membership Information</h2>
 
-    <% @membership = Membership.find_by(user_id: current_user.id) %>
-    <% if @membership %>
-      <p class="mt-2">You have been a member since: <span class="font-medium"><%= @membership.created_at.strftime("%B %d, %Y") %></span></p>
-      <p>Your membership will expire on: <span class="font-medium"><%= @membership.expiration_date.strftime("%B %d, %Y") %></span></p>
+        <% @membership = Membership.find_by(user_id: current_user.id) %>
+        <% if @membership %>
+          <p class="mt-2">You have been a member since: 
+            <span class="font-medium">
+              <%= @membership.created_at.strftime("%B %d, %Y") %>
+            </span>
+          </p>
+          <p>Your membership will expire on: 
+            <span class="font-medium">
+              <%= @membership.expiration_date.strftime("%B %d, %Y") %>
+            </span>
+          </p>
+        <% else %>
+          <p class="mt-2">No membership information found.</p>
 
-    <% else %>
-      <p class="mt-2">No membership information found.</p>
+          <p class="mt-4">
+            <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
+          </p>
 
-      <p class="mt-4">
-        <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
-      </p>
+          <p class="mt-4">
+            <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
+          </p>
+        <% end %>
+      </div>
 
-      <p class="mt-4">
-        <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
-      </p>
-    <% end %>
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Current Rental</h2>
+
+        <% if @membership %>
+          <p class="mt-2">This is your for additional content.</p>
+        <% end %>
+        
+      </div>
+
+      <!-- edit profile -->
+
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Edit Profile</h2>
+
+        <% if @membership %>
+          <p class="mt-2">This is your for additional content.</p>
+        <% end %>
+        
+      </div>
+
+      <!-- submited feedback -->
+
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Your Last Feedback</h2>
+
+        <% if @membership %>
+          <p class="mt-2">This is your for additional content.</p>
+        <% end %>
+        
+      </div>
+
+      <!-- More cards can be added here in a similar fashion -->
+    </div>
   </div>
-
-</div>
+</section>
