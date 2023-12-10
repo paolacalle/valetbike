@@ -1,6 +1,6 @@
 
 <% if current_user.has_membership %>
-  <% @membership = Membership.find(user_id: current_user.id) %>
+  <% @membership = Membership.find_by(user_id: current_user.id) %>
   <p> you have been a member since <%= @membership.created_at.to_formatted_s(:long) %> </p>
   <p> your membership will expire at <%= @membership.expiration_date %> </p>
 
