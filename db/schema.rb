@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_08_003506) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_10_084008) do
   create_table "bikes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "identifier"
     t.integer "current_station_id"
@@ -36,12 +36,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_003506) do
   end
 
   create_table "memberships", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "type"
+    t.string "membership_type"
     t.float "cost"
     t.date "expiration_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category_id"
+    t.integer "user_id"
   end
 
   create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -49,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_003506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "amount"
+    t.integer "user_id"
   end
 
   create_table "rentals", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -61,6 +63,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_003506) do
     t.integer "user_id"
     t.boolean "is_complete"
     t.integer "bike_id"
+    t.boolean "payment_required", default: false
+    t.decimal "payment_amount", precision: 10, scale: 2
   end
 
   create_table "stations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -82,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_08_003506) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_rental"
+    t.boolean "has_membership"
+    t.boolean "has_payment"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

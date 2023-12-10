@@ -1,5 +1,25 @@
 <div>
-  <h1 class="font-bold text-4xl">Welcome <%= current_user.first_name %></h1>
-  <p>Find me in app/views/users/show.html.erb</p>
-</div>
+  <h1 class="font-bold text-4xl mb-4">Welcome, <%= current_user.first_name %>!</h1>
 
+  <div class="mt-6">
+    <h2 class="text-2xl font-semibold">Membership Information</h2>
+
+    <% @membership = Membership.find_by(user_id: current_user.id) %>
+    <% if @membership %>
+      <p class="mt-2">You have been a member since: <span class="font-medium"><%= @membership.created_at.strftime("%B %d, %Y") %></span></p>
+      <p>Your membership will expire on: <span class="font-medium"><%= @membership.expiration_date.strftime("%B %d, %Y") %></span></p>
+
+    <% else %>
+      <p class="mt-2">No membership information found.</p>
+
+      <p class="mt-4">
+        <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
+      </p>
+
+      <p class="mt-4">
+        <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
+      </p>
+    <% end %>
+  </div>
+
+</div>
