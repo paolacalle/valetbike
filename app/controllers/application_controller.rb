@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
 
       logger.info("Checking Membership Expiration")
       
+      # To do a simple test you can change the logic to  :) (very good coding here lol)
+      # membership && membership.expiration_date > Date.yesterday
+
       if membership && membership.expiration_date < Date.today
         membership.destroy
         current_user.update(has_membership: false)
