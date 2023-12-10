@@ -1,13 +1,20 @@
-<%= @current_user = User.find(session[:user_id]) %>
+<% @current_user = User.find(session[:user_id]) %>
 
 
 <% if @current_user.has_membership %>
-  <%= @membership = Membership.find(session[:user_id]) %>
-  <p> you have been a member since <%= @membership.created_at %> </p>
+  <% @membership = Membership.find(session[:user_id]) %>
+  <p> you have been a member since <%= @membership.created_at.to_formatted_s(:long) %> </p>
   <p> your membership will expire at <%= @membership.expiration_date %> </p>
 
   <p>
   This will be a link to delete your membership
+
+  <%= link_to 'Delete membership', memberships_path(@membership),
+  data: {:confirm => 'Are you sure?'}, method: :delete %>
+</p>
+
+<p>
+This will be a link to extend your membership
 </p>
 
 <% else %>

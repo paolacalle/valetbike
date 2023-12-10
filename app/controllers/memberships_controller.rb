@@ -110,13 +110,35 @@ class MembershipsController < ApplicationController
   end 
 
   def delete 
-
+    logger.info("in delete!")
   end
   
   def destroy
+    @membership = Membership.find(session[:user_id])
+    logger.info("Membership found: #{@membership}")
+    @membership.destroy
+    logger.info("Membership destroyed?: #{@membership}")
+    @current_user = User.find(session[:id])
+    @current_user.has_membership = false
+    logger.info("user has_membership: #{@current_user.has_membership}")
+    redirect_to membership_path
 
   end
 
+  def expiration_check
+    @membership = Membership.find(session[:user_id])
+    @current_user = User.find(session[:id])
+
+    if @membership.expiraction_date > Date.today
+      @membership.destroy
+      @current_user.has_membership = false
+      logger.info("membership expired, destroyed")
+    else
+      logger.info("membership not expired")
+    end
+    
+
+  end
 
   private 
 
