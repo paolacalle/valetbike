@@ -36,4 +36,8 @@
     </div>
   <% end %>
 
+  <% if rental.payment_required %>
+    <p><%= link_to "Pending Payment", new_payment_path(amount: rental.payment_amount, rental_id: rental.id), class: 'btn button btn-primary' %></p>
+  <% end %>
+
 </div>

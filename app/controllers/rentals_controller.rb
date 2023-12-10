@@ -87,11 +87,18 @@ class RentalsController < ApplicationController
       
           # Redirect only if payment is required
           if @rental.payment_required
+            flash[:notice] = "You Have Late Fee!"
             redirect_to new_payment_path(amount: @rental.payment_amount, rental_id: @rental.id)
-          end
+            return
+          else 
+            redirect_to rentals_url
+            return
+          end 
 
         else 
           flash[:error] = "The rental failed to be completed successfully...but the user has_bike is now false"
+          redirect_to rentals_url
+          return
         end
 
       else
@@ -100,10 +107,9 @@ class RentalsController < ApplicationController
         @user.errors.full_messages.each do |message|
           flash.now[:error] << message + ". \n"
         end
-
-      end
-
-      redirect_to rentals_url
+        redirect_to rentals_url
+        return
+      end 
 
     end
   end
