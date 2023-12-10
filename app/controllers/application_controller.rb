@@ -1,13 +1,14 @@
 class ApplicationController < ActionController::Base
-    #declare as helper so accessable to all views
-    before_action :require_login
-
+    before_action :authenticate_user!
+    before_action :require_login, only: [:new_session]
+  
     def require_login
-        redirect_to new_session_path unless session.include? :user_id
+      if user_signed_in?
+        logger.info("AUTHENTICATED")
+        params[:user_id] = current_user.id
+      else 
+        redirect_to new_user_session_path
+      end
     end
-
-    private 
-    def current_user
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
-    end
-end
+  end
+  
