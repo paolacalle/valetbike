@@ -1,9 +1,9 @@
 class RentalsController < ApplicationController
   def index
     if params[:reverse].blank? || params[:reverse] == "0"
-      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :desc)
+      @rentals = Rental.where(user_id: current_user.id).order(rented_at: :desc)
     else 
-      @rentals = Rental.where(user_id: session[:user_id]).order(rented_at: :asc)
+      @rentals = Rental.where(user_id: current_user.id).order(rented_at: :asc)
     end
     render :index
 
@@ -15,11 +15,34 @@ class RentalsController < ApplicationController
   end
 
   def create
+    logger.info("entered into create")
+
+    puts params.inspect
+    puts "moved to rentals_controller#create"
     @rental = Rental.new(rental_params)
-    @rental.rented_at = DateTime.now
-    @current_user = User.find(session[:user_id])
-    logger.info("@current_user was set to user ##{@current_user.id}")
-    rental_creation(@current_user, @rental)
+    @user = current_user
+    logger.info("@user was set to user ##{@user.id}")
+    puts params.inspect
+    logger.info("new rental created with rental_params")
+
+    puts "creating rental period"
+    @rental_period= ""
+    @rental_period.concat(params[:rental_hours].to_s, params[:rental_minutes].to_s)
+    # @bike = Bike.find(params[:bike])
+    puts "created...not yet saved"
+    @rented_at=DateTime.now.in_time_zone(nil)
+    puts @rented_at
+    logger.info("rental_period ")
+    puts @rental_period
+    @return_by= (@rented_at + @rental_period[0].to_i.hours + @rental_period[1,2].to_i.minutes)
+    puts @return_by
+    puts "return by created"
+    logger.info("@user was set to user ##{@user.id}")
+    @rental.rented_at = @rented_at
+    puts @rental.rented_at
+    @rental.rental_period = @rental_period
+    @rental.return_by = @return_by
+    rental_creation(@user, @rental)
   end
   
   def show
@@ -29,7 +52,7 @@ class RentalsController < ApplicationController
   
   def update
     puts "returning rental..."
-    @current_user = User.find(session[:user_id])
+    @user = User.find(user.id)
     @rental=Rental.find(params[:id])
     @bike = Bike.find(@rental.bike_id)
 
@@ -39,8 +62,8 @@ class RentalsController < ApplicationController
       dock_bike(@bike)
       
       # Update user bike status 
-      @current_user.has_bike=false
-      if @current_user.save
+      @user.has_bike=false
+      if @user.save
         puts "Current user has_bike set to false. Saving rental complete to be true now"
         @rental.is_complete=true
         @rental.returned_at=DateTime.now
@@ -52,7 +75,7 @@ class RentalsController < ApplicationController
         end
       else
         flash[:error] ||= "The current user not set has_bike to false."
-        @current_user.errors.full_messages.each do |message|
+        @user.errors.full_messages.each do |message|
           flash.now[:error] << message + ". \n"
         end
       end
@@ -67,15 +90,14 @@ class RentalsController < ApplicationController
   def destroy
   end
 
-  private
   
   def rental_params
-    params.require(:rental).permit(:bike_id, :rental_period, :return_by).merge(bike_id: params[:selected_bike_id])
+    params.permit(:bike_id, :rented_at).merge(bike_id: params[:selected_bike_id])
   end
   
   def rental_creation(user, rental)
     if user.has_bike.nil?
-      logger.info("@current_user does not have a bike")
+      logger.info("@user does not have a bike")
       user.update(has_bike: false)
       flash[:error] = "Your account has a nil rental currently...setting to false now. Try again"
       render :new, status: 500
@@ -96,6 +118,7 @@ class RentalsController < ApplicationController
       flash[:success] << "Rental created. Enjoy your bike!"
       redirect_to payments_url
     else
+      logger.info("rental didn't save")
       flash.now[:error] ||= "Rental was not able to be saved.\n"
       rental.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"
@@ -108,8 +131,10 @@ class RentalsController < ApplicationController
     bike = Bike.find(rental.bike_id)
     bike.current_station_id = nil
     if bike.save
-      flash[:success] = "Bike docked. "
+      logger.info("bike got dedocked")
+      flash[:success] = "Bike dedocked. "
     else
+      logger.info("bike not dedocked")
       flash.now[:error] ||= "Unable to de-dock bike.\n"
       bike.errors.full_messages.each do |message|
         flash.now[:error] << message + ". \n"

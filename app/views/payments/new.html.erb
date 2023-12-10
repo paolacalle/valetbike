@@ -1,19 +1,22 @@
+<section class="page-section">
+  <h1 class="section-title">New Payment</h1>
 
-<% @membership = Membership.find(session[:user_id]) %>
+  <%= form_with url: payments_path, method: :post, local: true do |f| %>
 
-<box>
-<h1> <%= @membership.membership_type %> membership</h1>
-<p>
-A <%= @membership.membership_type %> full of amazing adventures in Nipmuk Notch!
-</p>
+    <div class="form-group">
+      <%= f.label :membership_type, class: 'form-label' %>
+      <%= f.text_field :membership_type, value: params[:membership_type], disabled: true, class: "form-control disabled-field" %>
+      <%= f.hidden_field :membership_type, value: params[:membership_type] %>
+    </div>
 
-</box>
+    <div class="form-group">
+      <%= f.label :credit_card_info, 'Credit Card Number', class: 'form-label' %>
+      <%= f.text_field :credit_card_info, placeholder: "0000000000000000", class: "form-control", pattern: "\\d{4}\\d{4}\\d{4}\\d{4}", title: "Enter a valid credit card number in the format 0000000000000000" %>
+    </div>
 
-<%= form_with url: payments_path, method: :post, local:true, authenticity_token: false, commit: false do |f| %>
-    
-  <%= f.label (:credit_card_info) %>
-  <%= f.text_field (:credit_card_info), placeholder: "0000000000000000" %>
-  
-  <%= f.submit class: "btn button btn-primary"%>
-  
-<% end %>
+    <div class="form-group">
+      <%= f.submit "Submit", class: "btn button btn-primary" %>
+    </div>
+
+  <% end %>
+</section>

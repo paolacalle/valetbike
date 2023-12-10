@@ -1,13 +1,37 @@
 class ApplicationController < ActionController::Base
-    #declare as helper so accessable to all views
-    before_action :require_login
-
+    before_action :authenticate_user!
+    before_action :require_login, only: [:new_session]
+    before_action :check_membership_expiration, if: :user_signed_in?
+  
     def require_login
-        redirect_to new_session_path unless session.include? :user_id
+      if user_signed_in?
+        logger.info("AUTHENTICATED")
+        params[:user_id] = current_user.id
+      else 
+        redirect_to new_user_session_path
+      end
     end
 
-    private 
-    def current_user
-        @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    private
+    def check_membership_expiration
+      membership = Membership.find_by(user_id: current_user.id)
+
+      logger.info("Checking Membership Expiration")
+      
+      if membership && membership.expiration_date < Date.today
+        membership.destroy
+        current_user.update(has_membership: false)
+        
+        # Notify the user only if they haven't already been notified in this session
+        if !session[:notified_membership_expired].present?
+          flash[:alert] = "Your membership has expired and has been removed."
+          session[:notified_membership_expired] = true # Set the flag
+          logger.info("Membership expired and destroyed, user notified.")
+        end
+
+      end
+
     end
-end
+
+  end
+  

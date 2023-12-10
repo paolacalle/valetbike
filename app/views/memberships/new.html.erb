@@ -1,25 +1,32 @@
+<% if params[:payment_completed].blank? %>
+  <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'membership_form' do |f| %>
+    
+    <%= f.radio_button :membership_type, "day", id: 'membership_day', class: 'btn button btn-primary' %>
+    <%= f.label :membership_day, "One day membership" %>
 
-<%= form_with url: memberships_path, method: :post, authenticity_token: false, commit: false do |f| %>
-  
-  <%= f.radio_button :membership_type, "day", class: 'btn button btn-primary' %>
-  <%= f.label :membership_type, "One day membership" %>
+    <%= f.label :membership_month, "Month membership" %>
+    <%= f.radio_button :membership_type, "month", id: 'membership_month', class: 'btn button btn-primary' %>
 
-  <%= f.label :membership_type, "Month membership" %>
-  <%= f.radio_button :membership_type, "month", class: 'btn button btn-primary' %>
+    <%= f.label :membership_year, "Year membership" %>
+    <%= f.radio_button :membership_type, "year", id: 'membership_year', class: 'btn button btn-primary' %>
 
-  <%= f.label :membership_type, "Year membership" %>
-  <%= f.radio_button :membership_type, "year", class: 'btn button btn-primary' %>
+    <div class="form-buttons">
+      <%= submit_tag "Create membership", name: nil, class: 'btn button btn-primary' %>
+    </div>
 
+  <% end %>
+<% else %>
 
+  <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'auto_submit_form', style: 'display: none;' do |f| %>
 
-  <div class="form-buttons">
-  <%= submit_tag "Create membership", name: nil, class: 'btn button btn-primary' %>
-  </div>
+    <%= f.radio_button :membership_type, "day", checked: params[:membership_type] == 'day', class: 'btn button btn-primary' %>
+    <%= f.radio_button :membership_type, "month", checked: params[:membership_type] == 'month', class: 'btn button btn-primary' %>
+    <%= f.radio_button :membership_type, "year", checked: params[:membership_type] == 'year', class: 'btn button btn-primary' %>
+
+  <% end %>
+
+  <script>
+    document.getElementById('auto_submit_form').submit();
+  </script>
+
 <% end %>
-
-
-
-
-
-
-

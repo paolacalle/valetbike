@@ -3,7 +3,4 @@ module ApplicationHelper
 
     end 
 
-    def current_user 
-
-    end 
 end

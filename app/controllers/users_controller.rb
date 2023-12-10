@@ -1,41 +1,13 @@
 class UsersController < ApplicationController
-
-  skip_before_action :require_login, only: [:create, :new]
-
   #keep login
   def show
-    @current_user = User.find(session[:user_id])
+    @user = current_user.id
     render :show
   end
 
   def index
-    @current_user = User.find(session[:user_id])
+    @user = User.find(current_user.id)
   end
-
-
-  #Sign-up
-  def create
-    # logger.info("\n\n*****attempting to create new user\n\n")
-    # logger.info("\n\n*****In new #{user_params}\n\n")
-    @user = User.new(user_params)
-    # logger.info("\n\n*****Set new\n\n")
-    if @user.save
-      session[:user_id] = @user.id
-      @user.has_bike = false
-      @user.save
-      ApplicationMailer.welcome_email(@user).deliver
-      flash[:notice] = "Welcome to your new account."
-      redirect_to rentals_path
-    else
-      puts "Can not create user"
-      flash.now[:alert] ||= ""
-      @user.errors.full_messages.each do |message|
-        flash.now[:alert] << message + ". "
-      end
-      render :new, status: 500
-    end
-  end
-
 
   # Save user coordniates
   def save_coordinates
@@ -54,7 +26,7 @@ class UsersController < ApplicationController
   
   def user_params
     logger.info("\n\n*****attempting to create new user\n\n")
-    params.permit(:email_address, :password, :password_confirmation, :first_name, :last_name)
+    params.permit(:email, :password, :password_confirmation, :first_name, :last_name)
   end
 
 end
