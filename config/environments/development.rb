@@ -75,7 +75,7 @@ Rails.application.configure do
     address: 'smtp.sendgrid.net',
     port: 587,
     user_name: 'apikey', # This is the string literal 'apikey', NOT the ID of your API key
-    password: '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',
+    password: ENV["SENDGRID_API_KEY"],
     authentication: :plain,
     enable_starttls_auto: true
   }
