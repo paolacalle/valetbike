@@ -87,7 +87,7 @@ class RentalsController < ApplicationController
       
           # Redirect only if payment is required
           if @rental.payment_required
-            flash[:notice] = "You Have Late Fee!"
+            flash[:alert] = "You Have Late Fee!"
             redirect_to new_payment_path(amount: @rental.payment_amount, rental_id: @rental.id)
             return
           else 
