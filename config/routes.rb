@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'feedback/create'
+  get 'feedback/mail'
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
