@@ -36,13 +36,6 @@ input#search_by_address {
 
 /* LOGIN, SIGNUP, AND OTHER FROM START OF SESSION */
 
-.horizontal-line {
-  border: none;
-  height: 1px;
-  background-color: #ccc; 
-  margin: 10px 10px;
-}
-
 .form-card {
   background: white;
   padding: 20px;

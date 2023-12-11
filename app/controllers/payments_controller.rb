@@ -22,31 +22,34 @@ class PaymentsController < ApplicationController
     @payment.user_id = current_user.id
     @payment.created_at = DateTime.now
 
-    if @payment.save
+    # handling Membership Payments
+    if params[:membership_type].present?
 
-      if params[:membership_type].present?
-
-        current_user.has_payment = true
-        if current_user.save
-          logger.info("current user saves")
-          flash[:success] = "Payment completed"
-          redirect_to new_membership_path(payment_completed: 1, membership_type: params[:membership_type])
-        else
-          flash[:error] = "Payment failed"
-          render :new, status: 500
-        end
-
-      else
-        flash[:success] = "Payment completed"
-        @rental = Rental.find(params[:rental_id])
-        @rental.update(payment_amount: 0, payment_required: false)
-
+      if current_user.has_membership?
+        flash[:alert] = "You already have an account. You were not charged anything."
         redirect_to users_show_path
+        return
       end
+
+      if @payment.save
+        current_user.update(has_payment: true)
+        flash[:success] = "Payment completed"
+        redirect_to new_membership_path(payment_completed: 1, membership_type: params[:membership_type])
+      else
+        flash[:error] = "Payment failed"
+        render :new, status: :unprocessable_entity
+      end
+
     else
-      logger.info("payment doesnt save")
-      flash[:error] = "Payment failed"
+      # handling non-membership Payments
+
+      flash[:success] = "Payment completed"
+      @rental = Rental.find(params[:rental_id])
+      @rental.update(payment_amount: 0, payment_required: false)
+
+      redirect_to users_show_path
     end
+
   end
 
   def show
