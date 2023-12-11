@@ -46,6 +46,7 @@ class PaymentsController < ApplicationController
       flash[:success] = "Payment completed"
       @rental = Rental.find(params[:rental_id])
       @rental.update(payment_amount: 0, payment_required: false)
+      current_user.update(has_payment: false)
 
       redirect_to users_show_path
     end

@@ -149,6 +149,8 @@ class RentalsController < ApplicationController
     rental.user = user
     if rental.save
       user.update(has_bike: true)
+      user.update(has_payment: true) #user has a balance
+
       dedock_bike(rental)
       flash[:success] << "Rental created."
 
