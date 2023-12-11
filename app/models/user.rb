@@ -17,6 +17,7 @@ class User < ApplicationRecord
     
     has_one :current_rental, class_name: :Rental, foreign_key: :id
     has_many :rentals, class_name: :Rental, foreign_key: :id
+    has_many :memberships, class_name: :Membership, foreign_key: :id
 
     # validates :email, format: {with: EMAIL_REGEX, message: "Email invalid" }
 

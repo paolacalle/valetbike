@@ -1,29 +1,43 @@
 <div class="record-row <%= cycle "odd", "even", name: "row-cycler" %> flexbox vertical stretch">
-  <p>Rented: <%=rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p')%> </b>
-  <p>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour')%> and <%= rental.rental_period.to_s[1,2]  %> minutes 
-  <p>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %> </b>
-  <p><b>Returned at: </b>
-  <% if rental.returned_at.nil? %>
-    <b>Rental has not been returned</b>
-  <% else %>
-    <%=rental.returned_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %>
-  <% end %>
-  <% if !rental.is_complete %> 
-    <div class="flexbox justify-space-between"> 
-      <p><%= link_to "Show Rental QR Code", rental_path(Rental.find(rental.id)), class: 'btn button btn-primary' %></p>
-      <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
-        <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
 
-        <dialog data-dialog-target="modal", id="returnModal">
-          <div class="p-8">
-            <%= render(partial: "rentals/return", object: rental, as: :rental) %>
-            <form method="dialog">
-              <button type="submit" class='btn button btn-primary'autofocus>Cancel</button>
-            </form>
-          </div>
-        </dialog>
-      </div>
-    </div>  
+  <p>Rented: <%= rental.rented_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %></p>
+  <p>Rental period: <%= pluralize(rental.rental_period.to_s[0], 'hour') %> and <%= rental.rental_period.to_s[1,2] %> minutes</p>
+  <p>Return by: <%= rental.return_by.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %></p>
+
+  <% if !rental.returned_at.nil? %>
+    <p><b>Returned at:</b> <%= rental.returned_at %> </p>
   <% end %>
+
+  <% if !rental.is_complete %>
+    <div class="flexbox justify-space-between">
+     
+        <% if !rental.payment_required %>
+          <p><%= link_to "Show Rental QR Code", rental_path(rental), class: 'btn button btn-primary' %></p>
+
+        <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+
+          <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
+
+          <dialog data-dialog-target="modal" id="returnModal">
+            <div class="p-8">
+              <%= render partial: "rentals/return", object: rental, as: :rental %>
+              <form method="dialog">
+                <button type="submit" class='btn button btn-primary' autofocus>Cancel</button>
+              </form>
+            </div>
+          </dialog>
+
+        </div>
+
+      <% else %>
+        <p><%= link_to "QR/Return DISABLED: Payment Needed", new_payment_path(amount: rental.payment_amount, rental_id: rental.id), class: 'btn button btn-primary' %></p>
+      <% end %>
+
+    </div>
+  <% end %>
+
+  <% if rental.payment_required %>
+    <p><%= link_to "Pending Payment", new_payment_path(amount: rental.payment_amount, rental_id: rental.id), class: 'btn button btn-primary' %></p>
+  <% end %>
+
 </div>
-

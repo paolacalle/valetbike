@@ -1,43 +1,110 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<head>
+  <title>Edit Account - ValetBike</title>
+</head>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<body>
+  <section class="page-section">
+    <div class="section-inner">
+      <div class="form-card">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+        <h1 class="section-title"> Edit <%= resource_name.to_s.humanize %> </h1>
+        <div class="horizontal-line"></div> 
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+        <div class="flexbox horizontal justify-content-center">
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
+            <div class="field">
+              <%= f.label :password %> <i>(leave blank if no change needed)</i><br />
+              <%= f.password_field :password, autocomplete: "new-password" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em><%= @minimum_password_length %> characters minimum</em>
+              <% end %>
+            </div>
 
-<h3>Cancel my account</h3>
+            <div class="field">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            </div>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+            <div class="field">
+              <%= f.label :current_password %> <i>(to confirm your changes)</i><br />
+              <%= f.password_field :current_password, autocomplete: "current-password" %>
+            </div>
 
-<%= link_to "Back", :back %>
+            <div class="actions">
+              <%= f.submit "Update", class:"btn button btn-primary"%>
+            </div>
+          <% end %>
+
+        </div>
+
+        <div class="field">
+          <p> <b> Cancel Account? </b> </p>
+        </div> 
+
+        <div class="horizontal-line"></div> 
+        <div class="flexbox horizontal justify-content-center">
+
+
+        <% if current_user.has_membership? %> 
+
+            <p> NOT available, active membership  </p>
+
+        <% elsif current_user.has_payment? %> 
+
+            <div class="field">
+              <%= link_to "NOT available, payment required", rentals_path, class: "btn button btn-primary" %>
+            </div>
+
+        <% else %> 
+          <div>
+            <%= button_to "Cancel my account", 
+                          registration_path(resource_name), 
+                          method: :delete, 
+                          class: "btn button btn-primary", 
+                          id: "cancel-account-btn", 
+                          data: { turbo_confirm: "Are you sure?" }%>
+          </div>
+        <% end %>
+
+      </div>
+      
+
+      <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+          document.getElementById('cancel-account-btn').addEventListener('click', function(event) {
+            event.preventDefault();
+        
+            if (!confirm('Are you absolutely sure you want to cancel your account? This action cannot be undone.')) {
+              return;
+            }
+
+            var userInput = prompt('Please type "CANCEL" to confirm account deletion.');
+            if (userInput === 'CANCEL') {
+              var form = this.closest('form');
+              form.submit();
+            } else {
+              alert('Account deletion canceled.');
+            }
+          });
+        });
+      </script>
+    
+
+      </div>
+    </div>
+  </section>
+</body>

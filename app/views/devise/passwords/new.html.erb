@@ -1,16 +1,45 @@
-<h2>Forgot your password?</h2>
+<head>
+    <title>Forgot Password - ValetBike</title>
+</head>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<body>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+    <section class="page-section">
+      <div class="section-inner">
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
+        <div class="form-card">
 
-<%= render "devise/shared/links" %>
+          <h1 class="section-title">Forgot Password</h1>
+          <div class="horizontal-line"></div> 
+
+          <div class="flexbox horizontal justify-content-center">
+            
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+
+              <div class="field">
+                <%= f.label :email %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input', placeholder: 'Enter your email' %>
+              </div>
+
+              <div class="actions">
+                <br>
+                <%= f.submit "   Send reset instructions   ", class:"btn button btn-primary"%>
+                <br>
+                <br>
+              </div>
+              
+            <% end %>
+
+          </div>
+
+          <div class="flexbox horizontal justify-content-center">
+              <%= render "devise/shared/links" %>
+          </div>
+
+        </div>
+        
+      </div>
+    </section>
+
+</body>

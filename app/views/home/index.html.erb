@@ -2,16 +2,20 @@
   <title>Homepage - ValetBike</title>
 </head>
 <body>
+
   <section class="page-section image-background">
     <blockquote class="section-inner h2" style="text-align: center">Bike to go, go to Bike</blockquote>
   </section>
   
   <section class="page-section">
     <h1 class="section-title">How it works</h1>
+    <div class="horizontal-line"></div> 
+    <br>
+    <br>
 
     <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
       <div class="link-box" style="--width: 33%;">
-        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+        <%= link_to memberships_path, class: "fill-block", :action => 'go' do %>
           Begin Membership
         <% end %>
       </div>
@@ -30,8 +34,10 @@
           Unlock the Bike
         <% end %>
       </div>
-      <div class="link-box h4" style="--width: 33%;">
-        *insert bike here*
+      <div class="link-box h4" style="--width: 33%; align-items: center;">
+        <a class="navbar-brand" href="<%= home_path %>">
+          <%= render inline: Rails.root.join('app/assets/images/logo copy.svg').read %>
+        </a>
       </div>
       <div class="link-box h4" style="--width: 33%;">
         <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
@@ -44,6 +50,9 @@
 
   <section class="page-section">
     <h1 class="section-title">ValetBike Stats</h1>
+    <div class="horizontal-line"></div> 
+    <br>
+    <br>
     <div class="white-background">
       <h1 class="section-inner h4"><%= Station.count %> stations throughout Nipmuc Notch</h1>
     </div>
@@ -57,25 +66,44 @@
 
   <section class="page-section">
     <h1 class="section-title">Membership Options</h1>
-    <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
-      <div class="link-box" style="--width: 33%;">
-        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
-          $__ for a Day
+    <div class="horizontal-line"></div> 
+    <br>
+    <br>
+    <div class="home-membership-cards">
+      <div class="home-member-card daily-membership">
+        <%= link_to new_payment_path(membership_type: "day", amount: 10), class: "membership-link", action: 'go' do %>
+          <div class="card-content">
+            <h2>Day Pass</h2>
+            <p class="price">$10 for a Day</p>
+            <p>Enjoy unlimited 24-hour access to our services. Ideal for a day of exploring or short-term needs.</p>
+          </div>
         <% end %>
       </div>
-      <div class="link-box" style="--width: 33%;">
-        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
-          $__ for a Month
+
+      <div class="home-member-card monthly-membership highlighted">
+        <%= link_to new_payment_path(membership_type: "month", amount: 20), class: "membership-link", action: 'go' do %>
+          <div class="card-content">
+            <h2>Monthly Pass</h2>
+            <p class="price">$20 for a Month</p>
+            <p>Perfect for regular users. Get unlimited access all month long, with additional member benefits.</p>
+          </div>
         <% end %>
       </div>
-      <div class="link-box h4" style="--width: 33%;">
-        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
-          $__ for a Year
+
+      <div class="home-member-card yearly-membership">
+        <%= link_to new_payment_path(membership_type: "year", amount: 200), class: "membership-link", action: 'go' do %>
+          <div class="card-content">
+            <h2>Annual Pass</h2>
+            <p class="price">$200 for a Year</p>
+            <p>The best value for frequent users. Enjoy all the perks of membership, including exclusive offers and services, for an entire year.</p>
+          </div>
         <% end %>
       </div>
     </div>
   </section>
+
   
   <section class="page-section empty">
   </section>
+
 </body>

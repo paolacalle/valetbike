@@ -1,26 +1,51 @@
-<h2>Log in</h2>
+<head>
+    <title>Login - ValetBike</title>
+</head>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<body>
+    <section class="page-section">
+      <div class="section-inner">
+        <div class="form-card">
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+          <h1 class="section-title">Log In</h1>
+          <div class="horizontal-line"></div> 
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+          <div class="flexbox horizontal justify-content-center">
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
 
-<%= render "devise/shared/links" %>
+                <div class="field email-field">
+                  <%= f.label :email, 'Email', class: 'email-label' %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input', placeholder: 'Enter your email' %>
+                </div>
+                
+                <div class="field password-field">
+                  <%= f.label :password, 'Password', class: 'password-label' %>
+                  <%= f.password_field :password, autocomplete: "current-password", class: 'password-input', placeholder: 'Enter your password' %>
+                </div>
+              
+                <% if devise_mapping.rememberable? %>
+                  <div class="field remember-me-field">
+                    <%= f.label :remember_me, class: 'remember-me-label' do %>
+                      <%= f.check_box :remember_me, class: 'remember-me-checkbox' %>
+                      <span class="remember-me-text">Remember Me</span>
+                    <% end %>
+                  </div>
+                <% end %>
+                
+                <div class="actions">
+                    <%= f.submit "Log In", class: "btn button btn-primary" %>
+                </div>
+
+            <% end %>
+
+          </div>
+
+          <div class="flexbox horizontal justify-content-center">
+              <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+</body>

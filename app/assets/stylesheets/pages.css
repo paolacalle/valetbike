@@ -96,6 +96,13 @@
   text-decoration: none;
 }
 
+.horizontal-line {
+  border: none;
+  height: 1px;
+  background-color: #ccc; 
+  margin: 10px 10px;
+}
+
 /***********************************/
 /*         Responsiveness          */
 /***********************************/

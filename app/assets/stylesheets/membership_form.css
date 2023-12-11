@@ -1,0 +1,54 @@
+.horizontal {
+    flex-direction: row;
+}
+
+/* Membership Cards */
+.membership-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.membership-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 10px;
+    width: calc(33% - 20px); /* Equal width for cards */
+}
+
+.membership-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Label */
+.card-label {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Card Title and Price */
+.card-title, .card-price {
+    display: block;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.card-price {
+    color: #28a745; /* Green color for price */
+    font-weight: bold;
+}
+
+/* Form Buttons */
+.form-buttons {
+    margin-top: 20px;
+    text-align: center;
+}

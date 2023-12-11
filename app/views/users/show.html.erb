@@ -1,5 +1,81 @@
-<div>
-  <h1 class="font-bold text-4xl">Welcome <%= current_user.first_name %></h1>
-  <p>Find me in app/views/users/show.html.erb</p>
-</div>
+<section class="page-section">
+  <div class="section-inner flexbox horizontal justify-content-center">
+    <div>
+      <!-- Welcome Message -->
+      <h1 class="font-bold text-4xl mb-4 text-indigo-600" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);"><%= current_user.first_name.capitalize %>'s Account</h1>
 
+      <!-- Membership Information Card -->
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Membership Information</h2>
+
+        <% @membership = Membership.find_by(user_id: current_user.id) %>
+
+        <% if @membership %>
+          <p class="mt-2">You have been a member since: 
+            <span class="font-medium">
+              <%= @membership.created_at.strftime("%B %d, %Y") %>
+            </span>
+          </p>
+          <p>Your membership will expire on: 
+            <span class="font-medium">
+              <%= @membership.expiration_date.strftime("%B %d, %Y") %>
+            </span>
+          </p>
+        <% else %>
+          <p class="mt-2">No membership information found.</p>
+          <br>
+          <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
+          <br>
+          <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
+          
+        <% end %>
+      </div>
+
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Current Rental</h2>
+
+        <% @current_rental = Rental.where(user_id: current_user.id, is_complete: false) %>
+
+        <% if @current_rental.exists? %>
+
+          <p class="mt-2">You have an active rental</p>
+
+          <p class="mt-2">Extend Time</p>
+          <p class="mt-2">Return</p>
+          <p class="mt-2">QR</p>
+
+        <% else %>
+
+          <p class="mt-2">You have no active rental.</p>
+          <br>
+          <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
+
+        <% end %>
+        
+      </div>
+
+      <!-- edit profile -->
+
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Edit Profile</h2>
+
+        <br>
+        <%= link_to "Edit Account", edit_user_registration_path, class: 'btn button btn-primary' %>
+
+        <% if @membership %>
+          <p class="mt-2">This is your for additional content.</p>
+        <% end %>
+        
+      </div>
+
+      <!-- submited feedback -->
+
+      <div class="card mt-6">
+        <h2 class="text-2xl font-semibold">Your Last Feedback</h2>
+        
+      </div>
+
+      <!-- More cards can be added here in a similar fashion -->
+    </div>
+  </div>
+</section>
