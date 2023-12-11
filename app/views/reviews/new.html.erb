@@ -1,16 +1,16 @@
 <div>  
   <head>
-  <title>Contact Us - ValetBike</title>
+  <title>Review Station - ValetBike</title>
 </head>
 <body>
 
 
   <section class="page-section">
 
-    <h1 class="section-title">Contact Us</h1>
+    <h1 class="section-title">Review Station</h1>
     <div class="section-inner flexbox horizontal justify-content-center">
     
-    <%= form_with url: feedback_path, method: :post, local:true do |f| %>
+    <%= form_with url: review_path, method: :post, local:true do |f| %>
 
       <tr>
       <body> 
@@ -22,10 +22,16 @@
       </tr>
 
       <tr>
-      <th><f.label for :response> <b>Message </b></label></th>
+      <th><b><% f.label (:new_station_id)%>Select Station</b></th>
+        <div style="color: black;">
+          <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true%></td>
+          <br><br>
+      </tr>
+
+      <tr>
+      <th><f.label for :response><b> Message </b></label></th>
       <td><textarea style="height:300px;width:500px" type="string" name="response"class="form-control" id=:response></textarea></td>
         <%= puts :response %>
-      
       </tr>
       <br>
       <br>

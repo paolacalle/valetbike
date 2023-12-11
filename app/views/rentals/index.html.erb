@@ -5,7 +5,10 @@
   <section class="page-section">
     <h1 class="section-title">Rentals</h1>
     <p class="section-inner" style="text-align: center;">
-      <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
+      <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %><br>
+      <div style="padding-top: 1em; text-align: center;">
+        or <%= link_to "Review a Station", review_path%>
+      </div>
     </p>
     <br>
     <div class="section-inner flexbox vertical stretch">

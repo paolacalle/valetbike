@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
   post 'feedback', to: 'feedback#create'
 
+  #Review routes
+  get 'review', to: 'reviews#new'
+  post 'review', to: 'reviews#create'
 end
 
 
