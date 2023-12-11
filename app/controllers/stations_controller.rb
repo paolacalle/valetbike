@@ -13,15 +13,20 @@ class StationsController < ApplicationController
 
     if params[:search_nearest] == "1"
 
+      if !params[:dist].nil? 
+        @dist = params[:dist]
+      else 
+        @dist = 0.3 
+      end 
+
       if session[:user_latitude].present? && session[:user_longitude].present? &&
             session[:user_latitude] != "" && session[:user_longitude] != ""
 
-        puts "READING FROM SESSION"
-        @stations = @stations.near([session[:user_latitude].to_f, session[:user_longitude].to_f], 0.3)
+        @stations = @stations.near([session[:user_latitude].to_f, session[:user_longitude].to_f], @dist)
       elsif params[:lat].present? && params[:long].present?
         puts "PARMS NOT EMPTY"
         puts "#{[params[:lat].to_f, params[:long].to_f]}"
-        @stations = @stations.near([params[:lat].to_f, params[:long].to_f], 0.3)
+        @stations = @stations.near([params[:lat].to_f, params[:long].to_f], @dist)
         session[:user_latitude] = params[:lat]
         session[:user_longitude] = params[:long]
       end

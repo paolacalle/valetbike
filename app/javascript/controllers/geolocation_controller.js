@@ -8,14 +8,13 @@ const options = {
 
 // Connects to data-controller="geolocation"
 export default class extends Controller {
-  connect() {
-  }
 
   success(pos) {
     const crd = pos.coords;
     const latitude = crd.latitude;
     const longitude = crd.longitude;
     const currentURL = window.location.href;
+    const distance = document.getElementById("distance").value;
 
     const updatedURL = new URL(currentURL);
 
@@ -45,6 +44,7 @@ export default class extends Controller {
     updatedURL.searchParams.set('search_nearest', 1);
     updatedURL.searchParams.set('lat', latitude);
     updatedURL.searchParams.set('long', longitude);
+    updatedURL.searchParams.set('dist', distance);
     location.assign(updatedURL);
   }
 
