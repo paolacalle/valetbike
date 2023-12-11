@@ -6,7 +6,7 @@ class User < ApplicationRecord
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
     devise :database_authenticatable, :registerable,
             :recoverable, :rememberable, :validatable,
-            :confirmable, :lockable
+            :confirmable
 
     # EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/
 

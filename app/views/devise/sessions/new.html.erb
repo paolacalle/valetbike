@@ -13,7 +13,9 @@
           <div class="flexbox horizontal justify-content-center">
 
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "login-form" }) do |f| %>
-
+                
+                <%= render "devise/shared/error_messages", resource: resource %>
+                
                 <div class="field email-field">
                   <%= f.label :email, 'Email', class: 'email-label' %>
                   <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'email-input', placeholder: 'Enter your email' %>
@@ -41,6 +43,7 @@
 
           </div>
 
+          <div class="horizontal-line"></div> 
           <div class="flexbox horizontal justify-content-center">
               <%= render "devise/shared/links" %>
           </div>
