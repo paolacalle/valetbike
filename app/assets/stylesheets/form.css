@@ -39,7 +39,7 @@ input#search_by_address {
 .horizontal-line {
   border: none;
   height: 1px;
-  background-color: #ccc; /* Adjust color as needed */
+  background-color: #ccc; 
   margin: 10px 10px;
 }
 
@@ -47,15 +47,21 @@ input#search_by_address {
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.5s ease-in-out;
-  width: 400px; /* Increased width */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  animation: slideInFadeIn 0.7s ease-out forwards; 
+  width: 400px; 
   margin: 20px auto;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes slideInFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .field {
