@@ -1,0 +1,31 @@
+/* Basic styling for the container */
+.container {
+    text-align: center;
+  }
+  
+  /* Hide the default radio buttons */
+  .star {
+    display: none;
+  }
+  
+  /* Styling for the star labels */
+  .star + label {
+    color: #ddd; /* Gray color for unselected stars */
+    font-size: 36px; /* Larger star size */
+    cursor: pointer;
+    transition: color 0.2s ease; /* Smooth color transition */
+    display: inline-block; /* Display stars in a line */
+  }
+  
+  /* Style stars when hovered over or checked */
+  .star:checked + label,
+  .star + label:hover,
+  .star + label:hover ~ label {
+    color: gold; /* Gold color for selected and hovered stars */
+  }
+  
+  /* Adjust the order of stars to fill from left to right */
+  .star-group {
+    direction: ltr;
+  }
+  

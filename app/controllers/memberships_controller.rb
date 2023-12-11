@@ -37,8 +37,15 @@ class MembershipsController < ApplicationController
       # Logic to create a payment method
       # Redirect to payment method creation if necessary
       logger.info("User does not have a payment method.")
-      redirect_to new_payment_path(membership_type: params[:membership_type], amount: @membership.cost)
-      return
+      if params[:membership_type].nil?
+        render :new, status: 500
+        flash[:alert] = "No memebership selected"
+        return
+      else 
+        redirect_to new_payment_path(membership_type: params[:membership_type], amount: @membership.cost)
+        return
+      end
+
     end
 
     @membership.membership_type = params[:membership_type]

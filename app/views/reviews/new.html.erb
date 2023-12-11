@@ -1,44 +1,49 @@
-<div>  
-  <head>
+<head>
   <title>Review Station - ValetBike</title>
 </head>
-<body>
 
 
-  <section class="page-section">
+<section class="page-section">
+  <h1 class="section-title">Review Station</h1>
 
-    <h1 class="section-title">Review Station</h1>
-    <div class="section-inner flexbox horizontal justify-content-center">
-    
-    <%= form_with url: review_path, method: :post, local:true do |f| %>
+  <div class="section-inner flexbox horizontal justify-content-center">
+    <%= form_with url: review_path, method: :post, local: true do |f| %>
+      
+      <div class="form-group">
+        <%= f.label :station_id, 'Select Station' %>
+        <%= f.collection_select :station_id, Station.all, :id, :address, prompt: true %>
+      </div>
 
-      <tr>
-      <body> 
-        <h1 align="center">At ValetBike, we value your feedback. 
-        Leave your <br> questions, comments, and concerns below 
-        and <br>a team member will reach out regarding your response.<br></h1> 
-        <br>
-      </body> 
-      </tr>
+      <div class="container">
+        <div class="star-group">
+          <h1> RATE THE STATION</h1>
+          <input type="radio" class="star" id="star1" name="rating" value=1>
+          <label for="star1" title="1 star"><span>1</span></label>
+      
+          <input type="radio" class="star" id="star2" name="rating" value=2>
+          <label for="star2" title="2 stars"><span>2</span></label>
+      
+          <input type="radio" class="star" id="star3" name="rating" value=3>
+          <label for="star3" title="3 stars"><span>3</span></label>
+      
+          <input type="radio" class="star" id="star4" name="rating" value=3>
+          <label for="star4" title="4 stars"><span>4</span></label>
+      
+          <input type="radio" class="star" id="star5" name="rating" value=5>
+          <label for="star5" title="5 stars"><span>5</span></label>
+        </div>
+      </div>
 
-      <tr>
-      <th><b><% f.label (:station_id)%>Select Station</b></th>
-        <div style="color: black;">
-          <td><%= f.collection_select :station_id, Station.all, :id, :address, prompt: true%></td>
-          <br><br>
-      </tr>
+      <div class="form-group">
+        <%= f.label :message, 'Message' %>
+        <%= f.text_area :message, class: "form-control", style: "height: 300px; width: 500px" %>
+      </div>
 
-      <tr>
-      <th><f.label for :message><b> Message </b></label></th>
-      <td><textarea style="height:300px;width:500px" type="string" name="message"class="form-control" id=:message></textarea></td>
-        <%= puts :message %>
-      </tr>
-      <br>
-      <br>
-      <%= f.submit class: "btn button btn-primary" %>
-      <% end %>
-    </div>
-  </section>
-</body>
-  
-</div>
+      <%= f.submit 'Submit Review', class: "btn button btn-primary" %>
+
+    <% end %>
+  </div>
+</section>
+
+
+

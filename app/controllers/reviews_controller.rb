@@ -8,6 +8,7 @@ class ReviewsController < ApplicationController
     logger.info("entered create")
     puts params[:message]
     puts params[:station_id]
+    puts params[:review]
     @user = User.find(current_user.id)
     user_id = @user
     station_id = params[:station_id]
@@ -18,18 +19,17 @@ class ReviewsController < ApplicationController
 
   def save_review
     @review.user_id = current_user.id
+  
     if @review.save
-      puts "saved"
       flash[:success] = "Response submitted. Thank you for your feedback!"
       redirect_to home_path
     else 
-      flash[:error] = "The review failed to save."
-      redirect_to rentals_url
-      return
+      flash.now[:error] = @review.errors.full_messages.to_sentence
+      render :new, status:500
     end
   end
-
+  
   def review_params
-    params.permit(:message, :station_id)
+    params.permit(:message, :station_id, :rating)
   end
 end
