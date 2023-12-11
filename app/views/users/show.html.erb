@@ -32,17 +32,36 @@
 
       <div class="card mt-6">
         <h2 class="text-2xl font-semibold">Current Rental</h2>
+        <% @current_rentals = Rental.where(user_id: current_user.id, is_complete: false) %>
+        <% @current_rental = @current_rentals.first%>
+        <% if !@current_rental.nil? %>
 
-        <% @current_rental = Rental.where(user_id: current_user.id, is_complete: false) %>
-
-        <% if @current_rental.exists? %>
-
-          <p class="mt-2">You have an active rental</p>
-
-          <p class="mt-2">Extend Time</p>
-          <p class="mt-2">Return</p>
-          <p class="mt-2">QR</p>
-
+          <p class="mt-2">Your current rental is due: 
+            <span class="font-medium">
+              <%= @current_rental.return_by.strftime("%I:%M %p on %B, %d, %Y") %>
+            </span>
+          </p>
+          <p>The rental began at: 
+            <span class="font-medium">
+              <%= @current_rental.created_at.strftime("%I:%M %p on %B, %d, %Y") %>
+            </span>
+          </p>
+          <div class="flexbox justify-space-between" style="padding-top: 1em;">
+            <p>
+              <%= link_to "Show Rental QR Code", rental_path(@current_rental), class: 'btn button btn-primary' %>
+            </p>
+            <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+              <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
+              <dialog data-dialog-target="modal" id="returnModal">
+                <div class="p-8">
+                  <%= render partial: "rentals/return", object: @current_rental, as: :rental %>
+                  <form method="dialog">
+                    <button type="submit" class='btn button btn-primary' autofocus>Cancel</button>
+                  </form>
+                </div>
+              </dialog>
+            </div>
+          </div>
         <% else %>
 
           <p class="mt-2">You have no active rental.</p>
@@ -59,7 +78,7 @@
         <h2 class="text-2xl font-semibold">Edit Profile</h2>
 
         <% if @membership %>
-          <p class="mt-2">This is your for additional content.</p>
+          <p class="mt-2">This is for additional content.</p>
         <% end %>
         
       </div>
@@ -70,7 +89,7 @@
         <h2 class="text-2xl font-semibold">Your Last Feedback</h2>
 
         <% if @membership %>
-          <p class="mt-2">This is your for additional content.</p>
+          <p class="mt-2">This is for additional content.</p>
         <% end %>
         
       </div>
