@@ -1,0 +1,38 @@
+<div>  
+  <head>
+  <title>Contact Us - ValetBike</title>
+</head>
+<body>
+
+
+  <section class="page-section">
+
+    <h1 class="section-title">Contact Us</h1>
+    <div class="section-inner flexbox horizontal justify-content-center">
+    
+    <%= form_with url: feedback_path, method: :post, local:true do |f| %>
+
+      <tr>
+      <body> 
+        <h1 align="center">At ValetBike, we value your feedback. 
+        Leave your <br> questions, comments, and concerns below 
+        and <br>a team member will reach out regarding your response.<br></h1> 
+        <br>
+      </body> 
+      </tr>
+
+      <tr>
+      <th><f.label for :response> <b>Message </b></label></th>
+      <td><textarea style="height:300px;width:500px" type="string" name="response"class="form-control" id=:response></textarea></td>
+        <%= puts :response %>
+      
+      </tr>
+      <br>
+      <br>
+      <%= f.submit class: "btn button btn-primary" %>
+      <% end %>
+    </div>
+  </section>
+</body>
+  
+</div>

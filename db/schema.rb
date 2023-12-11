@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_11_163339) do
+
+ActiveRecord::Schema[7.0].define(version: 2023_12_11_183809) do
   create_table "bikes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "identifier"
     t.integer "current_station_id"
@@ -20,6 +21,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_163339) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "feedbacks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "response"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +73,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_163339) do
     t.integer "bike_id"
     t.boolean "payment_required", default: false
     t.decimal "payment_amount", precision: 10, scale: 2, default: "0.0"
+
+  end
+
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "station_id"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "stations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -86,12 +103,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_11_163339) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_rental"
-    t.boolean "has_membership"
-    t.boolean "has_payment"
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.boolean "has_membership"
+    t.boolean "has_payment"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
