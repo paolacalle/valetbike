@@ -2,7 +2,8 @@
   <div class="section-inner flexbox horizontal justify-content-center">
     <div>
       <!-- Welcome Message -->
-      <h1 class="font-bold text-4xl mb-4 text-indigo-600" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.2);"><%= current_user.first_name.capitalize %>'s Account</h1>
+      <h1 class="section-title"><%= current_user.first_name.capitalize %>'s Account</h1>
+    
 
       <!-- Membership Information Card -->
       <div class="card mt-6">
@@ -25,8 +26,6 @@
           <p class="mt-2">No membership information found.</p>
 
           <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
-
-          <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
           
         <% end %>
       </div>

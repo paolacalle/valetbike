@@ -13,9 +13,8 @@
       </a>
 
     </div>
-
-
-    <h1 class="section-title">Bikes</h1>
+    
+    <h1 class="section-title">ValetBikes at <%= Station.find_by(id: params[:selected_station_id]).name %></h1>
     <section class="section-inner flexbox vertical stretch">
       <% if @bikes.present? %>
         <div class="record-row header flexbox horizontal justify-space-between">

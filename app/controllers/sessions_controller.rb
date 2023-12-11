@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if user && user.valid_password?(params[:password])
       sign_in(user) # Devise method to sign in the user
       flash[:notice] = "You are now logged in"
-      redirect_to users_show_path
+      redirect_to home_path
     else
       flash.now[:alert] = "Invalid email or password"
       render :new
