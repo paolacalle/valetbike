@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'feedback/mail'
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
@@ -32,6 +31,11 @@ Rails.application.routes.draw do
   post 'rentals', to: 'rentals#create'
   patch '/return/:id', to: 'rentals#update', as: 'return'
 
+  # Memberships routes
+  resources :memberships, only: [:index, :new, :create, :update]
+  get '/memberships/:id', to: 'memberships#show'
+  delete '/memberships/:id', to: 'memberships#destroy'
+  
   #Feedback routes
   get '/feedback', to: 'feedback#new'
 

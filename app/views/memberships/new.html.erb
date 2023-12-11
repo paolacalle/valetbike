@@ -1,6 +1,58 @@
-<div>
-  <h1 class="font-bold text-4xl">Memberships#new</h1>
-  <p>Find me in app/views/memberships/new.html.erb</p>
-</div>
+<section class="page-section" id="membership-section">
+  <h1 class="section-title">Select Membership</h1>
+  <div class="flexbox horizontal justify-content-center">
+    <% if params[:payment_completed].blank? %>
+      <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'membership_form' do |f| %>
 
+        <div class="membership-cards">
 
+          <div class="membership-card">
+            <%= f.radio_button :membership_type, "day", id: 'membership_day', class: 'hidden-radio' %>
+            <%= f.label :membership_day, class: 'card-label' do %>
+              <span class="card-title">One Day Membership</span>
+              <span class="card-price">$10</span>
+            <% end %>
+          </div>
+
+          <div class="membership-card">
+            <%= f.radio_button :membership_type, "month", id: 'membership_month', class: 'hidden-radio' %>
+            <%= f.label :membership_month, class: 'card-label' do %>
+              <span class="card-title">Month Membership</span>
+              <span class="card-price">$20</span>
+
+            <% end %>
+          </div>
+
+          <div class="membership-card">
+            <%= f.radio_button :membership_type, "year", id: 'membership_year', class: 'hidden-radio' %>
+            <%= f.label :membership_year, class: 'card-label' do %>
+              <span class="card-title">Year Membership</span>
+              <span class="card-price">$200</span>
+            <% end %>
+          </div>
+        
+        </div>
+
+        <div class="form-buttons">
+          <%= submit_tag "Create membership", name: nil, class: 'btn button btn-primary' %>
+        </div>
+
+      <% end %>
+    </div>
+  <% else %>
+
+    <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'auto_submit_form', style: 'display: none;' do |f| %>
+
+      <%= f.radio_button :membership_type, "day", checked: params[:membership_type] == 'day', class: 'btn btn-primary' %>
+      <%= f.radio_button :membership_type, "month", checked: params[:membership_type] == 'month', class: 'btn btn-primary' %>
+      <%= f.radio_button :membership_type, "year", checked: params[:membership_type] == 'year', class: 'btn btn-primary' %>
+
+    <% end %>
+
+    <script>
+      document.getElementById('auto_submit_form').submit();
+    </script>
+
+  <% end %>
+
+</section>

@@ -11,7 +11,7 @@
 
     <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
       <div class="link-box" style="--width: 33%;">
-        <%= link_to new_payment_path, class: "fill-block", :action => 'go' do %>
+        <%= link_to memberships_path, class: "fill-block", :action => 'go' do %>
           Begin Membership
         <% end %>
       </div>
@@ -30,8 +30,10 @@
           Unlock the Bike
         <% end %>
       </div>
-      <div class="link-box h4" style="--width: 33%;">
-        *insert bike here*
+      <div class="link-box h4" style="--width: 33%; align-items: center;">
+        <a class="navbar-brand" href="<%= home_path %>">
+          <%= render inline: Rails.root.join('app/assets/images/logo copy.svg').read %>
+        </a>
       </div>
       <div class="link-box h4" style="--width: 33%;">
         <%= link_to rentals_path, class: "fill-block", :action => 'go' do %>
