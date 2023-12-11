@@ -42,6 +42,7 @@ class RentalsController < ApplicationController
     puts @rental.rented_at
     @rental.rental_period = @rental_period
     @rental.return_by = @return_by
+    @rental.is_complete=false
     rental_creation(@user, @rental)
   end
   
@@ -152,10 +153,10 @@ class RentalsController < ApplicationController
       user.update(has_payment: true) #user has a balance
 
       dedock_bike(rental)
-      flash[:success] << "Rental created."
+      flash[:success] = "Rental created."
 
       if user.has_membership
-        flash[:success] << " Your a member so no payment needed."
+        flash[:success] << " You're a member so no payment is necessary."
         rental.update(payment_amount: 0.0)
         redirect_to users_show_path
       else
@@ -183,7 +184,6 @@ class RentalsController < ApplicationController
     bike.current_station_id = nil
     if bike.save
       logger.info("bike got dedocked")
-      flash[:success] = "Bike dedocked. "
     else
       logger.info("bike not dedocked")
       flash.now[:error] ||= "Unable to de-dock bike.\n"
