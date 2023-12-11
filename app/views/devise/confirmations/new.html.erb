@@ -1,16 +1,38 @@
-<h2>Resend confirmation instructions</h2>
 
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<head>
+  <title>Confirmation - ValetBike</title>
+</head>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
-  </div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
-  </div>
-<% end %>
+<body>
+  <section class="page-section">
+    <div class="section-inner">
+      <div class="form-card">
 
-<%= render "devise/shared/links" %>
+        <h1 class="section-title">Resend Confirm Instructions</h1>
+        <div class="horizontal-line"></div> 
+
+        <div class="flexbox horizontal justify-content-center">
+          <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit "Resend instructions" , class:"btn button btn-primary"%>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="horizontal-line"></div> 
+        <div class="flexbox horizontal justify-content-center">
+          <%= render "devise/shared/links" %>
+        </div>
+
+      </div>
+    <div>
+  </section>
+</body>
