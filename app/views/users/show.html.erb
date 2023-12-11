@@ -9,6 +9,7 @@
         <h2 class="text-2xl font-semibold">Membership Information</h2>
 
         <% @membership = Membership.find_by(user_id: current_user.id) %>
+
         <% if @membership %>
           <p class="mt-2">You have been a member since: 
             <span class="font-medium">
@@ -23,21 +24,32 @@
         <% else %>
           <p class="mt-2">No membership information found.</p>
 
-          <p class="mt-4">
-            <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
-          </p>
+          <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
 
-          <p class="mt-4">
-            <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
-          </p>
+          <%= link_to "View Membership Information", memberships_url, class: 'btn button btn-primary' %>
+          
         <% end %>
       </div>
 
       <div class="card mt-6">
         <h2 class="text-2xl font-semibold">Current Rental</h2>
 
-        <% if @membership %>
-          <p class="mt-2">This is your for additional content.</p>
+        <% @current_rental = Rental.where(user_id: current_user.id, is_complete: false) %>
+
+        <% if @current_rental.exists? %>
+
+          <p class="mt-2">You have an active rental</p>
+
+          <p class="mt-2">Extend Time</p>
+          <p class="mt-2">Return</p>
+          <p class="mt-2">QR</p>
+
+        <% else %>
+
+          <p class="mt-2">You have no active rental.</p>
+
+          <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
+
         <% end %>
         
       </div>

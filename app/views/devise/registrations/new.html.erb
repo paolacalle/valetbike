@@ -1,6 +1,7 @@
 <head>
-  <title>Login - ValetBike</title>
+  <title>Sign Up - ValetBike</title>
 </head>
+
 <body>
   <section class="page-section">
     <h1 class="section-title">Sign Up</h1>
@@ -41,10 +42,12 @@
 
             <%= f.label :password_confirmation %>
             <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+            <br> 
+            <br>
           </div>
 
-          <div class="actions form-buttons button btn btn-primary">
-            <%= f.submit "Sign up" %>
+          <div class="actions">
+            <%= f.submit "Sign up" , class:"btn button btn-primary"%>
           </div>
           <br>
           <%= render "devise/shared/links" %>
