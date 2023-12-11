@@ -21,7 +21,6 @@ class FeedbackController < ApplicationController
     @feedback.user_id = current_user.id
     if @feedback.save
       flash[:success] = "Response submitted. Thank you for your feedback!"
-      puts
       redirect_to home_path
     end
   end
