@@ -38,6 +38,7 @@
               </button>
               <div class="dropdown-menu z-0" aria-labelledby="dropdownMenuButton">
                 <%= link_to 'Account', users_show_path, class: 'dropdown-item' %>
+                <%= link_to 'Contact Us', feedback_path, class: 'dropdown-item' %>
                 <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: 'dropdown-item' %>
               </div>
             </div>

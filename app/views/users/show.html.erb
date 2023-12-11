@@ -24,7 +24,7 @@
           </p>
         <% else %>
           <p class="mt-2">No membership information found.</p>
-
+          <br>
           <%= link_to "Create Membership", new_membership_path, class: 'btn button btn-primary' %>
           
         <% end %>
@@ -65,7 +65,7 @@
         <% else %>
 
           <p class="mt-2">You have no active rental.</p>
-
+          <br>
           <%= link_to "Create New Rental", stations_path, class: 'btn button btn-primary' %>
 
         <% end %>
@@ -77,6 +77,9 @@
       <div class="card mt-6">
         <h2 class="text-2xl font-semibold">Edit Profile</h2>
 
+        <br>
+        <%= link_to "Edit Account", edit_user_registration_path, class: 'btn button btn-primary' %>
+
         <% if @membership %>
           <p class="mt-2">This is for additional content.</p>
         <% end %>
@@ -87,7 +90,6 @@
 
       <div class="card mt-6">
         <h2 class="text-2xl font-semibold">Your Last Feedback</h2>
-
         <% if @membership %>
           <p class="mt-2">This is for additional content.</p>
         <% end %>

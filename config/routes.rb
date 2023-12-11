@@ -35,6 +35,15 @@ Rails.application.routes.draw do
   resources :memberships, only: [:index, :new, :create, :update]
   get '/memberships/:id', to: 'memberships#show'
   delete '/memberships/:id', to: 'memberships#destroy'
+  
+  #Feedback routes
+  get '/feedback', to: 'feedback#new'
+
+  post 'feedback', to: 'feedback#create'
+
+  #Review routes
+  get 'review', to: 'reviews#new'
+  post 'review', to: 'reviews#create'
 end
 
 

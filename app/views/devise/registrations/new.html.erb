@@ -11,7 +11,7 @@
         <div class="horizontal-line"></div> 
 
         <div class="flexbox horizontal justify-content-center">
-
+        
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
               <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -51,6 +51,7 @@
 
         </div>
 
+        <div class="horizontal-line"></div> 
         <div class="flexbox horizontal justify-content-center">
           <%= render "devise/shared/links" %>
         </div>

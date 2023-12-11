@@ -3,7 +3,6 @@
 </head>
 
 <body>
-
     <section class="page-section">
       <div class="section-inner">
 
@@ -15,6 +14,7 @@
           <div class="flexbox horizontal justify-content-center">
             
             <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+              
               <%= render "devise/shared/error_messages", resource: resource %>
 
               <div class="field">
@@ -23,15 +23,14 @@
               </div>
 
               <div class="actions">
-                <br>
-                <%= f.submit "   Send reset instructions   ", class:"btn button btn-primary"%>
-                <br>
-                <br>
+                <%= f.submit " Send reset instructions ", class:"btn button btn-primary"%>
               </div>
               
             <% end %>
 
           </div>
+
+          <div class="horizontal-line"></div> 
 
           <div class="flexbox horizontal justify-content-center">
               <%= render "devise/shared/links" %>
