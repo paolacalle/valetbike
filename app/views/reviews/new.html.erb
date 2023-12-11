@@ -22,16 +22,16 @@
       </tr>
 
       <tr>
-      <th><b><% f.label (:new_station_id)%>Select Station</b></th>
+      <th><b><% f.label (:station_id)%>Select Station</b></th>
         <div style="color: black;">
-          <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true%></td>
+          <td><%= f.collection_select :station_id, Station.all, :id, :address, prompt: true%></td>
           <br><br>
       </tr>
 
       <tr>
-      <th><f.label for :response><b> Message </b></label></th>
-      <td><textarea style="height:300px;width:500px" type="string" name="response"class="form-control" id=:response></textarea></td>
-        <%= puts :response %>
+      <th><f.label for :message><b> Message </b></label></th>
+      <td><textarea style="height:300px;width:500px" type="string" name="message"class="form-control" id=:message></textarea></td>
+        <%= puts :message %>
       </tr>
       <br>
       <br>
