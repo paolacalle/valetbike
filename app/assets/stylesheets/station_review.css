@@ -19,8 +19,7 @@
   
   /* Style stars when hovered over or checked */
   .star:checked + label,
-  .star + label:hover,
-  .star + label:hover ~ label {
+  .star + label:hover {
     color: gold; /* Gold color for selected and hovered stars */
   }
   
