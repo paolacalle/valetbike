@@ -1,3 +1,34 @@
+<head>
+    <title>Station Information-ValetBike</title>
+</head>
+<body>
+    <section class="page-section">
+        <h1 class="section-title"> Station: <%= Station.find(params[:id]).name %></h1>
+        <div class="card mt-6 section-inner">
+            <% @station = Station.find(params[:id]) %>
+            <p class="mt-2">Identifier: 
+                <span class="font-medium">
+                    <%= @station.identifier %>
+                </span>
+            </p>
+            <p class="mt-2">Address: 
+                <span class="font-medium">
+                    <%= @station.address %>
+                </span>
+            </p>
+            <% @reviews = Review.where(station_id: params[:id]) %>
+        </div>
+    </section>
+    <section class="page-section">
+        <section class="section-inner flexbox vertical stretch">
+            <div class="record-row header flexbox horizontal justify-space-between" >
+                <h4 class="h4">Reviews</h4>
+                <h4 class="h4">Average Rating: <%= @reviews.average(:rating) %></h4>
+            </div>
+            <div style="color: black;">
+                <%= render(partial: "reviews/row", collection: @reviews, as: :review) %>
+            </div>
+        </section>
 
-
-<h1> Station Selected: <%= Station.find(params[:id]) %></h1>
+    </section>
+</body>
