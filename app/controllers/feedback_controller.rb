@@ -21,7 +21,10 @@ class FeedbackController < ApplicationController
   def save_feedback
     @feedback.user_id = current_user.id
     if @feedback.save
-      send_email
+      puts "sending feedback"
+      UserMailer.send_advice_confirmation(current_user.email, "feedback", @response).deliver_now
+      ApplicationMailer.notify_company_of_advice("feedback", @response).deliver_now
+
       flash[:success] = "Response submitted. Thank you for your feedback!"
       redirect_to home_path
     else 
@@ -33,25 +36,5 @@ class FeedbackController < ApplicationController
   def feedback_params
     params.permit(:response)
   end
-
-  def send_email
-    logger.info("entered send email")
-    from = SendGrid::Email.new(email: ENV['SENDER_EMAIL'])
-    to = SendGrid::Email.new(email: @user.email)
-    subject = 'ValetBike Feedback Received'
-    text = "Thank you for submitting feedback to ValetBike! Your feedback has been received. Below is a copy of your response.\n\n" + "\"" + @response + "\""
-    content = SendGrid::Content.new(type: 'text/plain', value: text)
-    mail = SendGrid::Mail.new(from, subject, to, content)
- 
- 
-    sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-    response = sg.client.mail._('send').post(request_body: mail.to_json)
-    puts response.status_code
-    puts response.body
-    puts response.headers
- 
- 
-  end
- 
 
 end
