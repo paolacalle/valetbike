@@ -12,35 +12,40 @@
   <div class="flexbox horizontal justify-content-center">
     <% if params[:payment_completed].blank? %>
       <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'membership_form' do |f| %>
-
         <div class="membership-cards">
+              <div class="membership-card">
+                <%= f.radio_button :membership_type, "day", id: 'membership_day', class: 'hidden-radio' %>
+                <%= f.label :membership_day, class: 'card-label' do %>
+                  <span class="card-title">One Day Membership</span>
+                  <span class="card-price">$10</span>
+                <% end %>
+                <div class="justify-content-center">
+                <%= image_tag("day_biker.svg", size: "100x100") %>
+                </div>
+              </div>
+           
 
-          <div class="membership-card">
-            <%= f.radio_button :membership_type, "day", id: 'membership_day', class: 'hidden-radio' %>
-            <%= f.label :membership_day, class: 'card-label' do %>
-              <span class="card-title">One Day Membership</span>
-              <span class="card-price">$10</span>
-            <% end %>
-          </div>
+              <div class="membership-card">
+                <%= f.radio_button :membership_type, "month", id: 'membership_month', class: 'hidden-radio' %>
+                <%= f.label :membership_month, class: 'card-label' do %>
+                  <span class="card-title">Month Membership</span>
+                  <span class="card-price">$20</span>
+                <% end %>
+                <%= image_tag("month_biker.svg", size: "100x100") %>
+              </div>
 
-          <div class="membership-card">
-            <%= f.radio_button :membership_type, "month", id: 'membership_month', class: 'hidden-radio' %>
-            <%= f.label :membership_month, class: 'card-label' do %>
-              <span class="card-title">Month Membership</span>
-              <span class="card-price">$20</span>
+              <div class="membership-card">
+                <%= f.radio_button :membership_type, "year", id: 'membership_year', class: 'hidden-radio' %>
+                <%= f.label :membership_year, class: 'card-label' do %>
+                  <span class="card-title">Year Membership</span>
+                  <span class="card-price">$200</span>
+                <% end %>
+                <%= image_tag("year_biker.svg", size: "120x120") %>
+              </div>
 
-            <% end %>
-          </div>
-
-          <div class="membership-card">
-            <%= f.radio_button :membership_type, "year", id: 'membership_year', class: 'hidden-radio' %>
-            <%= f.label :membership_year, class: 'card-label' do %>
-              <span class="card-title">Year Membership</span>
-              <span class="card-price">$200</span>
-            <% end %>
-          </div>
         
         </div>
+        
 
         <div class="form-buttons">
           <%= submit_tag "Create Membership", name: nil, class: 'btn button btn-primary' %>
