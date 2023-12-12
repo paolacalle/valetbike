@@ -18,7 +18,7 @@ class MembershipsController < ApplicationController
     if current_user.has_membership
       logger.info("User already has a membership.")
       flash[:error] = "You already have a membership."
-      redirect_to memberships_url
+      redirect_to users_show_path
       return
     end
   

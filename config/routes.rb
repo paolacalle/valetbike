@@ -10,7 +10,6 @@ Rails.application.routes.draw do
 
   get '/about_us', to: 'about_us#index', as: 'about_us'
 
-
   get 'users/show', to: 'users#show'
 
   #Sessions routes
@@ -32,7 +31,7 @@ Rails.application.routes.draw do
   patch '/return/:id', to: 'rentals#update', as: 'return'
 
   # Memberships routes
-  resources :memberships, only: [:index, :new, :create, :update]
+  resources :memberships, only: [:new, :create, :update]
   get '/memberships/:id', to: 'memberships#show'
   delete '/memberships/:id', to: 'memberships#destroy'
   
