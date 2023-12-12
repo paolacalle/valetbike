@@ -36,7 +36,7 @@ class FeedbackController < ApplicationController
 
   def send_email
     logger.info("entered send email")
-    from = SendGrid::Email.new(email: 'bikeruby4@gmail.com')
+    from = SendGrid::Email.new(email: ENV['SENDER_EMAIL'])
     to = SendGrid::Email.new(email: @user.email)
     subject = 'ValetBike Feedback Received'
     text = "Thank you for submitting feedback to ValetBike! Your feedback has been received. Below is a copy of your response.\n\n" + "\"" + @response + "\""
