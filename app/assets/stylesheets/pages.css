@@ -40,7 +40,7 @@
 
 .image-background {
   opacity: 0.7;
-  background-image:url("hampcountyimage.jpeg");
+  background-image: var(--image);
   color:aliceblue;
   padding-top: 6%;
   padding-bottom: 6%;
