@@ -1,0 +1,13 @@
+
+<div class="record-row <%= cycle 'odd', 'even', name: 'row-cycler' %> flexbox vertical stretch">
+  <div class="flexbox justify-space-between">
+    <p><%= review.created_at.in_time_zone('Eastern Time (US & Canada)').to_time.strftime('%B %e at %l:%M %p') %>
+    <div style="text-align: left;">
+      <p>Rating: <b><%= review.rating %></b>
+    </div>
+  </div>
+  <div class="horizontal-line"></div> 
+
+  <p><%= review.message %>
+
+</div>
