@@ -4,15 +4,19 @@
       Return Bike
     </div>
     <div>
+
       <%= form_with model: @rental, url: return_path(Rental.find(rental.id)), method: :patch, local: true do |f| %>
         <th><b><% f.label (:new_station_id)%>Station Returning To</b></th>
+
         <div style="color: black;">
           <td><%= f.collection_select :new_station_id, Station.all, :id, :address, prompt: true%></td>
-        </div>
-        <div>
+          </div>
+          <div>
           <%= f.submit class: "btn button btn-primary"%>
         </div>
+
       <% end %>
+
     </div>
   </div>
 </div>

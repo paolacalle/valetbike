@@ -314,6 +314,6 @@ Devise.setup do |config|
 
   ######### From Email ###################
 
-  config.mailer_sender = 'bikeruby4@gmail.com'
+  config.mailer_sender = ENV['SENDER_EMAIL']
 
 end

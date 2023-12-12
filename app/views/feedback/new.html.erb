@@ -23,13 +23,13 @@
 
       <tr>
       <th><f.label for :response> <b>Message </b></label></th>
-      <td><textarea style="height:300px;width:500px" type="string" name="response"class="form-control" id=:response></textarea></td>
+      <td><textarea style="height:250px;width:500px" type="string" name="response"class="form-control" id=:response placeholder= "Leave feedback here!"></textarea></td>
         <%= puts :response %>
       
       </tr>
       <br>
       <br>
-      <%= f.submit class: "btn button btn-primary" %>
+      <%= f.submit "Submit", class: "btn button btn-primary" %>
       <% end %>
     </div>
   </section>
