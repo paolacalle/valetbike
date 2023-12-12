@@ -18,7 +18,7 @@ class MembershipsController < ApplicationController
     if current_user.has_membership
       logger.info("User already has a membership.")
       flash[:error] = "You already have a membership."
-      redirect_to memberships_url
+      redirect_to users_show_path
       return
     end
   
@@ -99,20 +99,6 @@ class MembershipsController < ApplicationController
     logger.info("user has_membership: #{@user.has_membership}")
     redirect_to membership_path
   end
-
-  # def expiration_check
-  #   @membership = Membership.find_by(user_id: current_user.id)
-  
-  #   # Check if the membership is expired
-  #   if @membership && @membership.expiration_date < Date.today
-  #     @membership.destroy
-  #     current_user.update(has_membership: false)
-  #     logger.info("Membership expired and destroyed.")
-  #   else
-  #     logger.info("Membership not expired.")
-  #   end
-
-  # end
 
   private 
   def membership_params

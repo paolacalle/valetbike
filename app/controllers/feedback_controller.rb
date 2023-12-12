@@ -9,6 +9,11 @@ class FeedbackController < ApplicationController
 
   def create
     logger.info("entered create")
+    puts params[:response]
+    @response = params[:response]
+    @user = User.find(current_user.id)
+    user_id = @user
+    response = params[:response]
     @feedback = Feedback.new(feedback_params)
     save_feedback
   end
@@ -16,8 +21,10 @@ class FeedbackController < ApplicationController
   def save_feedback
     @feedback.user_id = current_user.id
     if @feedback.save
-      UserMailer.send_feedback_confirmation(current_user.email).deliver_now
-      ApplicationMailer.notify_company_of_feedback(@feedback.response).deliver_now
+      puts "sending feedback"
+      UserMailer.send_advice_confirmation(current_user.email, "feedback", @response).deliver_now
+      ApplicationMailer.notify_company_of_advice("feedback", @response).deliver_now
+
       flash[:success] = "Response submitted. Thank you for your feedback!"
       redirect_to home_path
     else 
@@ -29,7 +36,5 @@ class FeedbackController < ApplicationController
   def feedback_params
     params.permit(:response)
   end
-
-  
 
 end

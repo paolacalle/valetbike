@@ -34,15 +34,14 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <%= f.label :message, 'Message' %>
-        <%= f.text_area :message, class: "form-control", style: "height: 300px; width: 500px" %>
-      </div>
-
-      <%= f.submit 'Submit Review', class: "btn button btn-primary" %>
-
-    <% end %>
+      <tr>
+      <th><f.label for :message><b>Review </b></label></th>
+      <td><textarea style="height:250px;width:500px" type="string" name="message"class="form-control" id=:message placeholder="Leave review here!"></textarea></td>
+        <%= puts :message %>
+      </tr>
+      <br>
+      <br>
+      <%= f.submit "Submit", class: "btn button btn-primary" %>
+      <% end %>
   </div>
 </section>
-
-

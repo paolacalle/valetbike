@@ -18,5 +18,10 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
-  ]
+  ],
+
+  prefix: 'tw-' 
+// added to allow bootstrap and tailwind 
+// they were overwriting each other otherwise 
+  
 }

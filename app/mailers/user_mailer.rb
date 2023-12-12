@@ -1,8 +1,10 @@
 class UserMailer < ApplicationMailer
-  default from: 'bikeruby4@gmail.com'
+  default from: ENV['SENDER_EMAIL']
 
-  def send_feedback_confirmation(user_email)
-    mail(to: user_email, subject: 'Valetbike Feedback Confirmation', body: 'Thank you. Your feedback was sent to bikeruby4@gmail.com for further review.')
+  def send_advice_confirmation(user_email, type, content)
+    mail(to: user_email, 
+          subject: "ValetBike Station #{type} Received", 
+          body: "Thank you for reviewing a ValetBike station! Your #{type} has been received. Below is a copy of your response.\n\n" + "\"" + content + "\"")
   end
 
 end

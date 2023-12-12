@@ -6,9 +6,7 @@ class ReviewsController < ApplicationController
 
   def create
     logger.info("entered create")
-    # puts params[:message]
-    # puts params[:station_id]
-    # puts params[:review]
+    @message = params[:message]
     @user = User.find(current_user.id)
     user_id = @user
     station_id = params[:station_id]
@@ -21,6 +19,10 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
     if @review.save
       flash[:success] = "Response submitted. Thank you for your feedback!"
+      puts "sending feedback"
+      UserMailer.send_advice_confirmation(current_user.email, "review", @message).deliver_now
+      ApplicationMailer.notify_company_of_advice("review", @message).deliver_now
+
       redirect_to home_path
     else 
       flash.now[:error] = @review.errors.full_messages.to_sentence
@@ -31,4 +33,6 @@ class ReviewsController < ApplicationController
   def review_params
     params.permit(:message, :station_id, :rating)
   end
+
+
 end
