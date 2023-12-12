@@ -100,20 +100,6 @@ class MembershipsController < ApplicationController
     redirect_to membership_path
   end
 
-  # def expiration_check
-  #   @membership = Membership.find_by(user_id: current_user.id)
-  
-  #   # Check if the membership is expired
-  #   if @membership && @membership.expiration_date < Date.today
-  #     @membership.destroy
-  #     current_user.update(has_membership: false)
-  #     logger.info("Membership expired and destroyed.")
-  #   else
-  #     logger.info("Membership not expired.")
-  #   end
-
-  # end
-
   private 
   def membership_params
     logger.info("\n\n*****attempting to create new membership\n\n")

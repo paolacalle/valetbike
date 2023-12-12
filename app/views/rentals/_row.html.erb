@@ -15,20 +15,22 @@
         <% if !rental.payment_required %>
           <p><%= link_to "Show Rental QR Code", rental_path(rental), class: 'btn button btn-primary' %></p>
 
-        <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
+            <div data-controller="dialog" data-action="click->dialog#clickOutside" class="center">
 
-          <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
+              <button data-action="dialog#open" class='btn button btn-primary'>Return Bike</button>
 
-          <dialog data-dialog-target="modal" id="returnModal">
-            <div class="p-8">
-              <%= render partial: "rentals/return", object: rental, as: :rental %>
-              <form method="dialog">
-                <button type="submit" class='btn button btn-primary' autofocus>Cancel</button>
-              </form>
+              <dialog data-dialog-target="modal" id="returnModal">
+                <div class="p-8">
+                  <%= render partial: "rentals/return", object: rental, as: :rental %>
+                  
+                  <form method="dialog">
+                    <button type="submit" class='btn button btn-primary' autofocus>Cancel</button>
+                  </form>
+
+                </div>
+              </dialog>
+
             </div>
-          </dialog>
-
-        </div>
 
       <% else %>
         <p><%= link_to "QR/Return DISABLED: Payment Needed", new_payment_path(amount: rental.payment_amount, rental_id: rental.id), class: 'btn button btn-primary' %></p>
