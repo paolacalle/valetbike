@@ -1,4 +1,15 @@
-<head>
+<head><section class="page-section">
+        <section class="section-inner flexbox vertical stretch">
+            <div class="record-row header flexbox horizontal justify-space-between" >
+                <h4 class="h4">Reviews</h4>
+                <h4 class="h4">Average Rating: <%= @reviews.average(:rating) %></h4>
+            </div>
+            <div style="color: black;">
+                <%= render(partial: "reviews/row", collection: @reviews, as: :review) %>
+            </div>
+        </section>
+
+    </section>
     <title>Station Information-ValetBike</title>
 </head>
 <body>
@@ -19,16 +30,5 @@
             <% @reviews = Review.where(station_id: params[:id]) %>
         </div>
     </section>
-    <section class="page-section">
-        <section class="section-inner flexbox vertical stretch">
-            <div class="record-row header flexbox horizontal justify-space-between" >
-                <h4 class="h4">Reviews</h4>
-                <h4 class="h4">Average Rating: <%= @reviews.average(:rating) %></h4>
-            </div>
-            <div style="color: black;">
-                <%= render(partial: "reviews/row", collection: @reviews, as: :review) %>
-            </div>
-        </section>
-
-    </section>
+    
 </body>
