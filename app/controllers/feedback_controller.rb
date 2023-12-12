@@ -9,23 +9,20 @@ class FeedbackController < ApplicationController
 
   def create
     logger.info("entered create")
-    puts params[:response]
-    @user = User.find(current_user.id)
-    user_id = @user
-    response = :response
     @feedback = Feedback.new(feedback_params)
-
     save_feedback
-    
   end
 
   def save_feedback
     @feedback.user_id = current_user.id
     if @feedback.save
-      puts "saved"
-      send_email
+      UserMailer.send_feedback_confirmation(current_user.email).deliver_now
+      UserMailer.notify_company_of_feedback(@feedback.response).deliver_now
       flash[:success] = "Response submitted. Thank you for your feedback!"
       redirect_to home_path
+    else 
+      flash.now[:error] = @feedback.errors.full_messages.to_sentence
+      render :new, status:500
     end
   end
 

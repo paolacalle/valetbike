@@ -19,7 +19,6 @@ class ReviewsController < ApplicationController
 
   def save_review
     @review.user_id = current_user.id
-  
     if @review.save
       flash[:success] = "Response submitted. Thank you for your feedback!"
       redirect_to home_path
