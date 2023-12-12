@@ -1,10 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "paolacalle628@gmail.com"
-  layout "mailer"
-
-  def welcome_email(user)
-    @user = user
-    @url = "www.ValetBike.com"
-    mail(:to => @user.email, :subject => "Welcome to ValetBike")
+  def notify_company_of_feedback(feedback_content)
+    mail(to: 'bikeruby4@gmail.com', subject: 'NEW Feedback Posted', body: "The Feedback:\n#{feedback_content}")
   end
 end

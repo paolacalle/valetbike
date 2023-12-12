@@ -6,9 +6,9 @@ class ReviewsController < ApplicationController
 
   def create
     logger.info("entered create")
-    puts params[:message]
-    puts params[:station_id]
-    puts params[:review]
+    # puts params[:message]
+    # puts params[:station_id]
+    # puts params[:review]
     @user = User.find(current_user.id)
     user_id = @user
     station_id = params[:station_id]
