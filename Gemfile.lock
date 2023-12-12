@@ -120,6 +120,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mapbox-gl-rails (2.9.0)
+      railties (>= 3.2)
     mapkick-rb (0.1.5)
     marcel (1.0.2)
     matrix (0.4.2)
@@ -260,6 +262,7 @@ DEPENDENCIES
   geocoder (~> 1.8)
   importmap-rails
   jbuilder
+  mapbox-gl-rails
   mapkick-rb
   mysql2 (~> 0.5)
   puma (~> 5.0)

@@ -71,49 +71,30 @@
 
         <% if current_user.has_membership? %> 
 
-            <p> NOT available, active membership  </p>
+          <p> NOT available, active membership </p>
 
         <% elsif current_user.has_payment? %> 
 
-            <div class="field">
-              <%= link_to "NOT available, payment required", rentals_path, class: "btn button btn-primary" %>
-            </div>
+          <div class="field">
+            <%= link_to "NOT available, payment required", rentals_path, class: "btn button btn-primary" %>
+          </div>
 
         <% else %> 
-          <div>
-            <%= button_to "Cancel my account", 
-                          registration_path(resource_name), 
-                          method: :delete, 
-                          class: "btn button btn-primary", 
-                          id: "cancel-account-btn", 
-                          data: { turbo_confirm: "Are you sure?" }%>
-          </div>
-        <% end %>
 
-      </div>
+        <div>
+          <%= button_to "Cancel my account", 
+                        registration_path(resource_name), 
+                        method: :delete, 
+                        class: "btn button btn-primary", 
+                        data: { 
+                          controller: "confirmation", 
+                          action: "click->confirmation#confirm" 
+                        } %>
+        </div>
       
 
-      <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-          document.getElementById('cancel-account-btn').addEventListener('click', function(event) {
-            event.preventDefault();
+        <% end %>
         
-            if (!confirm('Are you absolutely sure you want to cancel your account? This action cannot be undone.')) {
-              return;
-            }
-
-            var userInput = prompt('Please type "CANCEL" to confirm account deletion.');
-            if (userInput === 'CANCEL') {
-              var form = this.closest('form');
-              form.submit();
-            } else {
-              alert('Account deletion canceled.');
-            }
-          });
-        });
-      </script>
-    
-
       </div>
     </div>
   </section>
