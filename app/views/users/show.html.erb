@@ -83,10 +83,10 @@
       </div>
 
       <!-- submited feedback -->
-      <% @reviews = Review.where(user_id: current_user.id) %>
+      <% @reviews = [Review.where(user_id: current_user.id).last] %>
 
       <div class="card mt-6">
-        <h2 class="text-2xl font-semibold">Reviews You Submitted</h2>
+        <h2 class="text-2xl font-semibold">Last Review Submitted</h2>
         <% if @reviews %>
           <section class="section-inner flexbox vertical stretch" style="padding: 10px;">
             <div class="record-row header flexbox horizontal justify-space-between" >
@@ -104,7 +104,6 @@
 
       </div>
 
-      <!-- More cards can be added here in a similar fashion -->
     </div>
   </div>
 </section>
