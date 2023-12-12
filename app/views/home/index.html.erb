@@ -3,8 +3,8 @@
 </head>
 <body>
 
-  <section class="page-section image-background">
-    <blockquote class="section-inner h2" style="text-align: center">Bike to go, go to Bike</blockquote>
+  <section class="page-section image-background" style="--image: url('hampcountyimage.jpeg');">
+    <blockquote class="section-inner h2" style="text-align: center">Bike your way through Nipmuc Notch</blockquote>
   </section>
   
   <section class="page-section">
@@ -33,9 +33,7 @@
         <p>Unlock the Bike
       </div>
       <div class="link-box h4" style="--width: 33%; align-items: center;">
-        <a class="navbar-brand" href="<%= home_path %>">
-          <%= render inline: Rails.root.join('app/assets/images/logo copy.svg').read %>
-        </a>
+        <%= render inline: Rails.root.join('app/assets/images/logo copy.svg').read %>
       </div>
       <div class="link-box h4" style="--width: 33%;">
         <%= link_to stations_path, class: "fill-block", :action => 'go' do %>
