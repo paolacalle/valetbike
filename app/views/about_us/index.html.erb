@@ -3,17 +3,27 @@
 </head>
 <body>
 
+
     <section class="page-section">
-        <h1 class="section-title">About Us</h1>
-        <div class="horizontal-line"></div> 
-        <br>
-        <br>
+        <%= image_tag("ruby_railers.png", style: "width: 10%; margin: 0 auto; ") %>
+        <h1 class="section-title">  Meet Our Team</h1>
+        <div class="horizontal-line"></div>
+        <div class="section-inner">
+            <p class="welcome-message">
+                Welcome to our world, where code meets creativity! We're a group of young developers united by CSC 223. To us, Ruby on Rails is not just a tool for us; it became a journey of discovery and innovation. Join us as we continue to explore the endless possibilities with Ruby, curating a web application that is not only (somewhat) functional but also a joy (and growing story) to build.
+            </p>
+        </div>
+    </section>
+
+    <section class="page-section">
 
         <div class="group-team-image-container">
             <%= image_tag("TeamPhoto.jpeg", style: "width: 50%; border: 2px solid black; box-shadow: 10px 10px 5px grey;") %>
         </div>
 
+    </section>
 
+    <section class="page-section">
         <div class="flexbox horizontal wrap justify-space-between h4" style="text-align: center;">
             <div class="link-box fill-block" style="--width: 49%">
                 <p>Ryan they/she</p>
