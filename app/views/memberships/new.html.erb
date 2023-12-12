@@ -50,6 +50,8 @@
     </div>
   <% else %>
 
+    <!-- NOT THE BEST WAY TO BE DONE BUT WORKS GIVEN WHAT WE HAVE --> 
+
     <%= form_with url: memberships_path, method: :post, authenticity_token: true, id: 'auto_submit_form', style: 'display: none;' do |f| %>
 
       <%= f.radio_button :membership_type, "day", checked: params[:membership_type] == 'day', class: 'btn btn-primary' %>
