@@ -88,8 +88,9 @@
       <% @reviews = [Review.where(user_id: current_user.id).last] %>
 
       <div class="card mt-6">
-        <h2 class="text-2xl font-semibold">Last Review Submitted</h2>
-        <% if !@reviews.nil? %>
+        <% if Review.where(user_id: current_user.id).exists? %>
+          <h2 class="text-2xl font-semibold">Last Review Submitted:</h2>
+          <% puts = "review not nil" %>
           <section class="section-inner flexbox vertical stretch" style="padding: 10px;">
             <div class="record-row header flexbox horizontal justify-space-between" >
               <h4 class="h4">Reviews</h4>
@@ -103,9 +104,7 @@
           <br>
         <% end %>
         <%= link_to "Submit a Station Review", review_path, class: 'btn button btn-primary' %>
-
       </div>
-
     </div>
   </div>
 </section>
